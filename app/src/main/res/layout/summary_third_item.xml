@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@drawable/selected_forth"
+    android:paddingStart="15dp"
+    android:paddingEnd="15sp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:id="@+id/rel_selected"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Math"
+        android:textSize="14sp"
+        android:textColor="#FFFFFF"
+        android:id="@+id/nameThirdChild"
+        />
+</RelativeLayout>

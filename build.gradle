@@ -1,0 +1,66 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:4.0.0"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+ext {
+    // Sdk and tools
+    minSdkVersion = 19
+    targetSdkVersion = 30
+    compileSdkVersion = 30
+    buildToolsVersion = '30.0.0'
+
+    // App dependencies
+    supportLibraryVersion = '29.0.0'
+    gsonVersion = '2.8.2'
+    firebaseVersion = '10.2.4'
+
+    googleVersion = '2.5.2+'
+    facebookVersion = '4.+'
+    zxingVersion =  '1.9'
+    glideVersion = '3.7.0'
+    picassoVersion =  '2.3.2'
+    multidex = '1.0.2'
+    layoutconstrains = '1.1.2'
+    adapterVersion = '1.0.0'
+    sliderVersion =  '1.1.5@aar'
+    segmentedVersion =  '1.0.6'
+    ToastyVersion  = '1.5.0'
+    circleimageviewVersion =  '2.2.0'
+    dialogVersion =   '0.7@aar'
+    ninoVersion=  '2.4.0'
+
+
+    dagger2Version = '2.14.1'
+    rxjava2Version = '2.1.0'
+    rxandroidVersion = '2.0.2'
+    okHTTP3Version = '3.6.0'
+
+    /// placeholderviewVersion = '0.6.1'
+    //debugDBVersion = '1.0.3'
+    // timberVersion = '4.5.1'
+    // lifecycle = '1.1.0'
+
+    // Test dependencies
+    junitVersion = '4.12'
+}

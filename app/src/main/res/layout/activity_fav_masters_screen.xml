@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="handler"
+            type="com.clixifi.wabell.ui.favMasters.FavMastersScreen.FavHandler" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F5F8FF"
+        tools:context=".ui.favMasters.FavMastersScreen">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layoutDirection="locale"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/rel_toolbar"
+            >
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/back_icon"
+                android:onClick="@{handler::back}"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/arrow_back_24"
+                android:layout_margin="15sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/studentFav"
+                android:textColor="#2D4379"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                />
+        </RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rel_toolbar"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:id="@+id/recFavMasters"
+            />
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Wabell</string>
+    <string name="splash_text_lang">أختر لغة للأستمرار</string>
+    <string name="splash_text_ar">اللغة العربية</string>
+    <string name="splash_text_en">English</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="next">التالى</string>
+    <string name="cancel">إلغاء</string>
+    <string name="finish">انهاء</string>
+    <string name="noThing">يرجى اختيار التخصص اولا</string>
+    <string name="exp">الخبرة والتعليم</string>
+    <string name="media">اختيار شهادات الخبرة</string>
+    <string name="workDetails">تفاصيل العمل</string>
+    <string name="register">تسجيل حساب جديد</string>
+    <string name="registeras">تسجيل كـ</string>
+    <string name="log_social">سوشيال</string>
+    <string name="log_email">ادخل رقم الهاتف او البريد الالكترونى</string>
+    <string name="log_phoneEmail">رقم الهاتف او البريد الإلكترونى</string>
+    <string name="pass">كلمة المرور</string>
+    <string name="city">المدينة</string>
+    <string name="neighborhood">المنطقة</string>
+    <string name="forget_password">لا أتذكر كلمة المرور !</string>
+    <string name="registerTextNOAcc">"لا أمتلك حساب "</string>
+    <string name="registerNow">تسجيل حساب جديد الان</string>
+    <string name="txt_or">او</string>
+    <string name="custom_dialog">يرجي الانتظار</string>
+    <string name="login_success">تم التسجيل بنجاح</string>
+    <string name="noInternet">لا يوجد لديك اتصال بالانترنت</string>
+    <string name="updatedSuccessfully">تم تعديل البيانات الشخصية بنجاح</string>
+    <string name="reqSuccess">تم ارسال الطلب بنجاح</string>
+
+    <string name="inValidData">يرجى ادخال بيانات صحيحة</string>
+    <string name="bio">السيرة شخصية</string>
+    <string name="regAs">تسجيل حساب كـ</string>
+    <string name="teTutor">مدرس</string>
+    <string name="teStudent">طالب</string>
+    <string name="teName">الاسم</string>
+    <string name="Experience">الخبرة</string>
+    <string name="example1"></string>
+    <string name="Education">المراحل التعليمية</string>
+    <string name="example2"></string>
+    <string name="teLocation">الموقع</string>
+    <string name="tePhoneNum">رقم الهاتف</string>
+    <string name="teEmail">البريد الإلكترونى</string>
+    <string name="te1">بتسجيل حسابك فأنت موافق على الأتى</string>
+    <string name="teTerms"> الشروط والخدمات </string>
+    <string name="te2">و </string>
+    <string name="tePrivacy">الخصوصية</string>
+    <string name="te3">بالفعل تمتلك حساب ؟</string>
+    <string name="ok">نعم</string>
+    <string name="no">لا</string>
+    <string name="contact">للتواصل</string>
+    <string name="v">اصدار 1.0</string>
+    <string name="aboutDetails">Wabell هو تطبيق الخدمة التي تربط الناس مع الناس. استخدامك المعرفة والخبرة والوقت لخدمة السكان في مدينتك. عندما تسجل على درجة الماجستير، Wabell تمكن العملاء للاتصال معكم لتوفير خدمة متخصصة الخاص بك .‌ ‌ ‌ الانضمام الفريق ‌ و ‌ المرور ‌ كلمة… .‌ ‌</string>
+
+    <string name="aboutUs">عن التطبيق</string>
+    <string name="logout">تسجيل خروج</string>
+    <string name="error">يرجي المحاولة مرة اخرى</string>
+    <string name="newPassSuccess">تم تعين كلمة المرور الجديدة</string>
+    <string name="match">كلمة المرور غير متشابهة</string>
+    <string name="terms">يرجى الموافقه على الشروط والأحكام</string>
+    <string name="ids">صور بطاقة التعريف الشخصية</string>
+    <string name="certificate">الشهادات وتعريف الشخصية</string>
+    <string name="id">رفع التعريف الشخصي</string>
+    <string name="home">الرئيسية</string>
+
+    <string name="sub">الاشتراك</string>
+    <string name="about">عن التطبيق</string>
+    <string name="share">نشر التطبيق</string>
+    <string name="lang">اللغة</string>
+    <string name="studentFav">المفضلة</string>
+    <string name="profile">الشخصية</string>
+    <string name="req">الطلبات</string>
+
+    <string name="reqTopic">طلب تخصص</string>
+
+    <string name="save">حفظ</string>
+
+
+    <string name="edit">تعديل</string>
+
+    <string name="personal">المعلومات الشخصية</string>
+    <string name="spec">التخصص</string>
+    <string name="certifi">الشهادات</string>
+    <string name="workPre">أولوليات العمل</string>
+
+    <string name="more">المزيد</string>
+    <string name="block">أنت محظور</string>
+    <string name="similar">المدرسين المتشابهين</string>
+    <string name="fav">المفضل</string>
+    <string name="views">المشاهدين</string>
+    <string name="currReq">الطلبات الحالية</string>
+    <string name="noReq">لا يوجد طلبات</string>
+
+    <string name="await">فى انتظار الموافقة</string>
+
+    <string name="online">نشط</string>
+    <string name="viewProfile">الصفحة الشخصية</string>
+    <string name="certificates">رفع الشهادات وصور تعريف الشخصية</string>
+    <string name="info">الحد الأقصى لحجم الصورة هو 5 ميجا بايت الملفات المسموح بها هى : png , jpg</string>
+    <string name="empty">يرجي استكمال الخانات الفارغة</string>
+    <string name="fiTitle">شكرا لتسجيلك فى تطبيق Wabell</string>
+    <string name="firestDe">تم ارسال بياناتك بنجاح , بياناتك تحت المراجعة من قبل احد المديرين , سوف يتواصل معك احد المديرين عن قريب</string>
+    <string name="done">حسنا</string>
+    <string name="Continue">استمرار</string>
+    <string name="secTitle">تمتع بالعضوية المجانية حتى اول مكالمة</string>
+    <string name="secDe">مرحبا بك على متن الطائرة. ستكون مرئيًا لعملائك حتى مكالمة الخدمة الأولى. بعد ذلك ، سيُطلب منك الاشتراك في تطبيق Wabell لتكون مرئيًا للعملاء مرة أخرى. في الوقت الحالي ، سوف يقوم Wabell بمراجعة تطبيقك وتنشيطه بعد تأكيد هويتك.</string>
+    <string name="codeSuccess">تم ارسال رمز التحقق الى بريدك الالكترونى بنجاح</string>
+    <string name="registerSuccess">تم تسجيل الحساب بنجاح</string>
+    <string name="ver1">تأكيد رقم الهاتف</string>
+    <string name="ver2">يرجى ادخال ال 4 ارقام التى تم ارسالها الى هاتفك</string>
+    <string name="ver3">لم يصلك رمز التأكيد بعد ؟ </string>
+    <string name="ver4">اعادة ارسال</string>
+    <string name="ver5">تأكيد</string>
+    <string name="ver6">Change your phone number</string>
+    <string name="sel_ur_special">أختر تخصصك</string>
+    <string name="tagLin">الوصف</string>
+    <string name="example11">أخبر طلابك عنك</string>
+    <string name="Biography">سيرة شخصية</string>
+    <string name="example12">أخبر طلابك قليلاً عن نفسك</string>
+    <string name="price">سعر الساعة (ريال)</string>
+    <string name="avaDays">الأيام المتاحة لديك</string>
+    <string name="allDays">كل الايام</string>
+    <string name="sun">الأحد</string>
+    <string name="mon">الاثنين</string>
+    <string name="tues">الثلاثاء</string>
+    <string name="wed">الاربعاء</string>
+    <string name="thu">الخميس</string>
+    <string name="fri">الجمعة</string>
+    <string name="sat">السبت</string>
+    <string name="avaTimes">الأوقات المتاحة لديك</string>
+    <string name="all_day">اليوم بأكمله</string>
+    <string name="morning">صباحا (8:00 - 11:59 AM)</string>
+    <string name="afternoon">الظهيرة (12:00 - 6:00 PM)</string>
+    <string name="eve">مساء ( 6:00 - 12:00 PM)</string>
+    <string name="Save">حفظ</string>
+    <string name="weti3">التواصل مع الاخرين</string>
+    <string name="resetPass">اعادة تعين كلمة المرور</string>
+    <string name="wede3">التطبيق Wabell هو خدمة توفير التواصل بين الأشخاص</string>
+    <string name="weti2">تمكين العملاء وأساتذة الخدمة</string>
+    <string name="wede2">سجل كعميل للبحث ، والاتصال ، والحصول على خدمة الماجستير في مدينتك. سجل بصفتك ماجستير ، يجلب لك Wabell العملاء لبيع خدماتك لهم</string>
+    <string name="weti1">مرحبا بك فى تطبيق Wabell</string>
+    <string name="wede1">استمتع بتطبيق Wabell وقم بأنشاء حسابك الأن</string>
+    <string name="forgetPass">نسيت كلمة المرور</string>
+    <string name="forget_details">يرجى ادخال بريدك الالكترونى لأنشاء كلمة مرور جديدة</string>
+    <string name="conPass">تأكيد كلمة المرور</string>
+    <string name="newPass">انشاء كلمة مرور جديدة</string>
+    <string name="newPass_details">يرجى ادخال كلمة المرور الجديدة</string>
+</resources>

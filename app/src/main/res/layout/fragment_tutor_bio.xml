@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="handler"
+            type="com.clixifi.wabell.ui.tutorBiography.TutorBio.MyHandlers" />
+    </data>
+
+    <RelativeLayout
+        android:background="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.tutorBiography.TutorBio">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="3dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tagLin"
+                    android:textColor="#7C79A6"
+                    android:textSize="17sp" />
+
+                <EditText
+                    android:id="@+id/ed_tag"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/border_btn_blue"
+                    android:hint="@string/example11"
+                    android:inputType="text"
+                    android:layoutDirection="ltr"
+                    android:padding="8dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="8dp"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Biography"
+                    android:textColor="#7C79A6"
+                    android:layout_marginTop="10dp"
+                    android:textSize="17sp" />
+
+                <EditText
+                    android:id="@+id/ed_biography"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/border_btn_blue"
+                    android:gravity="top|start"
+                    android:hint="@string/example12"
+                    android:inputType="textMultiLine"
+                    android:layoutDirection="ltr"
+                    android:padding="8dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="8dp"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/blue_btn_style"
+            android:text="@string/next"
+            android:onClick="@{handler::nextStep}"
+            android:textColor="@color/colorWhite" />
+    </RelativeLayout>
+</layout>

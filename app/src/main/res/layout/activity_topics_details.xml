@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="handler"
+            type="com.clixifi.wabell.ui.topicsDetails.TopicsDetailsActivity.MyHandler" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        tools:context=".ui.topicsDetails.TopicsDetailsActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layoutDirection="locale"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/rel_toolbar"
+            >
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/back_icon"
+                android:onClick="@{handler::back}"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/arrow_back_24"
+                android:layout_margin="15sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text=""
+                android:id="@+id/title"
+                android:textColor="#2D4379"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                />
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_below="@id/rel_toolbar"
+            android:id="@+id/recChild"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            >
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/border_btn_blue"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/cancel"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:layout_marginBottom="10dp"
+                android:onClick="@{handler::cancel}"
+                android:textColor="@color/splashBackground"
+                />
+            <Button
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/blue_btn_style"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/next"
+                android:onClick="@{handler::next}"
+                android:textColor="@color/colorWhite"
+                android:layout_marginBottom="10dp"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

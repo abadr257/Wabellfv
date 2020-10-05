@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="handlers"
+            type="com.clixifi.wabell.ui.register.RegisterScreen.MyHandlers" />
+    </data>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutDirection="locale"
+        android:background="#FFFFFF"
+        tools:context=".ui.register.RegisterScreen"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layoutDirection="locale"
+                android:id="@+id/rel_toolbar"
+                >
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:id="@+id/back_icon"
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/arrow_back_24"
+                    android:onClick="@{handlers::back}"
+                    android:layout_margin="15sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/registeras"
+                    android:textColor="#2D4379"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    />
+            </RelativeLayout>
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabGravity="fill"
+                app:tabSelectedTextColor="#279EFF"
+                app:tabIndicatorColor="#279EFF"
+                app:tabTextColor="#D4D4EA"
+                android:layout_below="@id/rel_toolbar"
+                app:tabMode="fixed" />
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="800dp"
+                android:layout_below="@id/tab_layout"/>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

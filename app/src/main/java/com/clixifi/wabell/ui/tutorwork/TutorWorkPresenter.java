@@ -1,0 +1,64 @@
+package com.clixifi.wabell.ui.tutorwork;
+
+import android.content.Context;
+import android.util.Log;
+
+import com.clixifi.wabell.data.Response.ResultBoolean;
+import com.clixifi.wabell.data.Response.User.RegisterData;
+import com.clixifi.wabell.data.Response.User.UserResponse;
+import com.clixifi.wabell.utils.StaticMethods;
+import com.clixifi.wabell.utils.network.ConnectionListener;
+import com.clixifi.wabell.utils.network.ConnectionResponse;
+import com.clixifi.wabell.utils.network.MainApi;
+import com.clixifi.wabell.utils.network.MainApiBody;
+
+import java.util.ArrayList;
+
+import okhttp3.RequestBody;
+
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
+
+public class TutorWorkPresenter {
+    TutorWorkInterface tutorWorkInterface ;
+    String token ;
+    public TutorWorkPresenter(TutorWorkInterface tutorWorkInterface) {
+        this.tutorWorkInterface = tutorWorkInterface;
+    }
+
+    public void uploadData(Context context , int price , ArrayList<Integer> DayIds , ArrayList<Integer> TimeIds ){
+        boolean network = StaticMethods.isConnectingToInternet(context);
+        if(!network){
+            tutorWorkInterface.onNoConnection(true);
+        }else if(price == 0  || DayIds.size() == 0 || TimeIds.size() == 0){
+            tutorWorkInterface.onEmptyFields(true);
+        }else {
+            RequestBody body = null ;
+            try{
+                body = MainApiBody.tutorWorkDetailsBody(price ,DayIds,TimeIds);
+            }catch (Exception e){
+
+            }
+            if(StaticMethods.userRegisterResponse != null){
+                token = "Bearer "+StaticMethods.userRegisterResponse.Data.getToken();
+            }else {
+                token = "Bearer "+StaticMethods.userData.getToken();
+            }
+            MainApi.workApi(token, body, new ConnectionListener<ResultBoolean>() {
+                @Override
+                public void onSuccess(ConnectionResponse<ResultBoolean> connectionResponse) {
+                    if(connectionResponse.data != null){
+                        tutorWorkInterface.onAddedSuccess(true);
+                    }else {
+                        tutorWorkInterface.onAddedFail(true);
+                    }
+                }
+
+                @Override
+                public void onFail(Throwable throwable) {
+                    tutorWorkInterface.onAddedFail(true);
+                    Log.e(TAG, "onFail: Work Details "+throwable.toString() );
+                }
+            });
+        }
+    }
+}

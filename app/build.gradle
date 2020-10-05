@@ -1,0 +1,73 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "com.clixifi.wabell"
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:28.0.0'
+
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.github.d-max:spots-dialog:0.4@aar'
+    implementation "androidx.cardview:cardview:1.0.0"
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.rxjava2Version"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.rxjava2Version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okHTTP3Version"
+    implementation "com.squareup.okhttp3:okhttp:$rootProject.okHTTP3Version"
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjava2Version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
+    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$rootProject.adapterVersion"
+
+    //images download
+    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+    implementation "com.squareup.picasso:picasso:$rootProject.picassoVersion"
+
+    implementation 'com.theartofdev.edmodo:android-image-cropper:1.2.1'
+    implementation "com.nineoldandroids:library:$rootProject.ninoVersion"
+    /*implementation 'com.github.ceryle:SegmentedButton:v2.0.2'*/
+    implementation 'com.github.joielechong:countrycodepicker:2.4.2'
+
+    //toast
+    implementation "com.github.GrenderG:Toasty:$rootProject.ToastyVersion"
+    // for Facebook login
+    implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
+
+    //for google login
+    implementation 'com.google.android.gms:play-services-auth:18.1.0'
+
+    //flurry
+    implementation 'com.flurry.android:analytics:12.1.0'
+    implementation 'com.flurry.android:analytics:12.5.0@aar'
+}

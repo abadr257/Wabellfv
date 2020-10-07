@@ -1,6 +1,7 @@
 package com.clixifi.wabell.ui.topicsSummary;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -34,6 +35,7 @@ public class TopicsSummaryScreen extends AppCompatActivity implements SummaryInt
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_topics_summary_screen);
         handler = new Summary(this);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding.setHandler(handler);
         getId();
     }

@@ -3,6 +3,7 @@ package com.clixifi.wabell.ui.tutorExpEdu;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -30,6 +31,7 @@ public class TutorExpEdu extends Fragment implements ExpAndEduInterface {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tutor_exp_edu, container, false);
         v = binding.getRoot();
         handler = new MyHandler(getActivity());
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding.setHandler(handler);
         presenter = new ExpAndEduPresenter(this);
         dialog = new CustomDialog(getActivity());

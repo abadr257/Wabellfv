@@ -3,22 +3,84 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="handler"
+            type="com.clixifi.wabell.ui.homeStudent.StudentHome.StudentHandler" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F5F8FF"
+        android:background="@color/screensBack"
         tools:context=".ui.homeStudent.StudentHome">
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Student Home"
-            android:textAlignment="center"
-            android:layout_centerInParent="true"
-            android:textSize="17sp"
-            />
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="8dp"
+            android:layoutDirection="locale"
+            android:layout_marginTop="15dp"
+            android:id="@+id/rel_top"
+            android:layout_marginEnd="8dp">
+
+            <TextView
+                android:id="@+id/home_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:text="@string/home"
+                android:textColor="@color/title"
+                android:textSize="25sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="15dp"
+                    android:src="@drawable/search_24" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:id="@+id/filter"
+                    android:onClick="@{handler::onFilter}"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/filter" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/rel_top"
+            android:layout_marginTop="10dp"
+            >
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rec_featured"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rec_tutors"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                />
+        </LinearLayout>
+
     </RelativeLayout>
 </layout>

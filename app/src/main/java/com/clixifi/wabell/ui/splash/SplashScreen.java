@@ -1,6 +1,7 @@
 package com.clixifi.wabell.ui.splash;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Context;
@@ -28,6 +29,7 @@ public class SplashScreen extends AppCompatActivity {
         //StaticMethods.statusBar(this);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         handler = new MyHandler(this);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding.setHandlers(handler);
         binding.setOnSplash(false);
         mHandler = new Handler();

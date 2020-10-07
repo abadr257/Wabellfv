@@ -12,7 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
+        android:background="@color/colorWhite"
         tools:context=".ui.code.VerificationCodeScreen">
 
         <RelativeLayout
@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ver1"
-                android:textColor="#2D4379"
+                android:textColor="@color/title"
                 android:textStyle="bold"
                 android:textSize="21sp"
                 />
@@ -53,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ver2"
-                android:textColor="#2D4379"
+                android:textColor="@color/title"
                 android:textStyle="normal"
                 android:textSize="14sp"
                 />
@@ -126,7 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/ver3"
-                    android:textColor="#2D4379"
+                    android:textColor="@color/title"
                     android:textStyle="normal"
                     android:textSize="14sp"
                     android:layout_marginEnd="5dp"
@@ -135,7 +135,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/ver4"
-                    android:textColor="#279EFF"
+                    android:textColor="@color/colorAccent"
                     android:textStyle="normal"
                     android:onClick="@{handler::resendCode}"
                     android:textSize="14sp"

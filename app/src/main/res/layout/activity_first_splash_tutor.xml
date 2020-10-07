@@ -12,7 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
+        android:background="@color/colorWhite"
         tools:context=".ui.firstSplash.FirstSplashTutor">
 
         <LinearLayout
@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fiTitle"
-                android:textColor="#2D4379"
+                android:textColor="@color/title"
                 android:textStyle="bold"
                 android:textSize="21sp"
                 android:layout_marginTop="10dp"
@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/firestDe"
-                android:textColor="#2D4379"
+                android:textColor="@color/title"
                 android:textAlignment="center"
                 android:textStyle="normal"
                 android:layout_marginTop="10dp"

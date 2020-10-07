@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layoutDirection="locale"
-        android:background="#FFFFFF"
+        android:background="@color/colorWhite"
         tools:context=".ui.login.LoginScreen"
         >
         <RelativeLayout
@@ -140,7 +140,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:text="@string/log_email"
-                    android:textColor="#2D4379"
+                    android:textColor="@color/title"
                     android:layout_marginTop="15dp"
                     android:textStyle="bold"
                     android:textSize="16sp"
@@ -177,7 +177,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:text="@string/forget_password"
-                    android:textColor="#279EFF"
+                    android:textColor="@color/colorAccent"
                     android:layout_marginTop="15dp"
                     android:textStyle="bold"
                     android:textSize="16sp"
@@ -200,7 +200,7 @@
                     android:textAlignment="center"
                     android:layout_height="wrap_content"
                     android:text="@string/registerTextNOAcc"
-                    android:textColor="#7C79A6"
+                    android:textColor="@color/notActive"
                     android:layout_marginTop="15dp"
                     android:textStyle="bold"
                     />

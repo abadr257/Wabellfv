@@ -1,6 +1,7 @@
 package com.clixifi.wabell.ui.main;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -14,6 +15,7 @@ import com.clixifi.wabell.R;
 import com.clixifi.wabell.databinding.ActivityHomeScreenBinding;
 import com.clixifi.wabell.ui.aboutUs.AboutUs;
 import com.clixifi.wabell.ui.favMasters.FavMastersScreen;
+import com.clixifi.wabell.ui.filterScreen.FilterScreen;
 import com.clixifi.wabell.ui.homeStudent.StudentHome;
 import com.clixifi.wabell.ui.homeTutor.HomeScreen;
 import com.clixifi.wabell.ui.login.LoginScreen;
@@ -40,6 +42,7 @@ public class MainScreen extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this , R.layout.activity_home_screen);
         handler = new MyHandler(this);
         dialog = new CustomDialog(this);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding.setHandler(handler);
         if(StaticMethods.userData != null){
             if(StaticMethods.userData.getUserType().equals("tutor")){
@@ -183,6 +186,9 @@ public class MainScreen extends AppCompatActivity {
     }
     public void gotoAbout() {
         IntentUtilies.openActivity(MainScreen.this, AboutUs.class);
+    }
+    public void goToFilter() {
+        IntentUtilies.openActivity(MainScreen.this, FilterScreen.class);
     }
     public void favMasters() {
         IntentUtilies.openActivity(MainScreen.this, FavMastersScreen.class);

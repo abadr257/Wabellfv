@@ -1,6 +1,7 @@
 package com.clixifi.wabell.ui.aboutUs;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Context;
@@ -19,6 +20,7 @@ public class AboutUs extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_about_us);
         handlers = new MyHandlers(this);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding.setHandlers(handlers);
     }
     public class MyHandlers{

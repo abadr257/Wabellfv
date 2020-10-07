@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -52,6 +53,7 @@ public class TutorMedia extends Fragment implements onRemoveImage {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tutor_media, container, false);
         v = binding.getRoot();
         handlers = new MyHandlers(getActivity());
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding.setHandler(handlers);
         initialArrayList();
         adapter = new UploadCertificateAdapter(getActivity() , certificate , this , certificatePaths );

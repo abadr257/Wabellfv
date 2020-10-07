@@ -13,7 +13,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
+        android:background="@color/colorWhite"
         android:layoutDirection="locale"
         tools:context=".ui.aboutUs.AboutUs">
 
@@ -40,12 +40,12 @@
                         android:onClick="@{handlers::back}"
                         android:src="@drawable/arrow_back_24" />
 
-                    <TextView
+                        <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:text="@string/aboutUs"
-                        android:textColor="#2D4379"
+                        android:textColor="@color/title"
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </RelativeLayout>
@@ -139,7 +139,7 @@
                             android:layout_weight="1"
                             android:text="@string/teTerms"
                             android:textAlignment="textStart"
-                            android:textColor="#279EFF" />
+                            android:textColor="@color/colorAccent" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -157,7 +157,7 @@
                             android:layout_weight="1"
                             android:text="@string/tePrivacy"
                             android:textAlignment="textEnd"
-                            android:textColor="#279EFF" />
+                            android:textColor="@color/colorAccent" />
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>

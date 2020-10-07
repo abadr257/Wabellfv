@@ -1,6 +1,7 @@
 package com.clixifi.wabell.ui.login;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Context;
@@ -36,6 +37,7 @@ public class LoginScreen extends AppCompatActivity implements LoginListener {
         //StaticMethods.statusBar(this);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login_screen);
         handler = new MyHandler(this);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding.setHandlers(handler);
         initialPresenter();
     }

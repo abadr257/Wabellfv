@@ -3,6 +3,7 @@ package com.clixifi.wabell.ui.registerTutor;
 import android.content.Context;
 import android.util.Log;
 
+import com.clixifi.wabell.R;
 import com.clixifi.wabell.data.Response.User.RegisterData;
 import com.clixifi.wabell.data.Response.User.UserResponse;
 import com.clixifi.wabell.data.Response.areas.Areas;
@@ -28,7 +29,7 @@ public class TutorPresenter {
         this.tutorInterface = tutorInterface;
     }
 
-    public void tutorRegister(Context context, String email,
+    public void tutorRegister(final Context context, String email,
                               String pass, String phone, String Name, int locationId, String UserType) {
         boolean network = StaticMethods.isConnectingToInternet(context);
         if (!network) {
@@ -47,7 +48,7 @@ public class TutorPresenter {
                         if (!connectionResponse.data.Status.equals("Failed")) {
                             tutorInterface.onSuccess(connectionResponse.data);
                         } else {
-                            tutorInterface.onFail(true);
+                            tutorInterface.onFail(true , connectionResponse.data.Message);
                             Log.e(TAG, "onSuccess: Error"+"Here1" );
                         }
 
@@ -56,7 +57,7 @@ public class TutorPresenter {
 
                 @Override
                 public void onFail(Throwable throwable) {
-                    tutorInterface.onFail(true);
+                    tutorInterface.onFail(true, context.getResources().getString(R.string.error));
                     Log.e(TAG, "onSuccess: Error"+"Here2" );
                 }
             });
@@ -64,7 +65,7 @@ public class TutorPresenter {
 
     }
 
-    public void getCities(Context context){
+    public void getCities(final Context context){
         boolean network = StaticMethods.isConnectingToInternet(context);
         if (!network) {
             tutorInterface.onNoConnection(true);
@@ -79,12 +80,12 @@ public class TutorPresenter {
 
                 @Override
                 public void onFail(Throwable throwable) {
-                    tutorInterface.onFail(true);
+                    tutorInterface.onFail(true,context.getResources().getString(R.string.error));
                 }
             });
         }
     }
-    public void getAres(Context context , int cityId){
+    public void getAres(final Context context , int cityId){
         boolean network = StaticMethods.isConnectingToInternet(context);
         if (!network) {
             tutorInterface.onNoConnection(true);
@@ -100,7 +101,7 @@ public class TutorPresenter {
 
                 @Override
                 public void onFail(Throwable throwable) {
-                    tutorInterface.onFail(true);
+                    tutorInterface.onFail(true,context.getResources().getString(R.string.error));
                 }
             });
         }

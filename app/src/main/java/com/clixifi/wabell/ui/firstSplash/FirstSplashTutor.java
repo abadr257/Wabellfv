@@ -1,6 +1,7 @@
 package com.clixifi.wabell.ui.firstSplash;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Context;
@@ -20,6 +21,7 @@ public class FirstSplashTutor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this ,R.layout.activity_first_splash_tutor);
         handler = new MyHandler(this);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding.setHandler(handler);
     }
 

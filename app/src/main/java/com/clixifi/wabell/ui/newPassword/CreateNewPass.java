@@ -1,6 +1,7 @@
 package com.clixifi.wabell.ui.newPassword;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 
 import android.app.Activity;
@@ -31,6 +32,7 @@ public class CreateNewPass extends AppCompatActivity implements CreatePassLisetn
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_new_pass);
         handler = new MyHandler(this);
         binding.setHandler(handler);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         dialog = new CustomDialog(this);
         presenter = new CreatePassPresenter(this);
         getId();

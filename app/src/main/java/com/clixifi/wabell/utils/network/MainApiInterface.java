@@ -47,6 +47,8 @@ public interface MainApiInterface {
     Observable<ResultBoolean> tutorExp(@Header("Authorization") String auth , @Body RequestBody requestBody);
     @POST("/api/account/AddTutorBiography")
     Observable<ResultBoolean> tutorBio(@Header("Authorization") String auth , @Body RequestBody requestBody);
+
+
     @POST("/api/account/AddAndEditTutorWorkDetails")
     Observable<ResultBoolean> tutorWorkDetails(@Header("Authorization") String auth , @Body RequestBody requestBody);
 

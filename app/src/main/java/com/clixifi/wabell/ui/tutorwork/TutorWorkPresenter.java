@@ -12,7 +12,10 @@ import com.clixifi.wabell.utils.network.ConnectionResponse;
 import com.clixifi.wabell.utils.network.MainApi;
 import com.clixifi.wabell.utils.network.MainApiBody;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.RequestBody;
 
@@ -25,15 +28,21 @@ public class TutorWorkPresenter {
         this.tutorWorkInterface = tutorWorkInterface;
     }
 
-    public void uploadData(Context context , int price , ArrayList<Integer> DayIds , ArrayList<Integer> TimeIds ){
+    public void uploadData(Context context , double price , JSONArray DayIds , JSONArray TimeIds ){
         boolean network = StaticMethods.isConnectingToInternet(context);
+        String id ;
         if(!network){
             tutorWorkInterface.onNoConnection(true);
-        }else if(price == 0  || DayIds.size() == 0 || TimeIds.size() == 0){
+        }else if(price == 0  || DayIds.length() == 0 || TimeIds.length() == 0){
             tutorWorkInterface.onEmptyFields(true);
         }else {
             RequestBody body = null ;
             try{
+                if(StaticMethods.userRegisterResponse != null){
+                    id = StaticMethods.userRegisterResponse.Data.getUserId();
+                }else {
+                    id = StaticMethods.userData.getUserId();
+                }
                 body = MainApiBody.tutorWorkDetailsBody(price ,DayIds,TimeIds);
             }catch (Exception e){
 

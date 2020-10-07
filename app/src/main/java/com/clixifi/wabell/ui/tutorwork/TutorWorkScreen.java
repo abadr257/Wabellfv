@@ -3,6 +3,7 @@ package com.clixifi.wabell.ui.tutorwork;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -21,7 +22,10 @@ import com.clixifi.wabell.utils.IntentUtilies;
 import com.clixifi.wabell.utils.StaticMethods;
 import com.clixifi.wabell.utils.ToastUtil;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
@@ -30,7 +34,7 @@ public class TutorWorkScreen extends Fragment implements TutorWorkInterface {
     View v ;
     MyHandler handler ;
     TutorWorkPresenter presenter ;
-    ArrayList<Integer> days , times ;
+    List<Integer> days , times ;
     CustomDialog dialog ;
     boolean edit = false ;
 
@@ -43,6 +47,7 @@ public class TutorWorkScreen extends Fragment implements TutorWorkInterface {
         handler = new MyHandler(getActivity());
         binding.setHandler(handler);
         binding.setOnDays(false);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding.setOnTimes(false);
         days = new ArrayList<>();
         times = new ArrayList<>();
@@ -191,8 +196,10 @@ public class TutorWorkScreen extends Fragment implements TutorWorkInterface {
             }else {
                 Log.e(TAG, "save: "+ days );
                 Log.e(TAG, "save: "+times );
-                int price = Integer.parseInt(binding.edPrice.getText().toString());
-                presenter.uploadData(getActivity() ,price ,days , times );
+                double price = Double.valueOf(binding.edPrice.getText().toString());
+                JSONArray day = new JSONArray(days);
+                JSONArray time = new JSONArray(times);
+                presenter.uploadData(getActivity() ,price ,day , time );
             }
 
         }

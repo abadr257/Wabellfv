@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public interface TutorInterface {
     void onSuccess(UserResponse<RegisterData> data) ;
-    void onFail(boolean fail);
+    void onFail(boolean fail , String error);
     void onNoConnection(boolean noConnection);
     void onCity(ArrayList<CityItem> cityItems);
     void onArea(ArrayList<AreasItem> areasItems);

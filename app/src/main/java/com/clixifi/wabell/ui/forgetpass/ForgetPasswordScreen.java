@@ -1,6 +1,7 @@
 package com.clixifi.wabell.ui.forgetpass;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Context;
@@ -31,6 +32,7 @@ public class ForgetPasswordScreen extends AppCompatActivity implements ForgetPas
         handler = new MyHandler(this);
         dialog = new CustomDialog(this);
         presenter = new ForgetPasswordPresenter(this);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding.setHandler(handler);
     }
 

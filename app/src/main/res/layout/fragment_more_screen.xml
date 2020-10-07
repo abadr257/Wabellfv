@@ -20,7 +20,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F5F8FF"
+        android:background="@color/screensBack"
         android:layoutDirection="locale"
         tools:context=".ui.more.MoreScreen">
 
@@ -124,7 +124,7 @@
                 android:layout_marginEnd="5dp"
                 android:layoutDirection="locale"
                 android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/colorWhite"
                 >
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -148,7 +148,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/sub"
                             android:textSize="15sp"
-                            android:textColor="#2D4379"
+                            android:textColor="@color/title"
                             android:layout_marginStart="8dp"
                             />
                     </LinearLayout>
@@ -171,7 +171,7 @@
                 android:layoutDirection="locale"
                 android:layout_marginEnd="5dp"
                 android:visibility="@{onTutor == true ? View.VISIBLE : View.GONE}"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/colorWhite"
                 >
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -196,7 +196,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/studentFav"
                             android:textSize="15sp"
-                            android:textColor="#2D4379"
+                            android:textColor="@color/title"
                             android:layout_marginStart="8dp"
                             />
                     </LinearLayout>
@@ -219,7 +219,7 @@
                 android:layout_marginEnd="5dp"
                 android:layoutDirection="locale"
                 android:onClick="@{handler::about}"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/colorWhite"
                 >
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -243,7 +243,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/about"
                             android:textSize="15sp"
-                            android:textColor="#2D4379"
+                            android:textColor="@color/title"
                             android:layout_marginStart="8dp"
                             />
                     </LinearLayout>
@@ -266,7 +266,7 @@
                 android:layoutDirection="locale"
                 android:onClick="@{handler::share}"
                 app:cardCornerRadius="15dp"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/colorWhite"
                 >
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -290,7 +290,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/share"
                             android:textSize="15sp"
-                            android:textColor="#2D4379"
+                            android:textColor="@color/title"
                             android:layout_marginStart="8dp"
                             />
                     </LinearLayout>
@@ -313,7 +313,7 @@
                 android:onClick="@{handler::lang}"
                 android:layoutDirection="locale"
                 android:layout_marginEnd="5dp"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/colorWhite"
                 >
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -337,7 +337,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/lang"
                             android:textSize="15sp"
-                            android:textColor="#2D4379"
+                            android:textColor="@color/title"
                             android:layout_marginStart="8dp"
                             />
                     </LinearLayout>
@@ -356,7 +356,7 @@
                             android:text="@string/splash_text_en"
                             android:textSize="15sp"
                             android:id="@+id/lang_txt"
-                            android:textColor="#2D4379"
+                            android:textColor="@color/title"
                             android:layout_marginEnd="3dp"
                             />
                         <ImageView
@@ -377,7 +377,7 @@
                 android:onClick="@{handler::logout}"
                 app:cardCornerRadius="15dp"
                 android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/colorWhite"
                 >
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -396,7 +396,7 @@
                             android:text="@string/logout"
                             android:textSize="18sp"
                             android:textAlignment="center"
-                            android:textColor="#EA5455"
+                            android:textColor="@color/colorRed"
                             android:layout_marginStart="8dp"
                             />
                     </LinearLayout>

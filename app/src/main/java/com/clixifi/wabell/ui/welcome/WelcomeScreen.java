@@ -1,6 +1,7 @@
 package com.clixifi.wabell.ui.welcome;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.PagerAdapter;
 
@@ -32,6 +33,7 @@ public class WelcomeScreen extends AppCompatActivity {
         //StaticMethods.statusBar(this);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_welcome_screen);
         handlers = new MyHandler(this);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding.setHandlers(handlers);
         initialViews();
     }

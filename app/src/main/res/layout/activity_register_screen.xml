@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layoutDirection="locale"
-        android:background="#FFFFFF"
+        android:background="@color/colorWhite"
         tools:context=".ui.register.RegisterScreen"
         >
         <RelativeLayout
@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="@string/registeras"
-                    android:textColor="#2D4379"
+                    android:textColor="@color/title"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     />

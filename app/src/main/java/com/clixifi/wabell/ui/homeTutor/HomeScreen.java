@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -33,6 +34,7 @@ public class HomeScreen extends Fragment implements HomeTutorInterface {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_screen, container, false);
         v = binding.getRoot();
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         handler = new MyHandler(getActivity());
         pre = new HomeTutorPresenter(this);
         dialog = new CustomDialog(getActivity());

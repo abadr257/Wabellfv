@@ -4,17 +4,7 @@
     <string name="splash_text_lang">Choose a language to continue</string>
     <string name="splash_text_ar">عربى</string>
     <string name="splash_text_en">English</string>
-    <string name="from_hp">From</string>
-    <string name="to_hp">To</string>
-
-    <string name="rate_file">Enter the rate</string>
-
     <string name="login">Log in</string>
-    <string name="mas_filters">Masters Filter</string>
-    <string name="budget">Budget</string>
-    <string name="rateings">Rating</string>
-    <string name="dis">Distance</string>
-    <string name="sortBy">Sort By</string>
     <string name="next">Next</string>
     <string name="cancel">Cancel</string>
     <string name="finish">Finish</string>
@@ -25,7 +15,6 @@
     <string name="bio">Add your Biography</string>
     <string name="workDetails">Work details</string>
     <string name="register">Register</string>
-    <string name="apply">Apply</string>
     <string name="registeras">Register as</string>
     <string name="log_social">Log in with your Social account</string>
     <string name="log_email">Log in with your Phone or Email</string>
@@ -115,7 +104,6 @@
     <string name="Biography">Biography</string>
     <string name="example12">Tell your students a little bit about yourself</string>
     <string name="price">Price Per Hour (SAR)</string>
-    <string name="priceFi">Price (Highest to Lowest)</string>
     <string name="avaDays">Available Days</string>
     <string name="allDays">All Days</string>
     <string name="sun">Sunday</string>
@@ -152,7 +140,7 @@
 
 
     <string name="edit">Edit</string>
-    <string name="reset">Reset</string>
+
     <string name="personal">Personal Information</string>
     <string name="spec">Speciality</string>
     <string name="certifi">Certificates</string>

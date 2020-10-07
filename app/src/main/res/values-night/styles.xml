@@ -1,12 +1,10 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:forceDarkAllowed"
-            tools:ignore="NewApi">false</item>
         <item name="fontFamily">@font/sourcesansprosemibold</item>
     </style>
     <style name="Custom" parent="android:Theme.DeviceDefault.Dialog">
@@ -14,13 +12,9 @@
         <item name="DialogTitleText">@string/custom_dialog</item>
         <item name="DialogSpotColor">@android:color/holo_red_dark</item>
         <item name="DialogSpotCount">8</item>
-        <item name="android:forceDarkAllowed"
-            tools:ignore="NewApi">false</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
     <style name="DialogTheme">
-        <item name="android:forceDarkAllowed"
-            tools:ignore="NewApi">false</item>
         <item name="android:windowEnterAnimation">@anim/slide_left</item>
         <item name="android:windowExitAnimation">@anim/slide_right</item>
 

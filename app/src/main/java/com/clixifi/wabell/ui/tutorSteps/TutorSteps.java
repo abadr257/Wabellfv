@@ -1,6 +1,7 @@
 package com.clixifi.wabell.ui.tutorSteps;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -42,6 +43,7 @@ public class TutorSteps extends AppCompatActivity {
         binding.setHandler(handlers);
         binding.setOnNext(false);
         binding.setOnStart(false);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         Bundle bundle = getIntent().getExtras();
         try {
             type = bundle.getString("type");

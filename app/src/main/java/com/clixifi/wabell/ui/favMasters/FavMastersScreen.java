@@ -1,6 +1,7 @@
 package com.clixifi.wabell.ui.favMasters;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -28,6 +29,7 @@ public class FavMastersScreen extends AppCompatActivity implements FavMastersInt
         binding = DataBindingUtil.setContentView(this ,R.layout.activity_fav_masters_screen);
         handler = new FavHandler(this);
         binding.setHandler(handler);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         dialog = new CustomDialog(this);
         presenter = new FavMastersPresenter(this);
         dialog.ShowDialog();

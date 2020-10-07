@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -35,6 +36,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_screen, container, false);
         v = binding.getRoot();
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         profile = new ProfileHandler(getActivity());
         binding.setHandler(profile);
         dialog = new CustomDialog(getActivity());

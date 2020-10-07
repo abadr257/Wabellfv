@@ -3,6 +3,7 @@ package com.clixifi.wabell.ui.tutorBiography;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -33,6 +34,7 @@ public class TutorBio extends Fragment implements BioInterface {
         handlers = new MyHandlers(getActivity());
         bioBinding.setHandler(handlers);
         presenter = new BioPresenter(this);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         dialog = new CustomDialog(getActivity());
         return v;
     }

@@ -2,6 +2,7 @@ package com.clixifi.wabell.utils.network;
 
 import androidx.annotation.NonNull;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -54,8 +55,9 @@ public class MainApiBody {
         return requestBody(params);
     }
 
-    public static RequestBody tutorWorkDetailsBody(int HourPrice, ArrayList<Integer> DayIds, ArrayList<Integer> TimeIds) throws JSONException {
+    public static RequestBody tutorWorkDetailsBody( double HourPrice, JSONArray DayIds, JSONArray TimeIds) throws JSONException {
         JSONObject params = new JSONObject();
+
         params.put("HourPrice", HourPrice);
         params.put("DayIds", DayIds);
         params.put("TimeIds", TimeIds);

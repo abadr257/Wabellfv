@@ -1,6 +1,7 @@
 package com.clixifi.wabell.ui.topicsDetails;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -42,6 +43,7 @@ public class TopicsDetailsActivity extends AppCompatActivity implements TopicsDe
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this ,R.layout.activity_topics_details);
         handler = new MyHandler(this);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding.setHandler(handler);
         getId();
     }

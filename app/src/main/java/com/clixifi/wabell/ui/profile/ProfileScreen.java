@@ -91,6 +91,10 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
         if (profile.DataProfile.getTopics() != null) {
             binding.edTopics.setText(profile.DataProfile.getTopics());
         }
+        if (profile.DataProfile.getAvailableDays() != null || profile.DataProfile.getAvailableTimes() != null ) {
+            binding.edWorkDetails.setText(profile.DataProfile.getAvailableDays()+"\n"+profile.DataProfile.getAvailableTimes());
+        }
+
         binding.edEmail.setText(profile.DataProfile.getEmail());
         binding.edName.setText(profile.DataProfile.getName());
         binding.edPhone.setText(profile.DataProfile.getPhoneNumber());

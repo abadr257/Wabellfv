@@ -15,9 +15,9 @@ public class UserProfile {
     public String Tagline ;
     @SerializedName("IsSubscribe")
     public boolean IsSubscribe ;
-    @SerializedName("AvailableDays")
+    @SerializedName("AvailableDaysText")
     public String AvailableDays ;
-    @SerializedName("AvailableTimes")
+    @SerializedName("AvailableTimesText")
     public String AvailableTimes ;
     @SerializedName("UserType")
     public String UserType ;
@@ -35,7 +35,7 @@ public class UserProfile {
     public String Location ;
     @SerializedName("Address")
     public String Address ;
-    @SerializedName("Topics")
+    @SerializedName("TopicsText")
     public String Topics ;
 
     public String getExperience() {

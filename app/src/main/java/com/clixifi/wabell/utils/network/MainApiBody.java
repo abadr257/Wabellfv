@@ -36,10 +36,8 @@ public class MainApiBody {
         params.put("Name", Name);
         params.put("LocationId", LocationId);
         params.put("UserType", UserType);
-
         return requestBody(params);
     }
-
 
 
     public static RequestBody areasBody(int ParentId) throws JSONException {
@@ -55,9 +53,8 @@ public class MainApiBody {
         return requestBody(params);
     }
 
-    public static RequestBody tutorWorkDetailsBody( double HourPrice, JSONArray DayIds, JSONArray TimeIds) throws JSONException {
+    public static RequestBody tutorWorkDetailsBody(double HourPrice, JSONArray DayIds, JSONArray TimeIds) throws JSONException {
         JSONObject params = new JSONObject();
-
         params.put("HourPrice", HourPrice);
         params.put("DayIds", DayIds);
         params.put("TimeIds", TimeIds);
@@ -94,11 +91,13 @@ public class MainApiBody {
         params.put("TopicId", TopicId);
         return requestBody(params);
     }
+
     public static RequestBody cancelAllTopic(int TopicId) throws JSONException {
         JSONObject params = new JSONObject();
         params.put("TopicId", TopicId);
         return requestBody(params);
     }
+
     public static RequestBody tutorBioBody(String Tagline, String Biography) throws JSONException {
         JSONObject params = new JSONObject();
         params.put("Tagline", Tagline);
@@ -123,7 +122,7 @@ public class MainApiBody {
     }
 
     public static RequestBody studentUpdateProfileBody(String Name, String Email,
-                                                     String Phone, int LocationId) throws JSONException {
+                                                       String Phone, int LocationId) throws JSONException {
         JSONObject params = new JSONObject();
         params.put("Name", Name);
         params.put("Email", Email);

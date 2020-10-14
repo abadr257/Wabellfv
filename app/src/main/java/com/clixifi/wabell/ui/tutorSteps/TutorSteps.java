@@ -56,6 +56,7 @@ public class TutorSteps extends AppCompatActivity {
         if (ProfileEdit == 4 && edit) {
             Bundle b = new Bundle();
             b.putBoolean("edit", edit);
+
             if (StaticMethods.userRegisterResponse != null){
                 b.putString("type", StaticMethods.userRegisterResponse.Data.getType());
             }else {
@@ -84,7 +85,8 @@ public class TutorSteps extends AppCompatActivity {
     }
 
     public void goToMain() {
-        onBackPressed();
+        IntentUtilies.openActivity(TutorSteps.this , MainScreen.class);
+        finish();
     }
 
     public void step1() {
@@ -219,11 +221,16 @@ public class TutorSteps extends AppCompatActivity {
         }
     }
 
+
     @Override
     public void onBackPressed() {
         switch (selectedPosition) {
             case 4:
-                displayView(3, null);
+                if(edit){
+                    super.onBackPressed();
+                }else {
+                    displayView(3, null);
+                }
                 break;
             case 3:
                 displayView(2, null);

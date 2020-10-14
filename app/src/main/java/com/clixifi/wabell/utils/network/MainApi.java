@@ -3,6 +3,7 @@ package com.clixifi.wabell.utils.network;
 
 import com.clixifi.wabell.data.Response.OTP.OTPResponse;
 import com.clixifi.wabell.data.Response.ResultBoolean;
+import com.clixifi.wabell.data.Response.TutorList.TutorListArray;
 import com.clixifi.wabell.data.Response.User.LoginData;
 import com.clixifi.wabell.data.Response.User.RegisterData;
 import com.clixifi.wabell.data.Response.User.ResultForProfile;
@@ -13,6 +14,7 @@ import com.clixifi.wabell.data.Response.UserTutorCounters;
 import com.clixifi.wabell.data.Response.areas.Areas;
 import com.clixifi.wabell.data.Response.cities.Cities;
 import com.clixifi.wabell.data.Response.favMasters.FavMastersStudent;
+import com.clixifi.wabell.data.Response.featuredTutors.FeaturedArray;
 import com.clixifi.wabell.data.Response.requestTopic.RequestTopic;
 import com.clixifi.wabell.data.Response.topic.Topics;
 import com.clixifi.wabell.data.Response.topicChild.ChildResponse;
@@ -279,6 +281,33 @@ public class MainApi {
                     @Override
                     public void onNext(ResultForProfile<UserResponse<UserProfile>> userResponse) {
                         ConnectionResponse<ResultForProfile<UserResponse<UserProfile>>> response = new ConnectionResponse<>();
+                        response.data = userResponse;
+                        connectionListener.onSuccess(response);
+                    }
+                });
+    }
+
+    //getFeaturedMasters
+    public static void getFeatured(String token  ,final ConnectionListener<FeaturedArray> connectionListener) {
+        getApi().getFeaturedMasters(token).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<FeaturedArray>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        connectionListener.onFail(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(FeaturedArray userResponse) {
+                        ConnectionResponse<FeaturedArray> response = new ConnectionResponse<>();
                         response.data = userResponse;
                         connectionListener.onSuccess(response);
                     }
@@ -587,7 +616,56 @@ public class MainApi {
                     }
                 });
     }
+    public static void getTutorList(String token ,final ConnectionListener<TutorListArray> connectionListener) {
+        getApi().getTutorList(token).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<TutorListArray>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        connectionListener.onFail(e);
+                    }
 
+                    @Override
+                    public void onComplete() {
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(TutorListArray userResponse) {
+                        ConnectionResponse<TutorListArray> response = new ConnectionResponse<>();
+                        response.data = userResponse;
+                        connectionListener.onSuccess(response);
+                    }
+                });
+    }
+    public static void getTutorList(String token , RequestBody body ,final ConnectionListener<TutorListArray> connectionListener) {
+        getApi().getTutorList(token , body ).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<TutorListArray>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        connectionListener.onFail(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(TutorListArray userResponse) {
+                        ConnectionResponse<TutorListArray> response = new ConnectionResponse<>();
+                        response.data = userResponse;
+                        connectionListener.onSuccess(response);
+                    }
+                });
+    }
     public static void cancelTopic(String token ,RequestBody body,final ConnectionListener<ResultBoolean> connectionListener) {
         getApi().cancelTopic(token , body ).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

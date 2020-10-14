@@ -60,7 +60,13 @@ public class MainApiBody {
         params.put("TimeIds", TimeIds);
         return requestBody(params);
     }
-
+    public static RequestBody getTutorListInSearch(double HourPrice, JSONArray DayIds, JSONArray TimeIds) throws JSONException {
+        JSONObject params = new JSONObject();
+        /*params.put("HourPrice", HourPrice);
+        params.put("DayIds", DayIds);
+        params.put("TimeIds", TimeIds);*/
+        return requestBody(params);
+    }
     public static RequestBody tutorExpandEduBody(String Experience, String Education) throws JSONException {
         JSONObject params = new JSONObject();
         params.put("Experience", Experience);

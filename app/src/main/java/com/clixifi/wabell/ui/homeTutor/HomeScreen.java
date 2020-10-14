@@ -56,10 +56,10 @@ public class HomeScreen extends Fragment implements HomeTutorInterface {
     @Override
     public void onSuccess(UserTutorCounters userTutorCounters) {
         dialog.DismissDialog();
-        binding.simTxt.setText(userTutorCounters.getSimilarMastersCount());
-        binding.favTxt.setText(userTutorCounters.getFavoritedCount());
-        binding.requTxt.setText(userTutorCounters.getCallsCount());
-        binding.viewsTxt.setText(userTutorCounters.getViewsCount());
+        binding.simTxt.setText(userTutorCounters.getSimilarMastersCount()+"");
+        binding.favTxt.setText(userTutorCounters.getFavoritedCount()+"");
+        binding.requTxt.setText(userTutorCounters.getCallsCount()+"");
+        binding.viewsTxt.setText(userTutorCounters.getViewsCount()+"");
     }
 
     @Override
@@ -79,6 +79,10 @@ public class HomeScreen extends Fragment implements HomeTutorInterface {
 
         public MyHandler(Context context) {
             this.context = context;
+        }
+
+        public void isOnline(View v){
+
         }
     }
 }

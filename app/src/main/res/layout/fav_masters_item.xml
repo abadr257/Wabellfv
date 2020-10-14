@@ -7,7 +7,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="14pt"
+        app:cardCornerRadius="10pt"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="4dp"
@@ -95,6 +95,7 @@
                 android:orientation="horizontal"
                 android:layout_below="@id/txt_disc"
                 android:layout_marginTop="10dp"
+                android:layoutDirection="locale"
                 android:layout_marginStart="10dp"
                 android:id="@+id/lin_subjects"
                 >

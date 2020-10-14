@@ -2,8 +2,16 @@ package com.clixifi.wabell.data.Response.favMasters;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 
 public class FavMastersItem {
+
+    @SerializedName("EngTopics")
+    public ArrayList<String> EngTopics;
+
+    @SerializedName("ArTopics")
+    public ArrayList<String> ArTopics;
 
     @SerializedName("Id")
     public int Id;
@@ -25,7 +33,98 @@ public class FavMastersItem {
     public String StudentImage;
     @SerializedName("Date")
     public String Date;
+    @SerializedName("TutorIsFeatured")
+    public boolean TutorIsFeatured;
 
+    @SerializedName("TutorIsOnline")
+    public boolean TutorIsOnline;
+
+    @SerializedName("TutorIsPending")
+    public boolean TutorIsPending;
+
+    @SerializedName("TutorBiography")
+    public String TutorBiography;
+
+    @SerializedName("TutorLocation")
+    public String TutorLocation;
+
+    @SerializedName("DistrictId")
+    public int DistrictId;
+
+    @SerializedName("Rank")
+    public int Rank;
+
+    public ArrayList<String> getEngTopics() {
+        return EngTopics;
+    }
+
+    public void setEngTopics(ArrayList<String> engTopics) {
+        EngTopics = engTopics;
+    }
+
+    public ArrayList<String> getArTopics() {
+        return ArTopics;
+    }
+
+    public void setArTopics(ArrayList<String> arTopics) {
+        ArTopics = arTopics;
+    }
+
+    public boolean isTutorIsFeatured() {
+        return TutorIsFeatured;
+    }
+
+    public void setTutorIsFeatured(boolean tutorIsFeatured) {
+        TutorIsFeatured = tutorIsFeatured;
+    }
+
+    public boolean isTutorIsOnline() {
+        return TutorIsOnline;
+    }
+
+    public void setTutorIsOnline(boolean tutorIsOnline) {
+        TutorIsOnline = tutorIsOnline;
+    }
+
+    public boolean isTutorIsPending() {
+        return TutorIsPending;
+    }
+
+    public void setTutorIsPending(boolean tutorIsPending) {
+        TutorIsPending = tutorIsPending;
+    }
+
+    public String getTutorBiography() {
+        return TutorBiography;
+    }
+
+    public void setTutorBiography(String tutorBiography) {
+        TutorBiography = tutorBiography;
+    }
+
+    public String getTutorLocation() {
+        return TutorLocation;
+    }
+
+    public void setTutorLocation(String tutorLocation) {
+        TutorLocation = tutorLocation;
+    }
+
+    public int getDistrictId() {
+        return DistrictId;
+    }
+
+    public void setDistrictId(int districtId) {
+        DistrictId = districtId;
+    }
+
+    public int getRank() {
+        return Rank;
+    }
+
+    public void setRank(int rank) {
+        Rank = rank;
+    }
 
     public int getId() {
         return Id;

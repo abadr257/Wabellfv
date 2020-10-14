@@ -97,6 +97,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
 
         binding.edEmail.setText(profile.DataProfile.getEmail());
         binding.edName.setText(profile.DataProfile.getName());
+        binding.userName.setText(profile.DataProfile.getName());
         binding.edPhone.setText(profile.DataProfile.getPhoneNumber());
         dialog.DismissDialog();
     }

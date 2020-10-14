@@ -58,29 +58,62 @@
 
 
         </RelativeLayout>
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_below="@id/rel_top"
             android:layout_marginTop="10dp"
             >
-            <androidx.recyclerview.widget.RecyclerView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/rec_featured"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                />
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/rec_tutors"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                />
-        </LinearLayout>
+                android:orientation="vertical"
+
+                >
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rec_featured"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal"
+                    >
+                    <LinearLayout
+                        android:layout_width="10dp"
+                        android:layout_height="4dp"
+                        android:background="#D4D4EA"
+                        android:layout_marginEnd="5dp"
+                        />
+                    <LinearLayout
+                        android:layout_width="20dp"
+                        android:layout_height="5dp"
+                        android:background="#279EFF"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
+                        />
+                    <LinearLayout
+                        android:layout_width="10dp"
+                        android:layout_height="4dp"
+                        android:background="#D4D4EA"
+                        android:layout_marginStart="5dp"
+                        />
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rec_tutors"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
 
     </RelativeLayout>
 </layout>

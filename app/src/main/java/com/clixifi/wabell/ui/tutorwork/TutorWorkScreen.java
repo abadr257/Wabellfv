@@ -54,10 +54,11 @@ public class TutorWorkScreen extends Fragment implements TutorWorkInterface {
         dialog = new CustomDialog(getActivity());
         presenter = new TutorWorkPresenter(this);
         try {
-            edit = getArguments().getBoolean("isEdit");
+            edit = getArguments().getBoolean("edit");
         } catch (Exception e) {
 
         }
+        Log.e(TAG, "onCreateView: "+edit );
         checkData();
         return v;
     }

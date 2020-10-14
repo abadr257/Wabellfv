@@ -1,6 +1,7 @@
 package com.clixifi.wabell.ui.homeTutor;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.clixifi.wabell.data.Response.User.UserId;
 import com.clixifi.wabell.data.Response.UserTutorCounters;
@@ -8,6 +9,8 @@ import com.clixifi.wabell.utils.StaticMethods;
 import com.clixifi.wabell.utils.network.ConnectionListener;
 import com.clixifi.wabell.utils.network.ConnectionResponse;
 import com.clixifi.wabell.utils.network.MainApi;
+
+import static android.content.ContentValues.TAG;
 
 public class HomeTutorPresenter {
     HomeTutorInterface counters ;
@@ -21,7 +24,7 @@ public class HomeTutorPresenter {
         if (!network) {
             counters.onNoConnection(true);
         }  else {
-            String token = StaticMethods.userData.getToken();
+            String token = "Bearer "+StaticMethods.userData.getToken();
             MainApi.getTutorCounters(token,30, new ConnectionListener<UserTutorCounters>() {
                 @Override
                 public void onSuccess(ConnectionResponse<UserTutorCounters> connectionResponse) {
@@ -35,6 +38,7 @@ public class HomeTutorPresenter {
                 @Override
                 public void onFail(Throwable throwable) {
                     counters.onFail(true);
+                    Log.e(TAG, "onFail: "+throwable.toString() );
                 }
             });
         }

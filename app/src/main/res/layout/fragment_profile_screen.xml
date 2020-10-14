@@ -92,7 +92,7 @@
                         android:textColor="#2D4379"
                         android:textSize="17sp"
                         android:textStyle="bold"
-                        android:text="User Name"
+                        android:text="UserName"
                         android:id="@+id/user_name"
                         android:textAlignment="center"
                         />

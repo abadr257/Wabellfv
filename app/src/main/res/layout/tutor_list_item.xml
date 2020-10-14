@@ -9,13 +9,16 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginBottom="4dp"
         android:background="#FFFFFF"
+        app:cardCornerRadius="10dp"
         android:layoutDirection="locale">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="5dp">
 
             <TextView
@@ -23,27 +26,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="33dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginTop="25dp"
                 android:text="25 SAR/hr"
                 android:textColor="#279EFF" />
 
-            <TextView
-                android:id="@+id/featured_txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="10dp"
-                android:drawablePadding="5dp"
-                android:text="@string/featured"
-                android:textColor="#FF9F43"
-                android:textSize="18sp" />
+
 
             <LinearLayout
                 android:id="@+id/lin_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/featured_txt"
+                android:layout_alignParentTop="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
                 android:layoutDirection="locale"
@@ -65,7 +58,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:drawableEnd="@drawable/featured_true_big"
                         android:text="Ahmed Badr"
                         android:drawablePadding="5dp"
                         android:textColor="#2D4379"
@@ -147,7 +139,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/lin_subjects"
+                android:layout_alignParentBottom="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="5dp"

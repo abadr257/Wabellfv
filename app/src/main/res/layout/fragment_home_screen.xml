@@ -58,6 +58,7 @@
                     android:layout_alignParentTop="true"
                     android:text="@string/online"
                     android:layout_marginTop="5dp"
+                    android:onClick="@{handler::isOnline}"
                     android:layout_centerVertical="true"
                     android:drawableEnd="@drawable/expand_more_24"
                     android:textColor="#28C76F"

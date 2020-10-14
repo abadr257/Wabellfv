@@ -4,6 +4,7 @@ package com.clixifi.wabell.utils.network;
 
 import com.clixifi.wabell.data.Response.OTP.OTPResponse;
 import com.clixifi.wabell.data.Response.ResultBoolean;
+import com.clixifi.wabell.data.Response.TutorList.TutorListArray;
 import com.clixifi.wabell.data.Response.User.LoginData;
 import com.clixifi.wabell.data.Response.User.RegisterData;
 import com.clixifi.wabell.data.Response.User.ResultForProfile;
@@ -14,6 +15,7 @@ import com.clixifi.wabell.data.Response.UserTutorCounters;
 import com.clixifi.wabell.data.Response.areas.Areas;
 import com.clixifi.wabell.data.Response.cities.Cities;
 import com.clixifi.wabell.data.Response.favMasters.FavMastersStudent;
+import com.clixifi.wabell.data.Response.featuredTutors.FeaturedArray;
 import com.clixifi.wabell.data.Response.requestTopic.RequestTopic;
 import com.clixifi.wabell.data.Response.topic.Topics;
 import com.clixifi.wabell.data.Response.topicChild.ChildResponse;
@@ -89,10 +91,13 @@ public interface MainApiInterface {
 
 
     //favMastersFor Student
-    @POST("/api/Student/GetFavoriteTutors")
+    @GET("/api/Student/GetFavoriteTutors")
     Observable<FavMastersStudent> getFavMasters(@Header("Authorization") String auth );
 
 
+    //Featured Masters for Student
+    @GET("/api/Student/FeaturedTutors")
+    Observable<FeaturedArray> getFeaturedMasters(@Header("Authorization") String auth );
 
     //get User Profile
     @GET("/api/account/GetProfile")
@@ -124,4 +129,14 @@ public interface MainApiInterface {
     //to cancel all topic
     @POST("/api/account/CancelUserAllTopics")
     Observable<ResultBoolean> cancelAllTopic(@Header("Authorization") String auth ,@Body RequestBody body);
+
+
+    //get tutor list with filter
+    @POST("/api/Student/TutorsList")
+    Observable<TutorListArray> getTutorList(@Header("Authorization") String auth , @Body RequestBody body);
+
+
+    //get all tutors
+    @POST("/api/Student/TutorsList")
+    Observable<TutorListArray> getTutorList(@Header("Authorization") String auth );
 }

@@ -63,7 +63,7 @@ public class MainScreen extends AppCompatActivity {
     public void onEditMedia(Bundle bundle ){
         IntentUtilies.openActivityWithBundle(MainScreen.this , TutorSteps.class , bundle);
     }
-    public void onEditWorkDetails(Bundle bundle ){
+    public void onEditWorkDetails(Bundle bundle){
         IntentUtilies.openActivityWithBundle(MainScreen.this , TutorSteps.class , bundle);
     }
     public class MyHandler{

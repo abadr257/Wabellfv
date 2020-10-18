@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.clixifi.wabell.R;
+import com.clixifi.wabell.data.Response.RequestLogs.RequestLogsArray;
 import com.clixifi.wabell.data.Response.UserTutorCounters;
 import com.clixifi.wabell.databinding.FragmentHomeScreenBinding;
 import com.clixifi.wabell.utils.CustomDialog;
@@ -38,7 +39,7 @@ public class HomeScreen extends Fragment implements HomeTutorInterface {
         handler = new MyHandler(getActivity());
         pre = new HomeTutorPresenter(this);
         dialog = new CustomDialog(getActivity());
-        binding.setOnNoData(true);
+        //binding.setOnNoData(true);
         getCounters();
         return v;
     }
@@ -72,6 +73,16 @@ public class HomeScreen extends Fragment implements HomeTutorInterface {
     public void onNoConnection(boolean isConnected) {
         dialog.DismissDialog();
         ToastUtil.showErrorToast(getActivity(), R.string.noInternet);
+    }
+
+    @Override
+    public void onRequestLogs(RequestLogsArray array) {
+        binding.setOnNoData(false);
+    }
+
+    @Override
+    public void onRequestFail(boolean fail) {
+        binding.setOnNoData(true);
     }
 
     public class MyHandler {

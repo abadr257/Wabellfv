@@ -3,6 +3,7 @@ package com.clixifi.wabell.utils.network;
 
 
 import com.clixifi.wabell.data.Response.OTP.OTPResponse;
+import com.clixifi.wabell.data.Response.RequestLogs.RequestLogsArray;
 import com.clixifi.wabell.data.Response.ResultBoolean;
 import com.clixifi.wabell.data.Response.TutorList.TutorListArray;
 import com.clixifi.wabell.data.Response.User.LoginData;
@@ -139,4 +140,10 @@ public interface MainApiInterface {
     //get all tutors
     @POST("/api/Student/TutorsList")
     Observable<TutorListArray> getTutorList(@Header("Authorization") String auth );
+
+
+    //get Request Logs
+    @POST("/api/Tutor/RequestLogs")
+    Observable<RequestLogsArray> getRequestLogs(@Header("Authorization") String auth );
+
 }

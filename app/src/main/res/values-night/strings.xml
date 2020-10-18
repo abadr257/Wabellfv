@@ -42,6 +42,7 @@
     <string name="inValidData">Enter a valid data </string>
     <string name="regAs">Register as</string>
     <string name="teTutor">Tutor</string>
+
     <string name="teStudent">Student</string>
     <string name="teName">Name</string>
     <string name="Experience">Experience</string>

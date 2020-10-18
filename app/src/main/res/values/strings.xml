@@ -10,12 +10,17 @@
     <string name="rate_file">Enter the rate</string>
 
     <string name="login">Log in</string>
+    <string name="mProfile">Master`s Profile</string>
+
     <string name="mas_filters">Masters Filter</string>
     <string name="budget">Budget</string>
     <string name="rateings">Rating</string>
     <string name="dis">Distance</string>
     <string name="sortBy">Sort By</string>
     <string name="next">Next</string>
+    <string name="sRe">Submit Review</string>
+    <string name="reView">Review</string>
+    <string name="reViewHint">Say Somthing about your teacher</string>
     <string name="cancel">Cancel</string>
     <string name="finish">Finish</string>
     <string name="featured">Featured Masters</string>
@@ -54,6 +59,8 @@
     <string name="regAs">Register as</string>
     <string name="teTutor">Tutor</string>
     <string name="teStudent">Student</string>
+    <string name="tuAbout">About</string>
+    <string name="tuReviews">Reviews</string>
     <string name="teName">Name</string>
     <string name="Experience">Experience</string>
     <string name="example1">Ex: Math teacher at Alnajah School, 2013 - 2020 Math teacher at Alnajah School, 2010 - 2013</string>

@@ -6,11 +6,13 @@
     <string name="splash_text_en">English</string>
     <string name="login">تسجيل الدخول</string>
     <string name="next">التالى</string>
-
+    <string name="mProfile">بيانات المعلم</string>
     <string name="apply">تنفيذ</string>
     <string name="from_hp">من</string>
     <string name="to_hp">الى</string>
-
+    <string name="sRe">ارسال التقيم</string>
+    <string name="reViewHint">اكتب شئ عن معلمك</string>
+    <string name="reView">تعليقك</string>
     <string name="rate_file">ادخل التقيم</string>
     <string name="priceFi"> السعر (من الأعلى إلى الأدنى)</string>
     <string name="cancel">إلغاء</string>
@@ -48,6 +50,8 @@
     <string name="regAs">تسجيل حساب كـ</string>
     <string name="teTutor">مدرس</string>
     <string name="teStudent">طالب</string>
+    <string name="tuAbout">عن المعلم</string>
+    <string name="tuReviews">التقيمات</string>
     <string name="teName">الاسم</string>
     <string name="Experience">الخبرة</string>
     <string name="example1"></string>

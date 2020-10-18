@@ -2,6 +2,7 @@ package com.clixifi.wabell.utils.network;
 
 
 import com.clixifi.wabell.data.Response.OTP.OTPResponse;
+import com.clixifi.wabell.data.Response.RequestLogs.RequestLogsArray;
 import com.clixifi.wabell.data.Response.ResultBoolean;
 import com.clixifi.wabell.data.Response.TutorList.TutorListArray;
 import com.clixifi.wabell.data.Response.User.LoginData;
@@ -636,6 +637,33 @@ public class MainApi {
                     @Override
                     public void onNext(TutorListArray userResponse) {
                         ConnectionResponse<TutorListArray> response = new ConnectionResponse<>();
+                        response.data = userResponse;
+                        connectionListener.onSuccess(response);
+                    }
+                });
+    }
+
+
+    public static void getRequestsLogs(String token ,final ConnectionListener<RequestLogsArray> connectionListener) {
+        getApi().getRequestLogs(token).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<RequestLogsArray>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        connectionListener.onFail(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(RequestLogsArray userResponse) {
+                        ConnectionResponse<RequestLogsArray> response = new ConnectionResponse<>();
                         response.data = userResponse;
                         connectionListener.onSuccess(response);
                     }

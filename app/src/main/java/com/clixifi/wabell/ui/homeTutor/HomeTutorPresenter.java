@@ -3,6 +3,7 @@ package com.clixifi.wabell.ui.homeTutor;
 import android.content.Context;
 import android.util.Log;
 
+import com.clixifi.wabell.data.Response.RequestLogs.RequestLogsArray;
 import com.clixifi.wabell.data.Response.User.UserId;
 import com.clixifi.wabell.data.Response.UserTutorCounters;
 import com.clixifi.wabell.utils.StaticMethods;
@@ -38,6 +39,30 @@ public class HomeTutorPresenter {
                 @Override
                 public void onFail(Throwable throwable) {
                     counters.onFail(true);
+                    Log.e(TAG, "onFail: "+throwable.toString() );
+                }
+            });
+        }
+    }
+    public void getRequestLogs(Context context){
+        boolean network = StaticMethods.isConnectingToInternet(context);
+        if (!network) {
+            counters.onNoConnection(true);
+        }  else {
+            String token = "Bearer "+StaticMethods.userData.getToken();
+            MainApi.getRequestsLogs(token, new ConnectionListener<RequestLogsArray>() {
+                @Override
+                public void onSuccess(ConnectionResponse<RequestLogsArray> connectionResponse) {
+                    if (connectionResponse.data != null) {
+                        counters.onRequestLogs(connectionResponse.data);
+                    } else {
+                        counters.onRequestFail(true);
+                    }
+                }
+
+                @Override
+                public void onFail(Throwable throwable) {
+                    counters.onRequestFail(true);
                     Log.e(TAG, "onFail: "+throwable.toString() );
                 }
             });

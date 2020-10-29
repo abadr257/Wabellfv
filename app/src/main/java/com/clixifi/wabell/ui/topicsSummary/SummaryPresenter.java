@@ -14,7 +14,7 @@ import okhttp3.RequestBody;
 
 public class SummaryPresenter {
     SummaryInterface summary;
-    String token;
+    String token,userid;
 
     public SummaryPresenter(SummaryInterface summary) {
         this.summary = summary;
@@ -60,17 +60,20 @@ public class SummaryPresenter {
         if (!net) {
             summary.onConnection(true);
         } else {
+            if (StaticMethods.userRegisterResponse != null) {
+                token = "Bearer " + StaticMethods.userRegisterResponse.Data.getToken();
+                userid = StaticMethods.userRegisterResponse.Data.getUserId();
+            } else {
+                token = "Bearer " + StaticMethods.userData.getToken();
+                userid = StaticMethods.userData.getUserId();
+            }
             RequestBody body = null;
             try {
-                body = MainApiBody.cancelAllTopic(id);
+                body = MainApiBody.cancelAllTopic(id,userid);
             } catch (Exception e) {
 
             }
-            if (StaticMethods.userRegisterResponse != null) {
-                token = "Bearer " + StaticMethods.userRegisterResponse.Data.getToken();
-            } else {
-                token = "Bearer " + StaticMethods.userData.getToken();
-            }
+
             MainApi.cancelAll(token, body, new ConnectionListener<ResultBoolean>() {
                 @Override
                 public void onSuccess(ConnectionResponse<ResultBoolean> connectionResponse) {

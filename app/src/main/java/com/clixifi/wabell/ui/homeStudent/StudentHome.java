@@ -1,6 +1,7 @@
 package com.clixifi.wabell.ui.homeStudent;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,7 +9,11 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,13 +31,13 @@ import com.clixifi.wabell.utils.LocaleManager;
 
 public class StudentHome extends Fragment implements StudentHomeInterface {
 
-    FragmentStudentHomeBinding binding ;
+    FragmentStudentHomeBinding binding;
     View v;
-    StudentHandler handler ;
-    FeaturedAdapter adapter ;
-    StudentHomePresenter presenter ;
-    CustomDialog dialog ;
-    TutorListAdapter listAdapter ;
+    StudentHandler handler;
+    FeaturedAdapter adapter;
+    StudentHomePresenter presenter;
+    CustomDialog dialog;
+    TutorListAdapter listAdapter;
 
 
     @Override
@@ -59,11 +64,17 @@ public class StudentHome extends Fragment implements StudentHomeInterface {
     @Override
     public void onFeaturedTutors(FeaturedArray featuredArray) {
         dialog.DismissDialog();
-        LinearLayoutManager layoutManager
+        binding.recFeatured.setHasFixedSize(true);
+        final LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        layoutManager.setInitialPrefetchItemCount(5);
         binding.recFeatured.setLayoutManager(layoutManager);
-        adapter = new FeaturedAdapter(getActivity() , featuredArray);
+        adapter = new FeaturedAdapter(getActivity(), featuredArray);
+
         binding.recFeatured.setAdapter(adapter);
+        SnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(binding.recFeatured);
+
     }
 
     @Override
@@ -79,7 +90,7 @@ public class StudentHome extends Fragment implements StudentHomeInterface {
     @Override
     public void onLogs(TutorListArray array) {
         dialog.DismissDialog();
-        listAdapter = new TutorListAdapter(getActivity() , array );
+        listAdapter = new TutorListAdapter(getActivity(), array);
         binding.recTutors.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recTutors.setAdapter(listAdapter);
     }
@@ -89,14 +100,20 @@ public class StudentHome extends Fragment implements StudentHomeInterface {
         dialog.DismissDialog();
     }
 
-    public class StudentHandler{
-        Context context ;
+    @Override
+    public void onFilter(TutorListArray array) {
+
+    }
+
+    public class StudentHandler {
+        Context context;
 
         public StudentHandler(Context context) {
             this.context = context;
         }
-        public void onFilter(View v){
-            ((MainScreen)getActivity()).goToFilter();
+
+        public void onFilter(View v) {
+            ((MainScreen) getActivity()).goToFilter();
         }
     }
 }

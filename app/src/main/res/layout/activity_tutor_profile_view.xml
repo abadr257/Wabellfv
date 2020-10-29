@@ -37,6 +37,7 @@
                     <ImageView
                         android:id="@+id/back_icon"
                         android:layout_width="25dp"
+                        android:onClick="@{handler::back}"
                         android:layout_height="25dp"
                         android:layout_alignParentStart="true"
                         android:src="@drawable/arrow_back_24" />
@@ -54,6 +55,7 @@
                         android:id="@+id/fav_image"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+                        android:onClick="@{handler::addtoFav}"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginTop="5dp"
@@ -83,7 +85,7 @@
                         android:id="@+id/tutor_img"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/profile_inactive" />
+                        android:src="@drawable/avatar" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -92,7 +94,7 @@
 
                         <TextView
                             android:id="@+id/txt_tutorName"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:text="Ahmed Badr"
@@ -101,9 +103,10 @@
 
                         <TextView
                             android:id="@+id/txt_tutorLocation"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
+                            android:layout_marginStart="7dp"
+                            android:layout_marginTop="10dp"
                             android:drawableStart="@drawable/location_on_24"
                             android:text="Egypt - Cairo"
                             android:textColor="#2D4379"
@@ -146,7 +149,7 @@
                             android:src="@drawable/eye_views" />
 
                         <TextView
-                            android:id="@+id/sim_txt"
+                            android:id="@+id/viewCount_txt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
@@ -168,7 +171,6 @@
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:padding="10dp"
-
                         >
 
                         <ImageView
@@ -177,7 +179,7 @@
                             android:src="@drawable/calls_icon" />
 
                         <TextView
-                            android:id="@+id/requ_txt"
+                            android:id="@+id/callsCount_txt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -195,16 +197,14 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.5"
-                        android:gravity="start"
-                        android:orientation="vertical"
-                        android:padding="10dp">
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:gravity="center"
+                            android:gravity="start"
                             android:orientation="horizontal">
 
                             <RatingBar
@@ -218,28 +218,12 @@
                                 android:id="@+id/txt_numOfRate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="5dp"
                                 android:text="(10)"
                                 android:textColor="#7C79A6"
                                 android:textSize="14sp" />
                         </LinearLayout>
 
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/subject_style"
-                            android:padding="8dp">
 
-                            <TextView
-                                android:id="@+id/txt_sub1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginTop="8dp"
-                                android:text="@string/rateings"
-                                android:textColor="#279EFF" />
-                        </RelativeLayout>
                     </LinearLayout>
 
 
@@ -262,5 +246,41 @@
                     android:layout_below="@id/tab_layout"/>
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            >
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/border_btn_blue"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:onClick="@{handler::sendMessage}"
+                android:layout_marginTop="8dp"
+                android:id="@+id/message"
+                android:text="@string/txt_message"
+                android:layout_weight="1"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/splashBackground"
+                />
+            <Button
+                android:id="@+id/call"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/blue_btn_style"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/reCall"
+                android:textColor="@color/colorWhite"
+                android:layout_marginBottom="10dp"
+                />
+        </LinearLayout>
     </RelativeLayout>
 </layout>

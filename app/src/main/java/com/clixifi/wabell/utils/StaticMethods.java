@@ -26,6 +26,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.clixifi.wabell.R;
 
+import com.clixifi.wabell.data.Response.TutorList.TutorListArray;
 import com.clixifi.wabell.data.Response.User.LoginData;
 import com.clixifi.wabell.data.Response.User.RegisterData;
 import com.clixifi.wabell.data.Response.User.UserResponse;
@@ -212,7 +213,9 @@ public class StaticMethods {
     }
     public static UserResponse<RegisterData> userRegisterResponse =  null ;
     public static ArrayList<Integer> TopicsIds = null ;
+    public static String tutorId = null ;
     public static LoginData userData = null ;
+    public static TutorListArray tutors = null ;
     public static boolean selected = false ;
     public static int selectedPostion = 0 ;
     public static String typeS = "" ;

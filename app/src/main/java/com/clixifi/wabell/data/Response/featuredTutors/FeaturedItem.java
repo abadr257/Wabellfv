@@ -38,6 +38,17 @@ public class FeaturedItem {
     @SerializedName("Rank")
     public int Rank ;
 
+    @SerializedName("Id")
+    public String Id;
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
+
     public ArrayList<String> getEngTopics() {
         return EngTopics;
     }

@@ -2,10 +2,16 @@ package com.clixifi.wabell.utils.network;
 
 
 
+import com.clixifi.wabell.data.MediaResponse;
+import com.clixifi.wabell.data.Response.AddFav.AddFavorite;
+import com.clixifi.wabell.data.Response.AddReviews;
+import com.clixifi.wabell.data.Response.GetReviews.ReviewsData;
 import com.clixifi.wabell.data.Response.OTP.OTPResponse;
 import com.clixifi.wabell.data.Response.RequestLogs.RequestLogsArray;
 import com.clixifi.wabell.data.Response.ResultBoolean;
+import com.clixifi.wabell.data.Response.ReviewsArray;
 import com.clixifi.wabell.data.Response.TutorList.TutorListArray;
+import com.clixifi.wabell.data.Response.TutorProfileData.TutorProfileForStudent;
 import com.clixifi.wabell.data.Response.User.LoginData;
 import com.clixifi.wabell.data.Response.User.RegisterData;
 import com.clixifi.wabell.data.Response.User.ResultForProfile;
@@ -21,12 +27,17 @@ import com.clixifi.wabell.data.Response.requestTopic.RequestTopic;
 import com.clixifi.wabell.data.Response.topic.Topics;
 import com.clixifi.wabell.data.Response.topicChild.ChildResponse;
 
+import java.util.List;
+
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface MainApiInterface {
@@ -143,7 +154,49 @@ public interface MainApiInterface {
 
 
     //get Request Logs
-    @POST("/api/Tutor/RequestLogs")
+    @GET("/api/Tutor/RequestLogs")
     Observable<RequestLogsArray> getRequestLogs(@Header("Authorization") String auth );
+
+    //Add Review for Tutor
+    @GET("/api/Tutor/AddRank")
+    Observable<AddReviews> addReviews(@Header("Authorization") String auth , @Query("studentId") String studentId , @Query("rank") int rate , @Query("comment") String comment   );
+
+
+    //to change if online or offline
+    @GET("/api/Tutor/SetChatAvailability")
+    Observable<ResultBoolean> setOnline(@Header("Authorization") String auth ,@Query("isOnline") boolean isOnline ,@Query("offlineUntil") String  date );
+
+    //get Tutor Profile for Student
+    @POST("/api/Student/GetTutor")
+    Observable<TutorProfileForStudent> getTutorProfile(@Header("Authorization") String auth ,@Body RequestBody body );
+
+
+    ///api/Student/AddFavorite
+    @GET("/api/Student/AddFavorite")
+    Observable<AddFavorite> addToFavorite(@Header("Authorization") String auth , @Query("tutorId") String tutorId );
+
+
+    //api/Student/AddFavorite
+    @POST("/api/Student/DeleteFavorite")
+    Observable<ResultBoolean> deleteFav(@Header("Authorization") String auth , @Body RequestBody body );
+
+    //get Reviews of this tutor
+    @POST("/api/Tutor/GetRanks")
+    Observable<ReviewsArray> getReviews(@Header("Authorization") String auth , @Body RequestBody body );
+
+
+
+
+
+    // upload images
+
+
+
+    @Multipart
+    @POST("/api/account/UploadFile")
+    Observable<MediaResponse> uploadMedia(@Query("AccountId") String AccountId ,
+                                          @Query("Category") String Category, @Query("fromUi") boolean fromUi,
+                                          @Part List<MultipartBody.Part> body );
+
 
 }

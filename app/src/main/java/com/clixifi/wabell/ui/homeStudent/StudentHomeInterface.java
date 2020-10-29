@@ -10,4 +10,6 @@ public interface StudentHomeInterface {
 
     void onLogs(TutorListArray array);
     void onFailLogs(boolean failLogs) ;
+
+    void onFilter(TutorListArray array);
 }

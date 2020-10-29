@@ -12,9 +12,9 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_margin="10dp"
+            android:layout_marginBottom="10dp"
             android:scaleType="fitCenter"
             android:src="@drawable/welcome_one" />
 
@@ -24,7 +24,7 @@
             android:text="@string/weti1"
             android:textAlignment="center"
             android:textColor="#2D4379"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             />
         <TextView
@@ -35,7 +35,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:textColor="#7C79A6"
-            android:textSize="14sp"
+            android:textSize="22sp"
             />
     </LinearLayout>
 </RelativeLayout>

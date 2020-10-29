@@ -5,14 +5,45 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.clixifi.wabell.R;
+import com.clixifi.wabell.data.Response.TutorList.TutorListArray;
+import com.clixifi.wabell.data.Response.User.RegisterData;
+import com.clixifi.wabell.data.Response.User.UserResponse;
+import com.clixifi.wabell.data.Response.areas.AreasItem;
+import com.clixifi.wabell.data.Response.cities.CityItem;
+import com.clixifi.wabell.data.Response.featuredTutors.FeaturedArray;
 import com.clixifi.wabell.databinding.ActivityFilterScreenBinding;
+import com.clixifi.wabell.ui.homeStudent.StudentHomeInterface;
+import com.clixifi.wabell.ui.homeStudent.StudentHomePresenter;
+import com.clixifi.wabell.ui.registerTutor.TutorInterface;
+import com.clixifi.wabell.ui.registerTutor.TutorPresenter;
+import com.clixifi.wabell.ui.search.SearchScreen;
+import com.clixifi.wabell.utils.CustomDialog;
+import com.clixifi.wabell.utils.IntentUtilies;
+import com.clixifi.wabell.utils.StaticMethods;
+import com.clixifi.wabell.utils.ToastUtil;
+import com.clixifi.wabell.utils.dialogs.DialogUtil;
+import com.clixifi.wabell.utils.dialogs.DialogUtilResponse;
+import com.clixifi.wabell.utils.network.MainApiBody;
 
-public class FilterScreen extends AppCompatActivity {
+import java.util.ArrayList;
+
+import okhttp3.RequestBody;
+
+public class FilterScreen extends AppCompatActivity implements StudentHomeInterface , DialogUtilResponse , TutorInterface {
     ActivityFilterScreenBinding binding;
     FilterHandler handler;
+    StudentHomePresenter presenter ;
+    RequestBody body = null ;
+    DialogUtil dialogUtil;
+    TutorPresenter tutorPresenter;
+    ArrayList<CityItem> citiesList;
+    ArrayList<AreasItem> areasList;
+    int locationId = 1 , areaId = 0;
+    CustomDialog dialog ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +51,102 @@ public class FilterScreen extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_filter_screen);
         handler = new FilterHandler(this);
         binding.setHandler(handler);
+        presenter = new StudentHomePresenter(this);
+        tutorPresenter = new TutorPresenter(this);
+        tutorPresenter.getCities(this);
+        dialogUtil = new DialogUtil(this);
+        dialog =new CustomDialog(this);
+
+    }
+
+    @Override
+    public void onFeaturedTutors(FeaturedArray featuredArray) {
+
+    }
+
+    @Override
+    public void onFailFeatured(boolean failFeatured) {
+        dialog.DismissDialog();
+        ToastUtil.showErrorToast(this ,R.string.error);
+    }
+
+    @Override
+    public void onConnection(boolean isConnected) {
+
+    }
+
+    @Override
+    public void onLogs(TutorListArray array) {
+
+    }
+
+    @Override
+    public void onFailLogs(boolean failLogs) {
+
+    }
+
+    @Override
+    public void onFilter(TutorListArray array) {
+        StaticMethods.tutors = array ;
+        dialog.DismissDialog();
+        IntentUtilies.openActivity(FilterScreen.this , SearchScreen.class);
+    }
+
+    @Override
+    public void selectedValueSingleChoice(int position) {
+
+    }
+
+    @Override
+    public void selectedValueSingleChoice(int position, String arrayType) {
+        if (arrayType.equals("city")) {
+            locationId = citiesList.get(position).getId();
+            binding.edCity.setText(citiesList.get(position).getName());
+        } else if (arrayType.equals("area")) {
+            areaId = areasList.get(position).getId();
+            binding.edNeighborhood.setText(areasList.get(position).getName());
+        }
+    }
+
+    @Override
+    public void selectedMultiChoicelang(ArrayList<String> choices, ArrayList<String> postions, String arrayType) {
+
+    }
+
+    @Override
+    public void onSuccess(UserResponse<RegisterData> data) {
+
+    }
+
+    @Override
+    public void onFail(boolean fail, String error) {
+
+    }
+
+    @Override
+    public void onNoConnection(boolean noConnection) {
+
+    }
+
+    @Override
+    public void onCity(ArrayList<CityItem> cityItems) {
+        citiesList = new ArrayList<>();
+        citiesList = cityItems;
+    }
+
+    @Override
+    public void onArea(ArrayList<AreasItem> areasItems) {
+        areasList = new ArrayList<>();
+        areasList = areasItems;
+        if (areasList != null) {
+            ArrayList<String> areasName = new ArrayList<>();
+            ArrayList<Integer> areasId = new ArrayList<>();
+            for (AreasItem item : areasList) {
+                areasName.add(item.getName());
+                areasId.add(item.getId());
+            }
+            dialogUtil.showSingleChooiceArrayList(FilterScreen.this, R.string.city, R.string.ok, areasName, "area", areasId);
+        }
     }
 
 
@@ -61,18 +188,56 @@ public class FilterScreen extends AppCompatActivity {
                 binding.relRateSub.setVisibility(View.VISIBLE);
             }
         }
-
+        public void city(View v){
+            if (citiesList != null) {
+                ArrayList<String> citiesName = new ArrayList<>();
+                ArrayList<Integer> citiesId = new ArrayList<>();
+                for (CityItem item : citiesList) {
+                    citiesName.add(item.getName());
+                    citiesId.add(item.getId());
+                }
+                dialogUtil.showSingleChooiceArrayList(FilterScreen.this, R.string.city, R.string.ok, citiesName, "city", citiesId);
+            }
+        }
+        public void area(View v){
+            if(!binding.edCity.getText().toString().isEmpty()){
+                tutorPresenter.getAres(FilterScreen.this, locationId);
+            }else {
+                ToastUtil.showErrorToast(FilterScreen.this , R.string.emptyCity);
+            }
+        }
         public void onApply(View v){
-            onBackPressed();
+            dialog.ShowDialog();
+            String  fromHour= "" , toHour = "" ;
+            boolean price = false ;
+            if(!binding.edFromhp.getText().toString().isEmpty()){
+                 fromHour = binding.edFromhp.getText().toString();
+                 toHour = binding.edTohp.getText().toString();
+            }else{
+
+            }
+
+            int rate = (int) binding.rateBar.getRating();
+            if(binding.checkPrice.isChecked()){
+                price = true ;
+            }
+            try {
+                body = MainApiBody.filterBody(fromHour , toHour , rate , 1 , areaId ,price);
+            }catch (Exception e){
+                Log.e("TAG", "onApply: "+e );
+            }
+            StaticMethods.printJson("Body : ->" ,body);
+            presenter.getTutorList(FilterScreen.this ,body);
         }
         public void onRest(View v){
+            StaticMethods.tutors = null ;
             binding.edCity.setText("");
             binding.edNeighborhood.setText("");
             binding.rateBar.setRating(0);
             binding.edFromhp.setText("");
             binding.edTohp.setText("");
-            if(binding.checkPrice.isActivated()){
-                binding.checkPrice.setActivated(false);
+            if(binding.checkPrice.isChecked()){
+                binding.checkPrice.setChecked(false);
             }
         }
 

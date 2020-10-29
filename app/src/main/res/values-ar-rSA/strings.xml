@@ -19,6 +19,7 @@
     <string name="budget">الميزانية</string>
     <string name="rateings">التقييم</string>
     <string name="dis">المسافة</string>
+    <string name="rateTxt">تقيم الطالب</string>
     <string name="sortBy">التصنيف حسب</string>
     <string name="mas_filters">تصفية المعلمين</string>
     <string name="finish">انهاء</string>
@@ -34,27 +35,38 @@
     <string name="log_phoneEmail">رقم الهاتف او البريد الإلكترونى</string>
     <string name="pass">كلمة المرور</string>
     <string name="city">المدينة</string>
+    <string name="emptyCity">أدخل المدينة اولا</string>
+    <string name="hintChat">أدخل الرسالة هنا ...</string>
     <string name="neighborhood">المنطقة</string>
     <string name="forget_password">لا أتذكر كلمة المرور !</string>
     <string name="registerTextNOAcc">"لا أمتلك حساب "</string>
     <string name="registerNow">تسجيل حساب جديد الان</string>
     <string name="txt_or">او</string>
+    <string name="txt_message">الرسالة</string>
+    <string name="txt_hint">أدخل نص الرسالة هنا</string>
     <string name="custom_dialog">يرجي الانتظار</string>
     <string name="login_success">تم التسجيل بنجاح</string>
+    <string name="reviewAdded">تم اضافة التقيم بنجاح</string>
+    <string name="offline">غير متوفر حتى</string>
+    <string name="update">تعديل</string>
     <string name="noInternet">لا يوجد لديك اتصال بالانترنت</string>
     <string name="updatedSuccessfully">تم تعديل البيانات الشخصية بنجاح</string>
     <string name="reqSuccess">تم ارسال الطلب بنجاح</string>
-
+    <string name="change_ava">تغيير التوفر</string>
     <string name="inValidData">يرجى ادخال بيانات صحيحة</string>
     <string name="bio">السيرة شخصية</string>
     <string name="regAs">تسجيل حساب كـ</string>
     <string name="teTutor">مدرس</string>
+    <string name="noReviews">لا يوجد تعليقات على هذا المدرس</string>
     <string name="teStudent">طالب</string>
     <string name="tuAbout">عن المعلم</string>
     <string name="tuReviews">التقيمات</string>
     <string name="teName">الاسم</string>
+    <string name="reMessages">الرسائل</string>
+    <string name="reCalls">المكالمات</string>
     <string name="Experience">الخبرة</string>
     <string name="example1"></string>
+    <string name="reCall">مكالمة</string>
     <string name="Education">المراحل التعليمية</string>
     <string name="example2"></string>
     <string name="teLocation">الموقع</string>
@@ -70,7 +82,7 @@
     <string name="contact">للتواصل</string>
     <string name="v">اصدار 1.0</string>
     <string name="aboutDetails">Wabell هو تطبيق الخدمة التي تربط الناس مع الناس. استخدامك المعرفة والخبرة والوقت لخدمة السكان في مدينتك. عندما تسجل على درجة الماجستير، Wabell تمكن العملاء للاتصال معكم لتوفير خدمة متخصصة الخاص بك .‌ ‌ ‌ الانضمام الفريق ‌ و ‌ المرور ‌ كلمة… .‌ ‌</string>
-
+    <string name="saved">تم الحفظ</string>
     <string name="aboutUs">عن التطبيق</string>
     <string name="logout">تسجيل خروج</string>
     <string name="error">يرجي المحاولة مرة اخرى</string>
@@ -81,8 +93,11 @@
     <string name="certificate">الشهادات وتعريف الشخصية</string>
     <string name="id">رفع التعريف الشخصي</string>
     <string name="home">الرئيسية</string>
+    <string name="searchTitle">نتائج البحث</string>
     <string name="validPhone">يرجى ادخال رقم هاتف صحيح</string>
     <string name="sub">الاشتراك</string>
+    <string name="showing">إظهار</string>
+    <string name="resultFor">نتائج لـ</string>
     <string name="about">عن التطبيق</string>
     <string name="share">نشر التطبيق</string>
     <string name="lang">اللغة</string>
@@ -94,15 +109,15 @@
 
     <string name="save">حفظ</string>
 
-
+    <string name="viewCer">إظهار الكل</string>
     <string name="edit">تعديل</string>
     <string name="reset">اخلاء الخانات</string>
-
+    <string name="Availability">اوقات العمل</string>
     <string name="personal">المعلومات الشخصية</string>
     <string name="spec">التخصص</string>
     <string name="certifi">الشهادات</string>
     <string name="workPre">أولوليات العمل</string>
-
+    <string name="bios">سيرة شخصية</string>
     <string name="more">المزيد</string>
     <string name="block">أنت محظور</string>
     <string name="similar">المدرسين المتشابهين</string>
@@ -118,6 +133,7 @@
     <string name="certificates">رفع الشهادات وصور تعريف الشخصية</string>
     <string name="info">الحد الأقصى لحجم الصورة هو 5 ميجا بايت الملفات المسموح بها هى : png , jpg</string>
     <string name="empty">يرجي استكمال الخانات الفارغة</string>
+    <string name="RateEmpty">يرجى ادخال التقيم</string>
     <string name="fiTitle">شكرا لتسجيلك فى تطبيق Wabell</string>
     <string name="firestDe">تم ارسال بياناتك بنجاح , بياناتك تحت المراجعة من قبل احد المديرين , سوف يتواصل معك احد المديرين عن قريب</string>
     <string name="done">حسنا</string>

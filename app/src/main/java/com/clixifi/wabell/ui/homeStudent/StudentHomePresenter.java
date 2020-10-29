@@ -9,6 +9,7 @@ import com.clixifi.wabell.utils.StaticMethods;
 import com.clixifi.wabell.utils.network.ConnectionListener;
 import com.clixifi.wabell.utils.network.ConnectionResponse;
 import com.clixifi.wabell.utils.network.MainApi;
+import com.clixifi.wabell.utils.network.MainApiBody;
 
 import okhttp3.RequestBody;
 
@@ -80,6 +81,32 @@ public class StudentHomePresenter {
     }
 
     public void getTutorList(Context context , RequestBody body){
+        boolean net = StaticMethods.isConnectingToInternet(context);
+        if (!net) {
+            studentHomeInterface.onConnection(true);
+        }else {
+            if(StaticMethods.userRegisterResponse != null){
+                token = "Bearer "+ StaticMethods.userRegisterResponse.Data.getToken();
+            }else {
+                token = "Bearer "+ StaticMethods.userData.getToken();
+            }
 
+            MainApi.getTutorList(token , body, new ConnectionListener<TutorListArray>() {
+                @Override
+                public void onSuccess(ConnectionResponse<TutorListArray> connectionResponse) {
+                    if(connectionResponse.data != null){
+                        studentHomeInterface.onFilter(connectionResponse.data);
+                    }else {
+                        studentHomeInterface.onFailFeatured(true);
+                    }
+                }
+
+                @Override
+                public void onFail(Throwable throwable) {
+                    studentHomeInterface.onFailFeatured(true);
+                    Log.e(TAG, "onFail: "+throwable.toString() );
+                }
+            });
+        }
     }
 }

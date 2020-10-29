@@ -17,7 +17,8 @@ public class TutorItem {
     public boolean IsPending;
     @SerializedName("Biography")
     public String  Biography;
-
+    @SerializedName("Id")
+    public String  Id;
 
     @SerializedName("HourPrice")
     public double HourPrice;
@@ -36,6 +37,13 @@ public class TutorItem {
     @SerializedName("Rank")
     public int  Rank;
 
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
 
     public ArrayList<String> getEngTopics() {
         return EngTopics;

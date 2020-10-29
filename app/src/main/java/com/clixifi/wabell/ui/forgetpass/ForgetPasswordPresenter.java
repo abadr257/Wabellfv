@@ -28,7 +28,6 @@ public class ForgetPasswordPresenter {
                 public void onSuccess(ConnectionResponse<UserId> connectionResponse) {
                     if (connectionResponse.data != null) {
                         forget.onSuccess(connectionResponse.data);
-
                     } else {
                         forget.onFails(true);
                     }

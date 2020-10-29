@@ -110,6 +110,15 @@ public class RegisterStudent extends Fragment implements DialogUtilResponse, Tut
     public void onArea(ArrayList<AreasItem> areasItems) {
         areasList = new ArrayList<>();
         areasList = areasItems;
+        if (areasList != null) {
+            ArrayList<String> areasName = new ArrayList<>();
+            ArrayList<Integer> areasId = new ArrayList<>();
+            for (AreasItem item : areasList) {
+                areasName.add(item.getName());
+                areasId.add(item.getId());
+            }
+            dialogUtil.showSingleChooiceArrayList(getActivity(), R.string.city, R.string.ok, areasName, "area", areasId);
+        }
     }
 
     @Override
@@ -121,7 +130,6 @@ public class RegisterStudent extends Fragment implements DialogUtilResponse, Tut
     public void selectedValueSingleChoice(int position, String arrayType) {
         if (arrayType.equals("city")) {
             locationId = citiesList.get(position).getId();
-            tutorPresenter.getAres(getActivity(), locationId);
             binding.edCity.setText(citiesList.get(position).getName());
         } else if (arrayType.equals("area")) {
             locationId = areasList.get(position).getId();
@@ -213,15 +221,12 @@ public class RegisterStudent extends Fragment implements DialogUtilResponse, Tut
         }
 
         public void area(View v) {
-            if (areasList != null) {
-                ArrayList<String> areasName = new ArrayList<>();
-                ArrayList<Integer> areasId = new ArrayList<>();
-                for (AreasItem item : areasList) {
-                    areasName.add(item.getName());
-                    areasId.add(item.getId());
-                }
-                dialogUtil.showSingleChooiceArrayList(getActivity(), R.string.city, R.string.ok, areasName, "area", areasId);
+            if(!binding.edCity.getText().toString().isEmpty()){
+                tutorPresenter.getAres(getActivity(), locationId);
+            }else {
+                ToastUtil.showErrorToast(getActivity() , R.string.emptyCity);
             }
+
         }
     }
 }

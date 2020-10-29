@@ -1,26 +1,45 @@
 package com.clixifi.wabell.ui.profile;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.clixifi.wabell.R;
+import com.clixifi.wabell.data.MediaResponse;
 import com.clixifi.wabell.data.Response.User.UserProfile;
 import com.clixifi.wabell.data.Response.User.UserResponse;
 import com.clixifi.wabell.databinding.FragmentProfileScreenBinding;
+import com.clixifi.wabell.ui.Adapters.CertificatesAdapter;
 import com.clixifi.wabell.ui.main.MainScreen;
 import com.clixifi.wabell.utils.CustomDialog;
 import com.clixifi.wabell.utils.LocaleManager;
 import com.clixifi.wabell.utils.StaticMethods;
 import com.clixifi.wabell.utils.ToastUtil;
+
+import org.json.JSONArray;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
+import static com.clixifi.wabell.ui.tutorMedia.TutorMedia.getRealPathFromURI;
 
 
 public class ProfileScreen extends Fragment implements ProfileInteface {
@@ -30,6 +49,9 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
     ProfileHandler profile;
     CustomDialog dialog;
     ProfilePresenter presenter;
+    final int REQUEST_PICK_IMAGE_PROFILE = 1002;
+    ArrayList<File> profileImage;
+    CertificatesAdapter adapter ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,14 +113,21 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
         if (profile.DataProfile.getTopics() != null) {
             binding.edTopics.setText(profile.DataProfile.getTopics());
         }
-        if (profile.DataProfile.getAvailableDays() != null || profile.DataProfile.getAvailableTimes() != null ) {
-            binding.edWorkDetails.setText(profile.DataProfile.getAvailableDays()+"\n"+profile.DataProfile.getAvailableTimes());
+        if (profile.DataProfile.getAvailableDays() != null || profile.DataProfile.getAvailableTimes() != null) {
+            binding.edWorkDetails.setText(profile.DataProfile.getAvailableDays() + "\n" + profile.DataProfile.getAvailableTimes());
         }
-
+        if (profile.DataProfile.getProfilePicture() != null) {
+            StaticMethods.LoadImage(getActivity(), binding.userImg, profile.DataProfile.getProfilePicture(), null);
+        }
         binding.edEmail.setText(profile.DataProfile.getEmail());
         binding.edName.setText(profile.DataProfile.getName());
         binding.userName.setText(profile.DataProfile.getName());
         binding.edPhone.setText(profile.DataProfile.getPhoneNumber());
+        adapter = new CertificatesAdapter(getActivity() , null ,profile.DataProfile.getFiles());
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        binding.recCertificate.setLayoutManager(layoutManager);
+        binding.recCertificate.setAdapter(adapter);
         dialog.DismissDialog();
     }
 
@@ -193,6 +222,12 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
         }
     }
 
+    @Override
+    public void onUpdateProfile(MediaResponse media) {
+        dialog.DismissDialog();
+        StaticMethods.LoadImage(getActivity(), binding.userImg, media.getImgFilePaths().get(0), null);
+    }
+
     public class ProfileHandler {
         Context context;
 
@@ -201,7 +236,9 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
         }
 
         public void uploadImg(View v) {
-
+            Intent getIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            getIntent.setType("image/*");
+            startActivityForResult(getIntent, REQUEST_PICK_IMAGE_PROFILE);
         }
 
         public void onEditAll(View v) {
@@ -395,5 +432,46 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(LocaleManager.onAttach(context));
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+
+            if (requestCode == REQUEST_PICK_IMAGE_PROFILE) {
+                Uri uri = data.getData();
+                profileImage = new ArrayList<>();
+                Bitmap bitmap = null;
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
+                    //binding.userImg.setImageBitmap(bitmap);
+                    File f = new File(getRealPathFromURI(getActivity(), uri));
+                    profileImage.add(f);
+                    JSONArray ProfileImage = new JSONArray(profileImage);
+                    Log.e(TAG, "onActivityResult: " + ProfileImage.length());
+                    dialog.ShowDialog();
+                    if (StaticMethods.userRegisterResponse != null) {
+                        if (StaticMethods.userRegisterResponse.Data.getType().equals("tutor")) {
+                            presenter.uploadImageProfileTutor(getActivity(), profileImage);
+                        } else {
+                            presenter.uploadImageProfileStudent(getActivity(), profileImage);
+                        }
+                    } else if (StaticMethods.userData != null) {
+                        if (StaticMethods.userData.getUserType().equals("tutor")) {
+                            presenter.uploadImageProfileTutor(getActivity(), profileImage);
+                        } else {
+                            presenter.uploadImageProfileStudent(getActivity(), profileImage);
+                        }
+                    }
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        }
     }
 }

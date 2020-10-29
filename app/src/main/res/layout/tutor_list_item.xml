@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="10dp"
                 android:text="25 SAR/hr"
                 android:textColor="#279EFF" />
 
@@ -84,7 +84,7 @@
                 android:layout_below="@id/lin_name"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 android:text="25 years of teaching math in Saudi Arabia"
                 android:textColor="#7C79A6" />
 
@@ -92,7 +92,7 @@
                 android:id="@+id/lin_subjects"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/txt_disc"
+                android:layout_above="@+id/lin_counts"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:layoutDirection="locale"
@@ -143,6 +143,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="5dp"
+                android:id="@+id/lin_counts"
                 android:layout_marginBottom="8dp"
                 android:layoutDirection="locale">
 

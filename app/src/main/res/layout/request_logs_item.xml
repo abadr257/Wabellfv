@@ -5,10 +5,12 @@
     android:layout_height="wrap_content"
     app:cardBackgroundColor="#FFFFFF"
     android:layout_margin="8dp"
+    android:layoutDirection="locale"
     app:cardCornerRadius="15dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layoutDirection="locale"
         android:layout_height="wrap_content">
 
         <LinearLayout
@@ -21,10 +23,10 @@
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/tutor_img"
+                android:id="@+id/st_img"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/profile_inactive" />
+                android:src="@drawable/avatar" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -32,7 +34,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/txt_tutorName"
+                    android:id="@+id/txt_stName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -42,7 +44,7 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/txt_tutorLocation"
+                    android:id="@+id/txt_stBio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -65,13 +67,13 @@
             android:src="@drawable/calls_icon" />
 
         <TextView
-            android:id="@+id/txt_price"
+            android:id="@+id/txt_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/call"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="10dp"
-            android:text="25 SAR/hr"
+            android:text="11:59 pm"
             android:textColor="#7C79A6" />
         <LinearLayout
             android:layout_width="match_parent"
@@ -99,8 +101,9 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.8"
+                    android:id="@+id/lin_callOrMessage"
                     android:gravity="center">
 
                     <TextView
@@ -108,12 +111,15 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/call"
                         android:text="Call"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:id="@+id/txt_call"
                         android:textColor="#279EFF" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="1.4"
                     android:gravity="center">
                     <LinearLayout
                         android:layout_width="2dp"
@@ -122,14 +128,17 @@
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.8"
+                    android:id="@+id/lin_rateSt"
                     android:gravity="center">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Rate Student"
+                        android:text="@string/rateTxt"
                         android:textColor="#279EFF" />
                 </LinearLayout>
             </LinearLayout>

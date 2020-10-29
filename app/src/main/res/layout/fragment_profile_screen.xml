@@ -9,6 +9,7 @@
         <variable
             name="onEdit"
             type="java.lang.Boolean" />
+
         <variable
             name="onStudent"
             type="java.lang.Boolean" />
@@ -23,577 +24,613 @@
         android:layout_height="match_parent"
         android:background="@color/colorWhite"
         tools:context=".ui.profile.ProfileScreen">
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
+
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
+
                 <RelativeLayout
+                    android:id="@+id/rel_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:layoutDirection="locale"
                     android:layout_marginBottom="20dp"
-                    android:id="@+id/rel_toolbar"
-                    >
+                    android:layoutDirection="locale">
+
                     <ImageView
+                        android:id="@+id/back_icon"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:id="@+id/back_icon"
-                        android:visibility="gone"
                         android:layout_alignParentStart="true"
+                        android:layout_margin="15sp"
                         android:src="@drawable/arrow_back_24"
-                        android:layout_margin="15sp" />
+                        android:visibility="gone" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="@string/profile"
                         android:layout_margin="15sp"
+                        android:text="@string/profile"
                         android:textColor="@color/title"
-                        android:textStyle="bold"
                         android:textSize="16sp"
-                        />
+                        android:textStyle="bold" />
+
                     <TextView
+                        android:id="@+id/txt_EditAll"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="10dp"
-                        android:text="@string/edit"
                         android:onClick="@{handler::onEditAll}"
+                        android:text="@string/edit"
                         android:textColor="@color/colorAccent"
-                        android:id="@+id/txt_EditAll"
-                        android:textStyle="bold"
                         android:textSize="16sp"
-                        />
+                        android:textStyle="bold" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/rel_toolbar"
-                    android:layout_marginBottom="10dp"
-                    >
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="77dp"
-                        android:layout_height="77dp"
-                        android:layout_centerHorizontal="true"
-                        android:id="@+id/user_img"
-                        android:onClick="@{handler::uploadImg}"
-                        android:src="@drawable/profile_inactive"
-                        />
+                    android:layout_marginBottom="10dp">
+
+                    <RelativeLayout
+                        android:id="@+id/rel_img"
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/user_img"
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="10dp"
+                            android:src="@drawable/avatar" />
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:onClick="@{handler::uploadImg}"
+                            android:src="@drawable/add_circle"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentEnd="true"
+                            android:visibility="@{onEdit == true ? View.VISIBLE : View.GONE}"
+                            android:layout_centerHorizontal="true"
+                            />
+                    </RelativeLayout>
+
                     <TextView
+                        android:id="@+id/user_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/user_img"
+                        android:layout_below="@id/rel_img"
+                        android:text="UserName"
+                        android:textAlignment="center"
                         android:textColor="#2D4379"
                         android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:text="UserName"
-                        android:id="@+id/user_name"
-                        android:textAlignment="center"
-                        />
+                        android:textStyle="bold" />
+
                     <LinearLayout
+                        android:id="@+id/lin_txt"
                         android:layout_width="match_parent"
                         android:layout_height="38dp"
-                        android:background="#F5F8FF"
-                        android:layout_marginTop="20dp"
-                        android:id="@+id/lin_txt"
-                        android:layoutDirection="locale"
                         android:layout_below="@id/user_name"
-                        >
+                        android:layout_marginTop="20dp"
+                        android:background="#F5F8FF"
+                        android:layoutDirection="locale">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
                             android:text="@string/personal"
                             android:textColor="@color/title"
-                            android:layout_gravity="center_vertical"
-                            android:textStyle="bold"
                             android:textSize="16sp"
-                            />
+                            android:textStyle="bold" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:layout_below="@id/lin_txt"
-                        >
+                        android:orientation="vertical">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:orientation="horizontal"
+                            android:layout_marginTop="8dp"
                             android:background="#FFFFFF"
                             android:gravity="center"
                             android:layoutDirection="locale"
+                            android:orientation="horizontal"
                             android:paddingStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:weightSum="2"
                             android:paddingEnd="8dp"
-                            >
+                            android:weightSum="2">
+
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="0.5"
                                 android:text="@string/teName"
                                 android:textColor="#7C79A6"
-                                android:layout_marginStart="10dp"
-                                android:layout_weight="0.5"
-                                android:textSize="17sp"
-                                android:layout_gravity="center"
-                                />
+                                android:textSize="17sp" />
+
                             <EditText
-                                android:layout_weight="1.5"
+                                android:id="@+id/ed_name"
                                 android:layout_width="0dp"
                                 android:layout_height="50dp"
+                                android:layout_weight="1.5"
                                 android:backgroundTint="#FFFFFF"
-                                android:hint="@string/teName"
-                                android:gravity="start|center"
-                                android:paddingStart="5dp"
-                                android:textSize="15sp"
                                 android:focusable="false"
-                                android:id="@+id/ed_name"
-                                android:paddingEnd="5dp"
+                                android:gravity="start|center"
+                                android:hint="@string/teName"
                                 android:inputType="text"
-                                />
+                                android:paddingStart="5dp"
+                                android:paddingEnd="5dp"
+                                android:textSize="15sp" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:orientation="horizontal"
-                            android:weightSum="2"
                             android:background="#FFFFFF"
                             android:gravity="center"
                             android:layoutDirection="locale"
+                            android:orientation="horizontal"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
-                            >
+                            android:weightSum="2">
+
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="0.5"
                                 android:text="@string/tePhoneNum"
                                 android:textColor="#7C79A6"
-                                android:layout_weight="0.5"
-                                android:layout_marginStart="10dp"
-                                android:textSize="17sp"
-                                android:layout_gravity="center"
-                                />
+                                android:textSize="17sp" />
+
                             <EditText
-                                android:layout_weight="1.5"
+                                android:id="@+id/ed_phone"
                                 android:layout_width="0dp"
                                 android:layout_height="50dp"
+                                android:layout_weight="1.5"
                                 android:backgroundTint="#FFFFFF"
-                                android:hint="@string/tePhoneNum"
 
-                                android:gravity="start|center"
-                                android:paddingStart="5dp"
-                                android:textSize="15sp"
                                 android:focusable="false"
-                                android:paddingEnd="5dp"
-                                android:id="@+id/ed_phone"
+                                android:gravity="start|center"
+                                android:hint="@string/tePhoneNum"
                                 android:inputType="phone"
-                                />
+                                android:paddingStart="5dp"
+                                android:paddingEnd="5dp"
+                                android:textSize="15sp" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:orientation="horizontal"
                             android:background="#FFFFFF"
                             android:gravity="center"
-                            android:weightSum="2"
                             android:layoutDirection="locale"
+                            android:orientation="horizontal"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
-                            >
+                            android:weightSum="2">
+
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="0.5"
                                 android:text="@string/teEmail"
                                 android:textColor="#7C79A6"
-                                android:layout_weight="0.5"
-                                android:textSize="17sp"
-                                android:layout_marginStart="10dp"
-                                android:layout_gravity="center"
-                                />
+                                android:textSize="17sp" />
+
                             <EditText
-                                android:layout_weight="1.5"
+                                android:id="@+id/ed_email"
                                 android:layout_width="0dp"
                                 android:layout_height="50dp"
+                                android:layout_weight="1.5"
                                 android:backgroundTint="#FFFFFF"
-                                android:hint="@string/teEmail"
-                                android:gravity="start|center"
-                                android:paddingStart="5dp"
-                                android:textSize="15sp"
                                 android:focusable="false"
-                                android:paddingEnd="5dp"
-                                android:id="@+id/ed_email"
+                                android:gravity="start|center"
+                                android:hint="@string/teEmail"
                                 android:inputType="textEmailAddress"
-                                />
+                                android:paddingStart="5dp"
+                                android:paddingEnd="5dp"
+                                android:textSize="15sp" />
                         </LinearLayout>
+
                         <RelativeLayout
+                            android:id="@+id/lin2_txt"
                             android:layout_width="match_parent"
                             android:layout_height="38dp"
-                            android:background="#F5F8FF"
-                            android:layoutDirection="locale"
                             android:layout_marginTop="8dp"
-                            android:id="@+id/lin2_txt"
-                            >
+                            android:background="#F5F8FF"
+                            android:layoutDirection="locale">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="10dp"
                                 android:text="@string/spec"
-                                android:layout_centerVertical="true"
                                 android:textColor="@color/title"
-                                android:textStyle="bold"
                                 android:textSize="16sp"
-                                />
+                                android:textStyle="bold" />
+
                             <TextView
+                                android:id="@+id/txt_toTopics"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginEnd="10dp"
+                                android:onClick="@{handler::onEditTopics}"
                                 android:text="@string/edit"
                                 android:textColor="@color/colorAccent"
-                                android:onClick="@{handler::onEditTopics}"
-                                android:id="@+id/txt_toTopics"
-                                android:textStyle="bold"
-                                android:visibility="@{onEdit == true ? View.VISIBLE : View.GONE}"
                                 android:textSize="16sp"
-                                />
+                                android:textStyle="bold"
+                                android:visibility="@{onEdit == true ? View.VISIBLE : View.GONE}" />
                         </RelativeLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:orientation="horizontal"
                             android:background="#FFFFFF"
                             android:gravity="center"
                             android:layoutDirection="ltr"
+                            android:orientation="horizontal"
                             android:paddingStart="8dp"
-                            android:paddingEnd="8dp"
-                            >
+                            android:paddingEnd="8dp">
+
                             <EditText
+                                android:id="@+id/ed_topics"
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:backgroundTint="#FFFFFF"
-                                android:hint="@string/spec"
-                                android:gravity="start|center"
-                                android:paddingStart="5dp"
-                                android:textSize="15sp"
-                                android:id="@+id/ed_topics"
-                                android:paddingEnd="5dp"
                                 android:focusable="false"
+                                android:gravity="start|center"
+                                android:hint="@string/spec"
                                 android:inputType="text"
-                                />
+                                android:paddingStart="5dp"
+                                android:paddingEnd="5dp"
+                                android:textSize="15sp" />
                         </LinearLayout>
+
                         <RelativeLayout
+                            android:id="@+id/lin3_txt"
                             android:layout_width="match_parent"
                             android:layout_height="38dp"
-                            android:background="#F5F8FF"
                             android:layout_marginTop="8dp"
+                            android:background="#F5F8FF"
                             android:layoutDirection="locale"
-                            android:id="@+id/lin3_txt"
-                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}"
-                            >
+                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="10dp"
                                 android:text="@string/certifi"
                                 android:textColor="@color/title"
-                                android:layout_centerVertical="true"
-                                android:textStyle="bold"
                                 android:textSize="16sp"
-                                />
+                                android:textStyle="bold" />
+
                             <TextView
+                                android:id="@+id/txt_toMedia"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginEnd="10dp"
+                                android:onClick="@{handler::onEditMedia}"
                                 android:text="@string/edit"
                                 android:textColor="@color/colorAccent"
-                                android:textStyle="bold"
-                                android:onClick="@{handler::onEditMedia}"
-                                android:visibility="@{onEdit == true ? View.VISIBLE : View.GONE}"
-                                android:id="@+id/txt_toMedia"
                                 android:textSize="16sp"
-                                />
+                                android:textStyle="bold"
+                                android:visibility="@{onEdit == true ? View.VISIBLE : View.GONE}" />
                         </RelativeLayout>
-                        <RelativeLayout
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/recMedia"
-                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}"
+                            android:orientation="horizontal"
+                            android:background="#FFFFFF"
+                            android:gravity="center"
+                            android:layoutDirection="ltr"
+                            android:paddingStart="8dp"
+                            android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            />
+                            android:paddingEnd="8dp"
+                            >
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/recCertificate"
+                                android:layout_marginTop="10dp"
+                                />
+                        </LinearLayout>
                         <RelativeLayout
+                            android:id="@+id/recMedia"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}" />
+
+                        <RelativeLayout
+                            android:id="@+id/lin4_txt"
                             android:layout_width="match_parent"
                             android:layout_height="38dp"
+                            android:layout_marginTop="8dp"
                             android:background="#F5F8FF"
                             android:layoutDirection="locale"
-                            android:layout_marginTop="8dp"
-                            android:id="@+id/lin4_txt"
-                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}"
-                            >
+                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="10dp"
                                 android:text="@string/workPre"
                                 android:textColor="@color/title"
-                                android:layout_centerVertical="true"
-                                android:textStyle="bold"
                                 android:textSize="16sp"
-                                />
+                                android:textStyle="bold" />
+
                             <TextView
+                                android:id="@+id/ed_toWorksH"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginEnd="10dp"
+                                android:onClick="@{handler::onEditWork}"
                                 android:text="@string/edit"
                                 android:textColor="@color/colorAccent"
-                                android:id="@+id/ed_toWorksH"
-                                android:onClick="@{handler::onEditWork}"
-                                android:textStyle="bold"
-                                android:visibility="@{onEdit == true ? View.VISIBLE : View.GONE}"
                                 android:textSize="16sp"
-                                />
+                                android:textStyle="bold"
+                                android:visibility="@{onEdit == true ? View.VISIBLE : View.GONE}" />
                         </RelativeLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="80dp"
-                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
                             android:background="#FFFFFF"
                             android:gravity="center"
                             android:layoutDirection="ltr"
+                            android:orientation="horizontal"
                             android:paddingStart="8dp"
-                            android:layout_marginTop="10dp"
-                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}"
-                            android:layout_marginBottom="10dp"
                             android:paddingEnd="8dp"
-                            >
+                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}">
+
                             <EditText
+                                android:id="@+id/ed_workDetails"
                                 android:layout_width="match_parent"
                                 android:layout_height="80dp"
                                 android:backgroundTint="#FFFFFF"
-                                android:gravity="start|center"
-                                android:paddingStart="5dp"
-                                android:textSize="15sp"
-                                android:id="@+id/ed_workDetails"
-                                android:paddingEnd="5dp"
                                 android:focusable="false"
+                                android:gravity="start|center"
                                 android:inputType="textMultiLine"
-                                />
+                                android:paddingStart="5dp"
+                                android:paddingEnd="5dp"
+                                android:textSize="15sp" />
                         </LinearLayout>
+
                         <LinearLayout
+                            android:id="@+id/lin5_txt"
                             android:layout_width="match_parent"
                             android:layout_height="38dp"
-                            android:background="#F5F8FF"
                             android:layout_marginTop="8dp"
-                            android:id="@+id/lin5_txt"
+                            android:background="#F5F8FF"
                             android:layoutDirection="locale"
-                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}"
-                            >
+                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="10dp"
                                 android:text="@string/Education"
                                 android:textColor="@color/title"
-                                android:layout_gravity="center_vertical"
-                                android:textStyle="bold"
                                 android:textSize="16sp"
-                                />
+                                android:textStyle="bold" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="80dp"
-                            android:orientation="horizontal"
-                            android:background="#FFFFFF"
-                            android:gravity="center"
-                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}"
-                            android:layoutDirection="ltr"
-                            android:paddingStart="8dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
+                            android:background="#FFFFFF"
+                            android:gravity="center"
+                            android:layoutDirection="ltr"
+                            android:orientation="horizontal"
+                            android:paddingStart="8dp"
                             android:paddingEnd="8dp"
-                            >
+                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}">
+
                             <EditText
+                                android:id="@+id/ed_edu"
                                 android:layout_width="match_parent"
                                 android:layout_height="80dp"
                                 android:backgroundTint="#FFFFFF"
-                                android:gravity="start|center"
-                                android:paddingStart="5dp"
-                                android:textSize="15sp"
-                                android:id="@+id/ed_edu"
                                 android:focusable="false"
-                                android:paddingEnd="5dp"
+                                android:gravity="start|center"
                                 android:inputType="textMultiLine"
-                                />
+                                android:paddingStart="5dp"
+                                android:paddingEnd="5dp"
+                                android:textSize="15sp" />
                         </LinearLayout>
+
                         <LinearLayout
+                            android:id="@+id/lin6_txt"
                             android:layout_width="match_parent"
                             android:layout_height="38dp"
-                            android:background="#F5F8FF"
                             android:layout_marginTop="8dp"
+                            android:background="#F5F8FF"
                             android:layoutDirection="locale"
-                            android:id="@+id/lin6_txt"
-                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}"
-                            >
+                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="10dp"
                                 android:text="@string/Experience"
                                 android:textColor="@color/title"
-                                android:layout_gravity="center_vertical"
-                                android:textStyle="bold"
                                 android:textSize="16sp"
-                                />
+                                android:textStyle="bold" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="80dp"
-                            android:orientation="horizontal"
-                            android:background="#FFFFFF"
-                            android:gravity="center"
-                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}"
-                            android:layoutDirection="ltr"
-                            android:paddingStart="8dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
+                            android:background="#FFFFFF"
+                            android:gravity="center"
+                            android:layoutDirection="ltr"
+                            android:orientation="horizontal"
+                            android:paddingStart="8dp"
                             android:paddingEnd="8dp"
-                            >
+                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}">
+
                             <EditText
+                                android:id="@+id/ed_exp"
                                 android:layout_width="match_parent"
                                 android:layout_height="80dp"
                                 android:backgroundTint="#FFFFFF"
-                                android:gravity="start|center"
-                                android:paddingStart="5dp"
-                                android:textSize="15sp"
                                 android:focusable="false"
-                                android:id="@+id/ed_exp"
-                                android:paddingEnd="5dp"
+                                android:gravity="start|center"
                                 android:inputType="textMultiLine"
-                                />
+                                android:paddingStart="5dp"
+                                android:paddingEnd="5dp"
+                                android:textSize="15sp" />
                         </LinearLayout>
+
                         <RelativeLayout
+                            android:id="@+id/lin7_txt"
                             android:layout_width="match_parent"
                             android:layout_height="38dp"
-                            android:background="#F5F8FF"
                             android:layout_marginTop="8dp"
-                            android:id="@+id/lin7_txt"
+                            android:background="#F5F8FF"
                             android:layoutDirection="locale"
-                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}"
-                            >
+                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="10dp"
                                 android:text="@string/tagLin"
-                                android:layout_centerVertical="true"
                                 android:textColor="@color/title"
-                                android:textStyle="bold"
                                 android:textSize="16sp"
-                                />
+                                android:textStyle="bold" />
                         </RelativeLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:orientation="horizontal"
                             android:background="#FFFFFF"
                             android:gravity="center"
                             android:layoutDirection="ltr"
+                            android:orientation="horizontal"
                             android:paddingStart="8dp"
-                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}"
                             android:paddingEnd="8dp"
-                            >
+                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}">
+
                             <EditText
+                                android:id="@+id/ed_tagLine"
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:backgroundTint="#FFFFFF"
-                                android:gravity="start|center"
-                                android:paddingStart="5dp"
-                                android:textSize="15sp"
                                 android:focusable="false"
-                                android:paddingEnd="5dp"
-                                android:id="@+id/ed_tagLine"
+                                android:gravity="start|center"
                                 android:inputType="text"
-                                />
+                                android:paddingStart="5dp"
+                                android:paddingEnd="5dp"
+                                android:textSize="15sp" />
                         </LinearLayout>
+
                         <LinearLayout
+                            android:id="@+id/lin8_txt"
                             android:layout_width="match_parent"
                             android:layout_height="38dp"
+                            android:layout_marginTop="8dp"
                             android:background="#F5F8FF"
                             android:layoutDirection="locale"
-                            android:layout_marginTop="8dp"
-                            android:id="@+id/lin8_txt"
-                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}"
-                            >
+                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="10dp"
                                 android:text="@string/Biography"
                                 android:textColor="@color/title"
-                                android:layout_gravity="center_vertical"
-                                android:textStyle="bold"
                                 android:textSize="16sp"
-                                />
+                                android:textStyle="bold" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="80dp"
-                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
                             android:background="#FFFFFF"
                             android:gravity="center"
                             android:layoutDirection="ltr"
+                            android:orientation="horizontal"
                             android:paddingStart="8dp"
-                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
                             android:paddingEnd="8dp"
-                            >
+                            android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}">
+
                             <EditText
+                                android:id="@+id/ed_biography"
                                 android:layout_width="match_parent"
                                 android:layout_height="80dp"
                                 android:backgroundTint="#FFFFFF"
                                 android:focusable="false"
                                 android:gravity="start|center"
-                                android:paddingStart="5dp"
-                                android:textSize="15sp"
-                                android:paddingEnd="5dp"
-                                android:id="@+id/ed_biography"
                                 android:inputType="textMultiLine"
-                                />
+                                android:paddingStart="5dp"
+                                android:paddingEnd="5dp"
+                                android:textSize="15sp" />
                         </LinearLayout>
+
                         <Button
+                            android:id="@+id/btn_save"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:background="@drawable/blue_btn_style"
                             android:layout_marginStart="15dp"
-                            android:layout_marginEnd="15dp"
                             android:layout_marginTop="20dp"
-                            android:text="@string/save"
-                            android:onClick="@{handler::onSaveEdit}"
-                            android:id="@+id/btn_save"
-                            android:visibility="@{onEdit == true ? View.VISIBLE : View.GONE}"
+                            android:layout_marginEnd="15dp"
                             android:layout_marginBottom="10dp"
+                            android:background="@drawable/blue_btn_style"
+                            android:onClick="@{handler::onSaveEdit}"
+                            android:text="@string/save"
                             android:textColor="@color/colorWhite"
-                            />
+                            android:visibility="@{onEdit == true ? View.VISIBLE : View.GONE}" />
                     </LinearLayout>
 
                 </RelativeLayout>

@@ -43,7 +43,7 @@ public class TutorWorkPresenter {
                 }else {
                     id = StaticMethods.userData.getUserId();
                 }
-                body = MainApiBody.tutorWorkDetailsBody(price ,DayIds,TimeIds);
+                body = MainApiBody.tutorWorkDetailsBody(price ,DayIds,TimeIds,id);
             }catch (Exception e){
 
             }

@@ -18,6 +18,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_margin="10dp"
+                android:id="@+id/close"
                 android:src="@drawable/close_reviews"
                 />
             <de.hdodenhof.circleimageview.CircleImageView
@@ -65,7 +66,7 @@
                 android:layout_marginBottom="10dp"
                 />
             <EditText
-                android:id="@+id/ed_reviews"
+                android:id="@+id/ed_review"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginTop="8dp"
@@ -83,10 +84,10 @@
                 android:paddingEnd="8dp"
                 android:textSize="15sp" />
             <Button
-                android:id="@+id/btn_next"
+                android:id="@+id/btn_submit"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@id/ed_reviews"
+                android:layout_below="@id/ed_review"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"

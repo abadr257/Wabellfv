@@ -11,6 +11,7 @@ import android.view.View;
 import com.clixifi.wabell.R;
 import com.clixifi.wabell.databinding.ActivitySecSplashBinding;
 import com.clixifi.wabell.ui.login.LoginScreen;
+import com.clixifi.wabell.ui.main.MainScreen;
 import com.clixifi.wabell.utils.IntentUtilies;
 import com.clixifi.wabell.utils.StaticMethods;
 
@@ -38,6 +39,7 @@ public class SecSplash extends AppCompatActivity {
         public void onNext(View view) {
             if (StaticMethods.userRegisterResponse != null) {
                 if (StaticMethods.userRegisterResponse.Data.getType().equals("tutor")) {
+                    StaticMethods.ClearChash();
                     IntentUtilies.openActivity(SecSplash.this , LoginScreen.class);
                     finish();
                 }

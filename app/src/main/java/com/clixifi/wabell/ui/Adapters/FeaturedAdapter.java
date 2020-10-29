@@ -1,6 +1,7 @@
 package com.clixifi.wabell.ui.Adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.clixifi.wabell.R;
 import com.clixifi.wabell.data.Response.featuredTutors.FeaturedArray;
+import com.clixifi.wabell.ui.tutorProfileforStudent.TutorProfileView;
+import com.clixifi.wabell.utils.IntentUtilies;
 import com.clixifi.wabell.utils.LocaleManager;
+import com.clixifi.wabell.utils.StaticMethods;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.content.ContentValues.TAG;
+import static com.clixifi.wabell.utils.StaticMethods.tutorId;
 
 public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.MyViewHolder> {
     Context context ;
@@ -38,7 +43,8 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.MyView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FeaturedAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FeaturedAdapter.MyViewHolder holder, final int position) {
+        StaticMethods.LoadImage(context , holder.img,list.getItems().get(position).getProfilePicture() ,null);
         holder.name.setText(list.getItems().get(position).getName());
         holder.rate.setRating(list.getItems().get(position).getRank());
         holder.numOfRate.setText(list.getItems().get(position).getRankCount()+"");
@@ -106,6 +112,15 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.MyView
                 holder.sub3.setVisibility(View.GONE);
             }
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bun = new Bundle( );
+                bun.putString("ID" ,list.getItems().get(position).getId() );
+                tutorId = list.getItems().get(position).getId();
+                IntentUtilies.openActivityWithBundle(context, TutorProfileView.class , bun);
+            }
+        });
     }
 
     @Override

@@ -12,10 +12,10 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="fitCenter"
-            android:layout_margin="10dp"
+            android:layout_marginBottom="10dp"
             android:src="@drawable/welcome_three" />
 
         <TextView
@@ -25,10 +25,10 @@
             android:textAlignment="center"
             android:textColor="#000"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="20sp"
             />
         <TextView
-            android:textSize="14sp"
+            android:textSize="22sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/wede3"

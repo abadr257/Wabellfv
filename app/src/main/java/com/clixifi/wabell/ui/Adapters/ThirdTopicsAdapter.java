@@ -104,19 +104,21 @@ public class ThirdTopicsAdapter extends RecyclerView.Adapter<ThirdTopicsAdapter.
 
     private void cancleThis(int id) {
         if (StaticMethods.isConnectingToInternet(context)) {
+
+            String token,userid;
+            if (StaticMethods.userRegisterResponse != null) {
+                token = "Bearer " + StaticMethods.userRegisterResponse.Data.getToken();
+                userid = StaticMethods.userRegisterResponse.Data.getUserId();
+            } else {
+                token = "Bearer " + StaticMethods.userData.getToken();
+                userid = StaticMethods.userData.getUserId();
+            }
             RequestBody body = null;
             try {
-                body = MainApiBody.cancelTopicBody(id);
+                body = MainApiBody.cancelTopicBody(id,userid);
             } catch (Exception e) {
 
             }
-            String token;
-            if (StaticMethods.userRegisterResponse != null) {
-                token = "Bearer " + StaticMethods.userRegisterResponse.Data.getToken();
-            } else {
-                token = "Bearer " + StaticMethods.userData.getToken();
-            }
-
             MainApi.cancelTopic(token, body, new ConnectionListener<ResultBoolean>() {
                 @Override
                 public void onSuccess(ConnectionResponse<ResultBoolean> connectionResponse) {
@@ -243,15 +245,17 @@ public class ThirdTopicsAdapter extends RecyclerView.Adapter<ThirdTopicsAdapter.
 
     private void addUserTopic(int integer) {
         if (StaticMethods.isConnectingToInternet(context)) {
-            String token;
+            String token , id;
             if (StaticMethods.userRegisterResponse != null) {
                 token = "Bearer " + StaticMethods.userRegisterResponse.Data.getToken();
+                id = StaticMethods.userRegisterResponse.Data.getUserId();
             } else {
                 token = "Bearer " + StaticMethods.userData.getToken();
+                id = StaticMethods.userData.getUserId();
             }
             RequestBody body = null;
             try {
-                body = MainApiBody.addTopics(integer);
+                body = MainApiBody.addTopics(integer , id);
             } catch (Exception e) {
 
             }

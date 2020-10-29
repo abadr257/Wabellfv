@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.clixifi.wabell.data.Response.RequestLogs.RequestLogsArray;
+import com.clixifi.wabell.data.Response.ResultBoolean;
 import com.clixifi.wabell.data.Response.User.UserId;
 import com.clixifi.wabell.data.Response.UserTutorCounters;
 import com.clixifi.wabell.utils.StaticMethods;
@@ -57,6 +58,30 @@ public class HomeTutorPresenter {
                         counters.onRequestLogs(connectionResponse.data);
                     } else {
                         counters.onRequestFail(true);
+                    }
+                }
+
+                @Override
+                public void onFail(Throwable throwable) {
+                    counters.onRequestFail(true);
+                    Log.e(TAG, "onFail: "+throwable.toString() );
+                }
+            });
+        }
+    }
+    public void updateAva(Context context , boolean isOnline , String date){
+        boolean network = StaticMethods.isConnectingToInternet(context);
+        if (!network) {
+            counters.onNoConnection(true);
+        }  else {
+            String token = "Bearer "+StaticMethods.userData.getToken();
+            MainApi.setIfOffline(token , isOnline, date , new ConnectionListener<ResultBoolean>() {
+                @Override
+                public void onSuccess(ConnectionResponse<ResultBoolean> connectionResponse) {
+                    if (connectionResponse.data != null) {
+                        counters.onUpdate(connectionResponse.data);
+                    } else {
+                        counters.onFail(true);
                     }
                 }
 

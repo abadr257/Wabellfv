@@ -2,6 +2,8 @@ package com.clixifi.wabell.data.Response.User;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class UserProfile {
     @SerializedName("Experience")
     public String Experience ;
@@ -37,6 +39,17 @@ public class UserProfile {
     public String Address ;
     @SerializedName("TopicsText")
     public String Topics ;
+
+    @SerializedName("Files")
+    public ArrayList<String> Files;
+
+    public ArrayList<String> getFiles() {
+        return Files;
+    }
+
+    public void setFiles(ArrayList<String> files) {
+        Files = files;
+    }
 
     public String getExperience() {
         return Experience;

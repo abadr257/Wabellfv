@@ -43,6 +43,7 @@ public class FavMastersAdapter extends RecyclerView.Adapter<FavMastersAdapter.My
         if(fav.getFavMasters().get(position).getTutorImage() != null){
             StaticMethods.LoadImage(context , holder.img,fav.getFavMasters().get(position).getTutorImage() ,null);
         }
+
         if(fav.getFavMasters().get(position).getTutorName() != null){
             holder.name.setText(fav.getFavMasters().get(position).getTutorName());
         }
@@ -50,48 +51,78 @@ public class FavMastersAdapter extends RecyclerView.Adapter<FavMastersAdapter.My
         holder.disc.setText(fav.getFavMasters().get(position).getTutorBiography());
         holder.rate.setRating(fav.getFavMasters().get(position).getRank());
         if(LocaleManager.getLanguage(context).equals("en")){
-            holder.sub1.setText(fav.getFavMasters().get(position).getEngTopics().get(0));
-            if(fav.getFavMasters().get(position).getEngTopics().get(1) != null){
-                holder.sub2.setText(fav.getFavMasters().get(position).getEngTopics().get(1));
-            }else {
-                holder.sub2.setVisibility(View.GONE);
-            }
-
-            if(fav.getFavMasters().get(position).getEngTopics().get(2) != null){
-                int size = fav.getFavMasters().get(position).getEngTopics().size();
-                if(size >= 3){
-                    holder.sub3.setText("+"+(size - 2));
-                }else {
-                    if(size == 1){
-                        holder.sub3.setVisibility(View.GONE);
+            holder.numOfRates.setText(fav.getFavMasters().get(position).getRankCount()+"");
+            holder.numofViews.setText(fav.getFavMasters().get(position).getViewsCount()+"Views");
+            if(fav.getFavMasters() != null){
+                if(fav.getFavMasters().get(position).getEngTopics().size() != 0){
+                    holder.sub1.setText(fav.getFavMasters().get(position).getEngTopics().get(0));
+                    if(fav.getFavMasters().get(position).getArTopics().size() > 1 ){
+                        if(fav.getFavMasters().get(position).getEngTopics().get(1) != null){
+                            holder.sub2.setText(fav.getFavMasters().get(position).getEngTopics().get(1));
+                        }else {
+                            holder.sub2.setVisibility(View.GONE);
+                        }
                     }
+
+                    if(fav.getFavMasters().get(position).getArTopics().size() > 2){
+                        if(fav.getFavMasters().get(position).getEngTopics().get(2) != null){
+                            int size = fav.getFavMasters().get(position).getEngTopics().size();
+                            if(size >= 3){
+                                holder.sub3.setText("+"+(size - 2));
+                            }else {
+                                if(size == 1){
+                                    holder.sub3.setVisibility(View.GONE);
+                                }
+                            }
+
+                        }else {
+                            holder.sub2.setVisibility(View.GONE);
+                        }
+                    }
+                }else {
+                    holder.sub1.setVisibility(View.GONE);
+                    holder.sub3.setVisibility(View.GONE);
+                    holder.sub2.setVisibility(View.GONE);
                 }
 
-            }else {
-                holder.sub2.setVisibility(View.GONE);
             }
+
 
         }else {
-            Log.e(TAG, "onBindViewHolder: "+fav.getFavMasters().get(position).getArTopics() );
-            holder.sub1.setText(fav.getFavMasters().get(position).getArTopics().get(0));
-            if(fav.getFavMasters().get(position).getArTopics().get(1) != null){
-                holder.sub2.setText(fav.getFavMasters().get(position).getArTopics().get(1));
-            }else {
-                holder.sub2.setVisibility(View.GONE);
-            }
-
-            if(fav.getFavMasters().get(position).getArTopics().get(2) != null){
-                int size = fav.getFavMasters().get(position).getArTopics().size();
-                if(size >= 3){
-                    holder.sub3.setText("+"+(size - 2));
-                }else {
-                    if(size == 1){
-                        holder.sub3.setVisibility(View.GONE);
+            holder.numofViews.setText(fav.getFavMasters().get(position).getViewsCount()+"مشاهدة");
+            if(fav.getFavMasters() != null){
+                if(fav.getFavMasters().get(position).getArTopics().size() != 0){
+                    holder.sub1.setText(fav.getFavMasters().get(position).getArTopics().get(0));
+                    if(fav.getFavMasters().get(position).getArTopics().size() > 1 ){
+                        if(fav.getFavMasters().get(position).getArTopics().get(1) != null){
+                            holder.sub2.setText(fav.getFavMasters().get(position).getArTopics().get(1));
+                        }else {
+                            holder.sub2.setVisibility(View.GONE);
+                        }
                     }
+
+                    if(fav.getFavMasters().get(position).getArTopics().size() > 2){
+                        if(fav.getFavMasters().get(position).getArTopics().get(2) != null){
+                            int size = fav.getFavMasters().get(position).getArTopics().size();
+                            if(size >= 3){
+                                holder.sub3.setText("+"+(size - 2));
+                            }else {
+                                if(size == 1){
+                                    holder.sub3.setVisibility(View.GONE);
+                                }
+                            }
+
+                        }else {
+                            holder.sub2.setVisibility(View.GONE);
+                        }
+                    }
+                }else {
+                    holder.sub1.setVisibility(View.GONE);
+                    holder.sub3.setVisibility(View.GONE);
+                    holder.sub2.setVisibility(View.GONE);
                 }
 
-            }else {
-                holder.sub2.setVisibility(View.GONE);
+
             }
         }
 
@@ -122,8 +153,8 @@ public class FavMastersAdapter extends RecyclerView.Adapter<FavMastersAdapter.My
             sub1 = itemView.findViewById(R.id.txt_sub1 );
             sub2 = itemView.findViewById(R.id.txt_sub2 );
             sub3 = itemView.findViewById(R.id.txt_subMany );
-            numOfRates = itemView.findViewById(R.id.numOfViews );
-            numofViews = itemView.findViewById(R.id.txt_numOfRate );
+            numOfRates = itemView.findViewById(R.id.txt_numOfRate );
+            numofViews = itemView.findViewById(R.id.numOfViews );
             rate = itemView.findViewById(R.id.ratingBar );
         }
     }

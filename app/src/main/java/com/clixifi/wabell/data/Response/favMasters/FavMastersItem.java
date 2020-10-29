@@ -54,6 +54,28 @@ public class FavMastersItem {
     @SerializedName("Rank")
     public int Rank;
 
+    @SerializedName("ViewsCount")
+    public int ViewsCount;
+
+    @SerializedName("RankCount")
+    public int RankCount;
+
+    public int getRankCount() {
+        return RankCount;
+    }
+
+    public void setRankCount(int rankCount) {
+        RankCount = rankCount;
+    }
+
+    public int getViewsCount() {
+        return ViewsCount;
+    }
+
+    public void setViewsCount(int viewsCount) {
+        ViewsCount = viewsCount;
+    }
+
     public ArrayList<String> getEngTopics() {
         return EngTopics;
     }

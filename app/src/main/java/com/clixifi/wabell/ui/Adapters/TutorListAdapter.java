@@ -1,6 +1,7 @@
 package com.clixifi.wabell.ui.Adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.clixifi.wabell.R;
 import com.clixifi.wabell.data.Response.TutorList.TutorListArray;
+import com.clixifi.wabell.ui.tutorProfileforStudent.TutorProfileView;
+import com.clixifi.wabell.utils.IntentUtilies;
 import com.clixifi.wabell.utils.LocaleManager;
+import com.clixifi.wabell.utils.StaticMethods;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.content.ContentValues.TAG;
+import static com.clixifi.wabell.utils.StaticMethods.tutorId;
 
 public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.MyViewHolder> {
     Context context ;
@@ -38,13 +43,14 @@ public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.MyVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         holder.name.setText(array.getResult().get(position).getName());
         holder.rate.setRating(array.getResult().get(position).getRank());
         holder.numOfRate.setText(array.getResult().get(position).getRankCount()+"");
         holder.numOfViews.setText(array.getResult().get(position).getViewsCount()+"");
         holder.location.setText(array.getResult().get(position).getLocation());
         holder.bio.setText(array.getResult().get(position).getBiography());
+        StaticMethods.LoadImage(context , holder.img,array.getResult().get(position).getProfilePicture() ,null);
         if(LocaleManager.getLanguage(context).equals("en")){
             holder.price.setText(array.getResult().get(position).getHourPrice()+"SAR/hr");
             Log.e(TAG, "onBindViewHolder: "+"here" );
@@ -106,6 +112,16 @@ public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.MyVi
                 holder.sub3.setVisibility(View.GONE);
             }
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bun = new Bundle( );
+                bun.putString("ID" ,array.getResult().get(position).getId() );
+                tutorId = array.getResult().get(position).getId();
+                Log.e(TAG, "onClick: from adapter"+array.getResult().get(position).getViewsCount() );
+                IntentUtilies.openActivityWithBundle(context, TutorProfileView.class , bun);
+            }
+        });
     }
 
     @Override

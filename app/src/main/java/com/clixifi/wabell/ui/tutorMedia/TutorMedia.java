@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -20,11 +21,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.gifdecoder.GifHeaderParser;
 import com.clixifi.wabell.R;
+import com.clixifi.wabell.data.MediaResponse;
+import com.clixifi.wabell.data.Response.User.UserProfile;
+import com.clixifi.wabell.data.Response.User.UserResponse;
 import com.clixifi.wabell.databinding.FragmentTutorMediaBinding;
 import com.clixifi.wabell.ui.Adapters.UploadCertificateAdapter;
 import com.clixifi.wabell.ui.Adapters.onRemoveImage;
+import com.clixifi.wabell.ui.profile.ProfileInteface;
+import com.clixifi.wabell.ui.profile.ProfilePresenter;
 import com.clixifi.wabell.ui.tutorSteps.TutorSteps;
+import com.clixifi.wabell.utils.CustomDialog;
+import com.clixifi.wabell.utils.ToastUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -35,7 +44,7 @@ import java.util.ArrayList;
 import static android.content.ContentValues.TAG;
 
 
-public class TutorMedia extends Fragment implements onRemoveImage {
+public class TutorMedia extends Fragment implements onRemoveImage , ProfileInteface {
 
 
 
@@ -46,6 +55,9 @@ public class TutorMedia extends Fragment implements onRemoveImage {
     ArrayList<File> certificatePaths , IdsPaths ;
     final int REQUEST_PICK_IMAGE_CER = 1002 ,REQUEST_PICK_IMAGE_IDS = 1001 ;
     UploadCertificateAdapter adapter ;
+    ProfilePresenter profilePresenter ;
+    CustomDialog dialog ;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,6 +67,8 @@ public class TutorMedia extends Fragment implements onRemoveImage {
         handlers = new MyHandlers(getActivity());
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding.setHandler(handlers);
+        dialog = new CustomDialog(getActivity());
+        profilePresenter = new ProfilePresenter(this);
         initialArrayList();
         adapter = new UploadCertificateAdapter(getActivity() , certificate , this , certificatePaths );
         LinearLayoutManager layoutManager
@@ -82,6 +96,34 @@ public class TutorMedia extends Fragment implements onRemoveImage {
         this.certificatePaths = files;*/
     }
 
+    @Override
+    public void onSuccess(UserResponse<UserProfile> profile) {
+
+    }
+
+    @Override
+    public void onFail(boolean fail) {
+        dialog.DismissDialog();
+        ToastUtil.showErrorToast(getActivity() , R.string.error);
+    }
+
+    @Override
+    public void onConnection(boolean isConnected) {
+        dialog.DismissDialog();
+        ToastUtil.showErrorToast(getActivity() , R.string.noInternet);
+    }
+
+    @Override
+    public void onUpdate(boolean updated) {
+
+    }
+
+    @Override
+    public void onUpdateProfile(MediaResponse media) {
+        dialog.DismissDialog();
+        ((TutorSteps)getActivity()).step3();
+    }
+
     public class MyHandlers {
         Context context ;
 
@@ -89,7 +131,16 @@ public class TutorMedia extends Fragment implements onRemoveImage {
             this.context = context;
         }
         public void nextStep(View v){
-            ((TutorSteps)getActivity()).step3();
+            if(certificatePaths != null){
+                if(certificatePaths.size() > 0){
+                    dialog.ShowDialog();
+                    Log.e(TAG, "nextStep: "+certificatePaths.size() );
+                    profilePresenter.uploadImageProfileCertificates(getActivity() , certificatePaths);
+                }
+            }else {
+                ((TutorSteps)getActivity()).step3();
+            }
+
         }
         public void uploadCer(View v){
             Intent getIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -113,8 +164,6 @@ public class TutorMedia extends Fragment implements onRemoveImage {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
                     File f = new File(getRealPathFromURI(getActivity() , uri));
-                    //certificate.add(bitmap);
-                    certificatePaths.add(f);
                     certificatePaths = adapter.addToList(bitmap , uri);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -143,10 +192,6 @@ public class TutorMedia extends Fragment implements onRemoveImage {
         return cursor.getString(idx);
     }
 
-    public static Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
-    }
+
+
 }

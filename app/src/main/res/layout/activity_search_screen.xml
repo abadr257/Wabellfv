@@ -4,13 +4,123 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="handler"
+            type="com.clixifi.wabell.ui.search.SearchScreen.SearchHandler" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#F5F8FF"
         tools:context=".ui.search.SearchScreen">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="8dp"
+            android:layoutDirection="locale"
+            android:layout_marginTop="15dp"
+            android:id="@+id/rel_top"
+            android:layout_marginEnd="8dp">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/back_icon"
+                android:onClick="@{handler::back}"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/arrow_back_24"
+                 />
+            <TextView
+                android:id="@+id/home_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="@string/searchTitle"
+                android:textColor="@color/title"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:onClick="@{handler::onSearch}"
+                    android:layout_marginEnd="15dp"
+                    android:src="@drawable/search_24" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:id="@+id/filter"
+                    android:onClick="@{handler::onFilter}"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/filter" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/rel_top"
+            android:id="@+id/txt"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/showing"
+                android:layout_marginEnd="3dp"
+                android:textColor="#7C79A6"
+                android:textSize="20sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:id="@+id/array_list"
+                android:textColor="#7C79A6"
+                android:layout_marginEnd="3dp"
+                android:textSize="20sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/resultFor"
+                android:layout_marginEnd="3dp"
+                android:textColor="#7C79A6"
+                android:textSize="20sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/search_name"
+                android:textColor="#7C79A6"
+                android:textSize="20sp" />
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:id="@+id/recResult"
+            android:layout_below="@+id/txt"
+            />
+        <TextView
+            android:id="@+id/no_result_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="@string/no_result_found"
+            android:layout_centerInParent="true"
+            android:textColor="@color/title"
+            android:textSize="20sp" />
+    </RelativeLayout>
 </layout>

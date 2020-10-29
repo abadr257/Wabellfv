@@ -50,7 +50,7 @@
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/border_btn_blue"
                     android:hint="30"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:layoutDirection="ltr"
                     android:padding="8dp"
                     android:paddingStart="10dp"

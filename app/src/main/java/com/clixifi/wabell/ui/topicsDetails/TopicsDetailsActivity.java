@@ -112,6 +112,16 @@ public class TopicsDetailsActivity extends AppCompatActivity implements TopicsDe
     public void onNothing(boolean isNothing) {
         dialog.DismissDialog();
         isSummary = false ;
+        Bundle bundle = new Bundle();
+        if (StaticMethods.userRegisterResponse != null){
+            bundle.putString("type", StaticMethods.userRegisterResponse.Data.getType());
+        }else {
+            bundle.putString("type", StaticMethods.userData.getUserType());
+        }
+        bundle.putBoolean("edit" ,edit );
+        bundle.putInt("position",0);
+        IntentUtilies.openActivityWithBundle(TopicsDetailsActivity.this, TutorSteps.class, bundle);
+        finish();
     }
 
     public class MyHandler{

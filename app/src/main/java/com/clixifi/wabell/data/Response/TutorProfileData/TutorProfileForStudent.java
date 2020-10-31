@@ -40,6 +40,10 @@ public class TutorProfileForStudent {
     @SerializedName("IsFavorite")
     public boolean IsFavorite ;
 
+    @SerializedName("IsFeatured")
+    public boolean IsFeatured ;
+
+
     @SerializedName("IsSubscribe")
     public boolean IsSubscribe ;
 
@@ -53,6 +57,14 @@ public class TutorProfileForStudent {
 
     @SerializedName("AvailableTimesText")
     public String AvailableTimesText ;
+
+    public boolean isFeatured() {
+        return IsFeatured;
+    }
+
+    public void setFeatured(boolean featured) {
+        IsFeatured = featured;
+    }
 
     public boolean isSubscribe() {
         return IsSubscribe;

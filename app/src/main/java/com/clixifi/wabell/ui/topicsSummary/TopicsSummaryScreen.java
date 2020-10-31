@@ -56,7 +56,6 @@ public class TopicsSummaryScreen extends AppCompatActivity implements SummaryInt
         binding.title.setText(name);
         dialog.ShowDialog();
         presenter.getSummary(TopicsSummaryScreen.this , id);
-
     }
 
     @Override

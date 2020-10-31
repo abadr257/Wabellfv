@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="han"
+            type="com.clixifi.wabell.ui.viewAllCertificates.AllCertificates.MyHandler" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:layoutDirection="locale"
+        tools:context=".ui.viewAllCertificates.AllCertificates">
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_margin="15sp"
+            android:onClick="@{han::onClose}"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/blue_close_24" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="5dp"
+            android:id="@+id/lin_Top"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15sp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textColor="#2D4379"
+                android:id="@+id/txt_theCurrent"
+                android:textSize="15sp"
+                android:layout_marginEnd="5dp"
+                />
+            <TextView
+                android:textSize="15sp"
+                android:layout_marginEnd="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#2D4379"
+                android:text="of"
+                />
+            <TextView
+                android:id="@+id/txt_numOfFiles"
+                android:textSize="15sp"
+                android:textColor="#2D4379"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lin_Top"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/view"
+            android:layoutDirection="rtl">
+            <androidx.viewpager.widget.ViewPager
+                android:layout_width="match_parent"
+                android:id="@+id/view_pager"
+                android:layout_gravity="center"
+                android:layout_height="400dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layoutDots"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layoutDirection="locale"
+            android:layout_marginBottom="25dp"
+            android:layout_below="@id/view"
+            android:gravity="center"
+            android:orientation="horizontal"/>
+    </RelativeLayout>
+</layout>

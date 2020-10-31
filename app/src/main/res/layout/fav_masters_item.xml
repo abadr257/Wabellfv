@@ -6,7 +6,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         app:cardCornerRadius="10pt"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
@@ -17,7 +17,10 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
             >
             <LinearLayout
                 android:orientation="horizontal"
@@ -28,9 +31,9 @@
                 android:layout_height="wrap_content"
                 >
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="50dp"
+                    android:layout_width="60dp"
                     android:id="@+id/tutor_img"
-                    android:layout_height="50dp"
+                    android:layout_height="60dp"
                     android:src="@drawable/profile_inactive"
                     />
                 <LinearLayout
@@ -52,6 +55,7 @@
                         android:layout_height="wrap_content"
                         android:text="Egypt - Cairo"
                         android:textSize="15sp"
+                        android:layout_marginTop="8dp"
                         android:drawableStart="@drawable/location_on_24"
                         android:textColor="#2D4379"
                         android:layout_marginStart="10dp"
@@ -81,9 +85,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/lin_name"
-                android:layout_centerInParent="true"
+                android:layout_above="@id/lin_subjects"
+
                 android:textColor="#7C79A6"
+                android:layout_marginBottom="5dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
                 android:text="25 years of teaching math in Saudi Arabia"
@@ -93,10 +98,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_below="@id/txt_disc"
+                android:layout_above="@id/lin_bottom"
                 android:layout_marginTop="10dp"
                 android:layoutDirection="locale"
                 android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:id="@+id/lin_subjects"
                 >
                 <RelativeLayout
@@ -112,7 +118,7 @@
                         android:textColor="#279EFF"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="8dp"
-                        android:text="Aljebra"
+                        android:text=""
                         android:id="@+id/txt_sub1"
                         />
                 </RelativeLayout>
@@ -130,7 +136,7 @@
                         android:textColor="#279EFF"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="8dp"
-                        android:text="Dynamics"
+                        android:text=""
                         android:id="@+id/txt_sub2"
                         />
                 </RelativeLayout>
@@ -148,7 +154,7 @@
                         android:textColor="#279EFF"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="8dp"
-                        android:text="+2 Subjects"
+                        android:text=""
                         android:id="@+id/txt_subMany"
                         />
                 </RelativeLayout>
@@ -156,9 +162,10 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/lin_subjects"
-                android:layout_marginTop="10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="3dp"
                 android:layout_marginStart="10dp"
+                android:id="@+id/lin_bottom"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="8dp"
                 >

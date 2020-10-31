@@ -44,8 +44,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/tutor_img"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:src="@drawable/profile_inactive" />
 
                 <LinearLayout
@@ -68,6 +68,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
+                        android:layout_marginTop="8dp"
                         android:drawableStart="@drawable/location_on_24"
                         android:text="Egypt - Cairo"
                         android:textColor="#2D4379"
@@ -81,7 +82,7 @@
                 android:id="@+id/txt_disc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/lin_name"
+                android:layout_above="@id/lin_subjects"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"

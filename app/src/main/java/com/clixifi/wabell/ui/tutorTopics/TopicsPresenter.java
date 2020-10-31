@@ -65,7 +65,7 @@ public class TopicsPresenter {
 
             }
 
-            String token = StaticMethods.userRegisterResponse.Data.getToken();
+            String token = "Bearer "+ StaticMethods.userRegisterResponse.Data.getToken();
             MainApi.requestTopic(token , body ,new ConnectionListener<RequestTopic>() {
                 @Override
                 public void onSuccess(ConnectionResponse<RequestTopic> connectionResponse) {

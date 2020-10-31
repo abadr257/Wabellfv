@@ -114,7 +114,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
             binding.edTopics.setText(profile.DataProfile.getTopics());
         }
         if (profile.DataProfile.getAvailableDays() != null || profile.DataProfile.getAvailableTimes() != null) {
-            binding.edWorkDetails.setText(profile.DataProfile.getAvailableDays() + "\n" + profile.DataProfile.getAvailableTimes());
+            binding.edWorkDetails.setText(profile.DataProfile.getHourPrice() +" SAR/hr \n"+profile.DataProfile.getAvailableDays() + "\n" + profile.DataProfile.getAvailableTimes());
         }
         if (profile.DataProfile.getProfilePicture() != null) {
             StaticMethods.LoadImage(getActivity(), binding.userImg, profile.DataProfile.getProfilePicture(), null);
@@ -123,11 +123,14 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
         binding.edName.setText(profile.DataProfile.getName());
         binding.userName.setText(profile.DataProfile.getName());
         binding.edPhone.setText(profile.DataProfile.getPhoneNumber());
-        adapter = new CertificatesAdapter(getActivity() , null ,profile.DataProfile.getFiles());
-        LinearLayoutManager layoutManager
-                = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        binding.recCertificate.setLayoutManager(layoutManager);
-        binding.recCertificate.setAdapter(adapter);
+        if(profile.DataProfile.getFiles().size() > 0 ){
+            adapter = new CertificatesAdapter(getActivity() , null ,profile.DataProfile.getFiles());
+            LinearLayoutManager layoutManager
+                    = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            binding.recCertificate.setLayoutManager(layoutManager);
+            binding.recCertificate.setAdapter(adapter);
+        }
+
         dialog.DismissDialog();
     }
 
@@ -201,6 +204,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
                 binding.edBiography.setFocusableInTouchMode(false);
                 binding.edBiography.setFocusable(false);
                 binding.txtEditAll.setText(getActivity().getResources().getString(R.string.edit));
+
             } else if (binding.txtEditAll.getText().toString().equals("Edit")) {
                 binding.setOnEdit(true);
                 binding.edName.setFocusableInTouchMode(true);
@@ -395,17 +399,19 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
                     Education = binding.edEdu.getText().toString();
                     Tagline = binding.edTagLine.getText().toString();
                     Biography = binding.edBiography.getText().toString();
+                    onEditDo();
                     presenter.updateTutorProfile(getActivity(), Name, email, phone, 2, Experience, Education, Tagline, Biography);
                 } else {
                     String Name, email, phone;
                     Name = binding.edName.getText().toString();
                     email = binding.edEmail.getText().toString();
                     phone = binding.edPhone.getText().toString();
-
+                    onEditDo();
                     presenter.updateStudentProfile(getActivity(), Name, email, phone, 2);
                 }
             } else if (StaticMethods.userData != null) {
                 if (StaticMethods.userData.getUserType().equals("tutor")) {
+                    onEditDo();
                     String Name, email,
                             phone, Experience, Education, Tagline, Biography;
                     Name = binding.edName.getText().toString();
@@ -417,15 +423,97 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
                     Biography = binding.edBiography.getText().toString();
                     presenter.updateTutorProfile(getActivity(), Name, email, phone, 2, Experience, Education, Tagline, Biography);
                 } else {
+                    onEditDo();
                     String Name, email, phone;
                     Name = binding.edName.getText().toString();
                     email = binding.edEmail.getText().toString();
                     phone = binding.edPhone.getText().toString();
-
                     presenter.updateStudentProfile(getActivity(), Name, email, phone, 2);
                 }
             }
 
+        }
+    }
+
+    private void onEditDo() {
+
+        if (LocaleManager.getLanguage(getActivity()).equals("ar")) {
+            if (binding.txtEditAll.getText().toString().equals("حفظ")) {
+
+
+                //presenter.updateTutorProfile(getActivity(), Name, email, phone, 2, Experience, Education, Tagline, Biography);
+                binding.setOnEdit(false);
+                binding.edName.setFocusableInTouchMode(false);
+                binding.edName.setFocusable(false);
+                binding.edPhone.setFocusableInTouchMode(false);
+                binding.edPhone.setFocusable(false);
+                binding.edEmail.setFocusableInTouchMode(false);
+                binding.edEmail.setFocusable(false);
+                binding.edEdu.setFocusableInTouchMode(false);
+                binding.edEdu.setFocusable(false);
+                binding.edExp.setFocusableInTouchMode(false);
+                binding.edExp.setFocusable(false);
+                binding.edTagLine.setFocusableInTouchMode(false);
+                binding.edTagLine.setFocusable(false);
+                binding.edBiography.setFocusableInTouchMode(false);
+                binding.edBiography.setFocusable(false);
+                binding.txtEditAll.setText(getActivity().getResources().getString(R.string.edit));
+            } else if (binding.txtEditAll.getText().toString().equals("تعديل")) {
+                binding.setOnEdit(true);
+                binding.edName.setFocusableInTouchMode(true);
+                binding.edName.setFocusable(true);
+                binding.edPhone.setFocusableInTouchMode(true);
+                binding.edPhone.setFocusable(true);
+                binding.edEmail.setFocusableInTouchMode(true);
+                binding.edEmail.setFocusable(true);
+                binding.edEdu.setFocusableInTouchMode(true);
+                binding.edEdu.setFocusable(true);
+                binding.edExp.setFocusableInTouchMode(true);
+                binding.edExp.setFocusable(true);
+                binding.edTagLine.setFocusableInTouchMode(true);
+                binding.edTagLine.setFocusable(true);
+                binding.edBiography.setFocusableInTouchMode(true);
+                binding.edBiography.setFocusable(true);
+                binding.txtEditAll.setText(getActivity().getResources().getString(R.string.save));
+            }
+        } else {
+            if (binding.txtEditAll.getText().toString().equals("Save")) {
+                binding.setOnEdit(false);
+
+                //presenter.updateTutorProfile(getActivity(), Name, email, phone, 2, Experience, Education, Tagline, Biography);
+                binding.edName.setFocusableInTouchMode(false);
+                binding.edName.setFocusable(false);
+                binding.edPhone.setFocusableInTouchMode(false);
+                binding.edPhone.setFocusable(false);
+                binding.edEmail.setFocusableInTouchMode(false);
+                binding.edEmail.setFocusable(false);
+                binding.edEdu.setFocusableInTouchMode(false);
+                binding.edEdu.setFocusable(false);
+                binding.edExp.setFocusableInTouchMode(false);
+                binding.edExp.setFocusable(false);
+                binding.edTagLine.setFocusableInTouchMode(false);
+                binding.edTagLine.setFocusable(false);
+                binding.edBiography.setFocusableInTouchMode(false);
+                binding.edBiography.setFocusable(false);
+                binding.txtEditAll.setText(getActivity().getResources().getString(R.string.edit));
+            } else if (binding.txtEditAll.getText().toString().equals("Edit")) {
+                binding.setOnEdit(true);
+                binding.edName.setFocusableInTouchMode(true);
+                binding.edName.setFocusable(true);
+                binding.edPhone.setFocusableInTouchMode(true);
+                binding.edPhone.setFocusable(true);
+                binding.edEmail.setFocusableInTouchMode(true);
+                binding.edEmail.setFocusable(true);
+                binding.edEdu.setFocusableInTouchMode(true);
+                binding.edEdu.setFocusable(true);
+                binding.edExp.setFocusableInTouchMode(true);
+                binding.edExp.setFocusable(true);
+                binding.edTagLine.setFocusableInTouchMode(true);
+                binding.edTagLine.setFocusable(true);
+                binding.edBiography.setFocusableInTouchMode(true);
+                binding.edBiography.setFocusable(true);
+                binding.txtEditAll.setText(getActivity().getResources().getString(R.string.save));
+            }
         }
     }
 

@@ -14,13 +14,17 @@ import android.view.ViewGroup;
 
 import com.clixifi.wabell.R;
 import com.clixifi.wabell.data.Response.AddFav.AddFavorite;
+import com.clixifi.wabell.data.Response.ImageUrl;
 import com.clixifi.wabell.data.Response.ResultBoolean;
 import com.clixifi.wabell.data.Response.TutorProfileData.TutorProfileForStudent;
 import com.clixifi.wabell.databinding.FragmentTutorAboutBinding;
 import com.clixifi.wabell.ui.Adapters.CertificatesAdapter;
 import com.clixifi.wabell.ui.tutorProfileforStudent.TutorProfileInterface;
 import com.clixifi.wabell.ui.tutorProfileforStudent.TutorProfilePresenter;
+import com.clixifi.wabell.ui.tutorProfileforStudent.TutorProfileView;
 import com.clixifi.wabell.utils.LocaleManager;
+
+import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
 import static com.clixifi.wabell.utils.StaticMethods.tutorId;
@@ -32,6 +36,7 @@ public class TutorAboutFragment extends Fragment implements TutorProfileInterfac
     MyHandler handler;
     TutorProfilePresenter presenter;
     CertificatesAdapter adapter ;
+    ArrayList<ImageUrl> listOfImages ;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,7 +52,7 @@ public class TutorAboutFragment extends Fragment implements TutorProfileInterfac
 
     @Override
     public void onSuccess(TutorProfileForStudent tutor) {
-
+        this.listOfImages = tutor.getFiles();
         if(LocaleManager.getLanguage(getActivity()).equals("en")){
             if(tutor.getEngTopics() != null){
 
@@ -120,6 +125,9 @@ public class TutorAboutFragment extends Fragment implements TutorProfileInterfac
         } else {
             binding.edWorkDetails.setText(tutor.getHourPrice() + " SAR/hr " +"\n" +tutor.getAvailableTimesText() +"\n" + tutor.getAvailableDaysText());
         }
+        if(tutor.getFiles().size() == 0){
+         binding.txtToMedia.setVisibility(View.GONE);
+        }
         adapter = new CertificatesAdapter(getActivity() , tutor.getFiles() ,null);
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
@@ -155,7 +163,9 @@ public class TutorAboutFragment extends Fragment implements TutorProfileInterfac
         }
 
         public void ViewAll(View v) {
-
+            if (listOfImages.size() > 0){
+                ((TutorProfileView) getActivity()).onViewAll(listOfImages);
+            }
         }
 
     }

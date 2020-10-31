@@ -16,16 +16,21 @@ import android.widget.ImageView;
 
 import com.clixifi.wabell.R;
 import com.clixifi.wabell.data.Response.AddFav.AddFavorite;
+import com.clixifi.wabell.data.Response.ImageUrl;
 import com.clixifi.wabell.data.Response.ResultBoolean;
 import com.clixifi.wabell.data.Response.TutorProfileData.TutorProfileForStudent;
 import com.clixifi.wabell.databinding.ActivityTutorProfileViewBinding;
 import com.clixifi.wabell.ui.Adapters.PagerAdapter;
 import com.clixifi.wabell.ui.Adapters.ProfilePagerAdapter;
 import com.clixifi.wabell.ui.register.RegisterScreen;
+import com.clixifi.wabell.ui.viewAllCertificates.AllCertificates;
 import com.clixifi.wabell.utils.CustomDialog;
+import com.clixifi.wabell.utils.IntentUtilies;
 import com.clixifi.wabell.utils.LocaleManager;
 import com.clixifi.wabell.utils.StaticMethods;
 import com.clixifi.wabell.utils.ToastUtil;
+
+import java.util.ArrayList;
 
 import static com.clixifi.wabell.utils.StaticMethods.tutorId;
 
@@ -52,7 +57,11 @@ public class TutorProfileView extends AppCompatActivity implements TutorProfileI
         getID();
         dialog.ShowDialog();
     }
-
+    public void onViewAll(ArrayList<ImageUrl> listOfImages){
+        StaticMethods.images  = new ArrayList<>();
+        StaticMethods.images = listOfImages ;
+        IntentUtilies.openActivity(TutorProfileView.this , AllCertificates.class);
+    }
     private void getID() {
         Bundle extras = getIntent().getExtras();
 
@@ -98,6 +107,9 @@ public class TutorProfileView extends AppCompatActivity implements TutorProfileI
             }else {
                 binding.call.setText("Request");
             }
+        }
+        if (tutor.IsFeatured){
+            binding.isFea.setVisibility(View.VISIBLE);
         }
         dialog.DismissDialog();
     }

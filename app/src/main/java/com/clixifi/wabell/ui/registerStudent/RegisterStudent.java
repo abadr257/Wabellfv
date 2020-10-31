@@ -108,6 +108,7 @@ public class RegisterStudent extends Fragment implements DialogUtilResponse, Tut
 
     @Override
     public void onArea(ArrayList<AreasItem> areasItems) {
+        dialog.DismissDialog();
         areasList = new ArrayList<>();
         areasList = areasItems;
         if (areasList != null) {
@@ -221,9 +222,11 @@ public class RegisterStudent extends Fragment implements DialogUtilResponse, Tut
         }
 
         public void area(View v) {
+            dialog.ShowDialog();
             if(!binding.edCity.getText().toString().isEmpty()){
                 tutorPresenter.getAres(getActivity(), locationId);
             }else {
+                dialog.DismissDialog();
                 ToastUtil.showErrorToast(getActivity() , R.string.emptyCity);
             }
 

@@ -96,6 +96,7 @@
                         <ImageView
                             android:layout_width="25dp"
                             android:layout_height="25dp"
+                            android:id="@+id/uploadPIC"
                             android:onClick="@{handler::uploadImg}"
                             android:src="@drawable/add_circle"
                             android:layout_alignParentBottom="true"

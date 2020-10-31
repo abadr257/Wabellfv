@@ -63,7 +63,7 @@ public class StudentHome extends Fragment implements StudentHomeInterface {
 
     @Override
     public void onFeaturedTutors(FeaturedArray featuredArray) {
-        dialog.DismissDialog();
+
         binding.recFeatured.setHasFixedSize(true);
         final LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);

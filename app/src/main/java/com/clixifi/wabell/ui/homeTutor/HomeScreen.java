@@ -85,6 +85,7 @@ public class HomeScreen extends Fragment implements HomeTutorInterface , Dialoug
     @Override
     public void onSuccess(UserTutorCounters userTutorCounters) {
         dialog.DismissDialog();
+
         binding.simTxt.setText(userTutorCounters.getSimilarMastersCount() + "");
         binding.favTxt.setText(userTutorCounters.getFavoritedCount() + "");
         binding.requTxt.setText(userTutorCounters.getCallsCount() + "");
@@ -133,7 +134,7 @@ public class HomeScreen extends Fragment implements HomeTutorInterface , Dialoug
         int month = myCalendar.get(Calendar.MONTH);
         int year = myCalendar.get(Calendar.YEAR);
         date = day+"/"+month+"/"+year;
-        Log.e(TAG, "DateFormatResponse: "+date );
+        StaticMethods.date = date ;
     }
 
     public class MyHandler {
@@ -178,11 +179,15 @@ public class HomeScreen extends Fragment implements HomeTutorInterface , Dialoug
                     isOnline = false ;
                     online.setChecked(false);
                     dailogDate.showDialogDatePicker(getActivity());
+
                     Log.e(TAG, "openAlertDialog: "+isOnline );
                 }
             }
         });
-        txtUntil.setText(date);
+        if (StaticMethods.date != null){
+            txtUntil.setText(StaticMethods.date);
+        }
+
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

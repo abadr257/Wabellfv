@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#F5F8FF"
+            android:layout_above="@id/lin_buttons"
             android:layoutDirection="locale">
 
             <RelativeLayout
@@ -70,7 +71,7 @@
                     android:layout_below="@id/rel_toolbar"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="10dp"
-                    android:text="25 SAR/hr"
+                    android:text=""
                     android:textColor="#279EFF" />
 
                 <LinearLayout
@@ -85,7 +86,7 @@
                         android:id="@+id/tutor_img"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/avatar" />
+                        />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -101,7 +102,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
-                                android:text="Ahmed Badr"
+                                android:text=""
                                 android:textColor="#2D4379"
                                 android:textSize="18sp" />
                             <ImageView
@@ -123,7 +124,7 @@
                             android:layout_marginStart="7dp"
                             android:layout_marginTop="10dp"
                             android:drawableStart="@drawable/location_on_24"
-                            android:text="Egypt - Cairo"
+                            android:text=""
                             android:textColor="#2D4379"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -138,7 +139,7 @@
                     android:layout_centerInParent="true"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="8dp"
-                    android:text="25 years of teaching math in Saudi Arabia"
+                    android:text=""
                     android:textColor="#7C79A6" />
 
                 <LinearLayout
@@ -169,7 +170,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
                             android:layout_marginTop="5dp"
-                            android:text="10 Views"
+                            android:text=""
                             android:textColor="#2D4379"
                             android:textSize="16sp" />
 
@@ -198,7 +199,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:text="250 Calls"
+                            android:text=""
                             android:textColor="#2D4379"
                             android:textSize="16sp" />
 
@@ -233,7 +234,7 @@
                                 android:id="@+id/txt_numOfRate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="(10)"
+                                android:text=""
                                 android:textColor="#7C79A6"
                                 android:textSize="14sp" />
                         </LinearLayout>
@@ -257,7 +258,8 @@
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/pager"
                     android:layout_width="match_parent"
-                    android:layout_height="800dp"
+                    android:layout_height="630dp"
+
                     android:layout_below="@id/tab_layout"/>
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
@@ -266,6 +268,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="2"
+            android:id="@+id/lin_buttons"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="20dp"
             >
@@ -293,6 +296,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/reCall"
+                android:onClick="@{handler::call}"
                 android:textColor="@color/colorWhite"
                 android:layout_marginBottom="10dp"
                 />

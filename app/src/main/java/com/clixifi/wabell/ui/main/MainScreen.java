@@ -1,5 +1,6 @@
 package com.clixifi.wabell.ui.main;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
@@ -13,10 +14,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.clixifi.wabell.R;
 import com.clixifi.wabell.databinding.ActivityHomeScreenBinding;
+import com.clixifi.wabell.helpers.prefs.PrefUtils;
 import com.clixifi.wabell.ui.aboutUs.AboutUs;
 import com.clixifi.wabell.ui.favMasters.FavMastersScreen;
 import com.clixifi.wabell.ui.filterScreen.FilterScreen;
@@ -26,17 +30,29 @@ import com.clixifi.wabell.ui.login.LoginScreen;
 import com.clixifi.wabell.ui.messages.MessageAndCallScreen;
 import com.clixifi.wabell.ui.more.MoreScreen;
 import com.clixifi.wabell.ui.profile.ProfileScreen;
+import com.clixifi.wabell.ui.searchByWord.SearchByWord;
 import com.clixifi.wabell.ui.splash.SplashScreen;
+import com.clixifi.wabell.ui.subscription.SubscriptionScreen;
 import com.clixifi.wabell.ui.tutorSteps.TutorSteps;
 import com.clixifi.wabell.ui.welcome.WelcomeScreen;
 import com.clixifi.wabell.utils.CustomDialog;
 import com.clixifi.wabell.utils.IntentUtilies;
 import com.clixifi.wabell.utils.LocaleManager;
 import com.clixifi.wabell.utils.StaticMethods;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainScreen extends AppCompatActivity {
     ActivityHomeScreenBinding binding;
     MyHandler handler;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mUserRef;
     CustomDialog dialog;
     public int selectedPosition = 0;
     private static final int STORAGE_PERMISSION_CODE = 123;
@@ -45,6 +61,9 @@ public class MainScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home_screen);
         handler = new MyHandler(this);
         dialog = new CustomDialog(this);
@@ -61,7 +80,57 @@ public class MainScreen extends AppCompatActivity {
             displayView(3);
 
         }
+        getFirebaseToken();
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
+        if (mAuth.getCurrentUser() != null) {
+            mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
+        }
+        if(currentUser == null){
+            //sendToStart();
+        } else {
+            mUserRef.child("online").setValue("true");
+        }
+
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (mAuth.getCurrentUser() != null) {
+            mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
+        }
+        if(currentUser != null) {
+            mUserRef.child("online").setValue(ServerValue.TIMESTAMP);
+        }
+
+    }
+
+    private void getFirebaseToken() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("TAG", "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+                        // Get new FCM registration token
+                        String token = task.getResult();
+
+                        // Log and toast
+                        String msg = token;
+                        Log.d("TAG", msg);
+                        // Toast.makeText(MainScreen.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     public void onEditTopics(Bundle bundle) {
@@ -98,7 +167,7 @@ public class MainScreen extends AppCompatActivity {
                 } else {
                     displayView(3);
                 }
-            }else {
+            } else {
                 displayView(3);
             }
         }
@@ -206,12 +275,21 @@ public class MainScreen extends AppCompatActivity {
 
     public void logout() {
         StaticMethods.ClearChash();
-
+        PrefUtils.SignOut_User(MainScreen.this);
+        mUserRef.child("online").setValue("false");
+        FirebaseAuth.getInstance().signOut();
         IntentUtilies.openActivity(MainScreen.this, LoginScreen.class);
+
         finish();
 
     }
-
+    public void onUpdate(){
+        IntentUtilies.openActivityInNewStack(MainScreen.this , LoginScreen.class);
+        finish();
+    }
+    public void onSub(){
+        IntentUtilies.openActivityInNewStack(MainScreen.this , SubscriptionScreen.class);
+    }
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(LocaleManager.onAttach(base));
@@ -221,6 +299,7 @@ public class MainScreen extends AppCompatActivity {
         LocaleManager.setLocale(MainScreen.this, languageCode);
         recreate();
     }
+
     private void requestStoragePermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
             return;
@@ -231,6 +310,7 @@ public class MainScreen extends AppCompatActivity {
 
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
     }
+
     public void ShareApp() {
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
@@ -245,6 +325,10 @@ public class MainScreen extends AppCompatActivity {
 
     public void goToFilter() {
         IntentUtilies.openActivity(MainScreen.this, FilterScreen.class);
+    }
+
+    public void goToSearch() {
+        IntentUtilies.openActivity(MainScreen.this, SearchByWord.class);
     }
 
     public void favMasters() {

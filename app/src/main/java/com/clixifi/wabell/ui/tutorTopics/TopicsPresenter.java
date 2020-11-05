@@ -54,6 +54,7 @@ public class TopicsPresenter {
 
     public void req(Context co , String message , String email ){
         boolean network = StaticMethods.isConnectingToInternet(co);
+        String token;
         if (!network) {
             topics.onNoConnection(true);
         } else {
@@ -64,8 +65,12 @@ public class TopicsPresenter {
             }catch (Exception e){
 
             }
+            if(StaticMethods.userRegisterResponse != null){
+                 token = "Bearer "+ StaticMethods.userRegisterResponse.Data.getToken();
+            }else {
+                token = "Bearer "+ StaticMethods.userData.getToken();
+            }
 
-            String token = "Bearer "+ StaticMethods.userRegisterResponse.Data.getToken();
             MainApi.requestTopic(token , body ,new ConnectionListener<RequestTopic>() {
                 @Override
                 public void onSuccess(ConnectionResponse<RequestTopic> connectionResponse) {

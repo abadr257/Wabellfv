@@ -16,6 +16,30 @@ public class UserTutorCounters {
     @SerializedName("CallsCount")
     public int CallsCount ;
 
+    @SerializedName("OfflineUntill")
+    public String  OfflineUntil ;
+
+
+    @SerializedName("IsOnline")
+    public boolean IsOnline ;
+
+
+    public String getOfflineUntil() {
+        return OfflineUntil;
+    }
+
+    public void setOfflineUntil(String offlineUntil) {
+        OfflineUntil = offlineUntil;
+    }
+
+    public boolean isOnline() {
+        return IsOnline;
+    }
+
+    public void setOnline(boolean online) {
+        IsOnline = online;
+    }
+
     public int getViewsCount() {
         return ViewsCount;
     }

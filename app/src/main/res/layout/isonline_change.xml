@@ -75,7 +75,7 @@
                     android:textColor="#279EFF"
                     android:id="@+id/txt_untill"
                     android:textStyle="bold"
-                    android:gravity="center"
+                    android:gravity="end"
                     />
             </LinearLayout>
 

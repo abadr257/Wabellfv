@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "906829148222",
+    "firebase_url": "https://wabell-f335d.firebaseio.com",
+    "project_id": "wabell-f335d",
+    "storage_bucket": "wabell-f335d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906829148222:android:756f170b80ddcee714616f",
+        "android_client_info": {
+          "package_name": "com.clixifi.wabell"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "906829148222-t1t983tkjnt3bok4t8dbc5d637ar0mt4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.clixifi.wabell",
+            "certificate_hash": "063377285c1c3b7a13b3024d7a4ea98ca0eee7a0"
+          }
+        },
+        {
+          "client_id": "906829148222-b41pb8usiv89ptu8tkm8fnv5l278mkkt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGq5_kh0XP-ihZ7VfCnJ_aVMlDMzo6z10"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "906829148222-b41pb8usiv89ptu8tkm8fnv5l278mkkt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

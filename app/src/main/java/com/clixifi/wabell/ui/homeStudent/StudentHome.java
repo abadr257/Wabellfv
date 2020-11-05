@@ -27,6 +27,9 @@ import com.clixifi.wabell.ui.Adapters.TutorListAdapter;
 import com.clixifi.wabell.ui.main.MainScreen;
 import com.clixifi.wabell.utils.CustomDialog;
 import com.clixifi.wabell.utils.LocaleManager;
+import com.clixifi.wabell.utils.StaticMethods;
+
+import static android.content.ContentValues.TAG;
 
 
 public class StudentHome extends Fragment implements StudentHomeInterface {
@@ -53,6 +56,7 @@ public class StudentHome extends Fragment implements StudentHomeInterface {
         dialog.ShowDialog();
         presenter.getFeatured(getActivity());
         presenter.getTutorList(getActivity());
+//        Log.e(TAG, "Token: "+ StaticMethods.userData.getToken());
         return v;
     }
 
@@ -63,7 +67,9 @@ public class StudentHome extends Fragment implements StudentHomeInterface {
 
     @Override
     public void onFeaturedTutors(FeaturedArray featuredArray) {
-
+        if(featuredArray.getItems().size() ==0){
+            binding.dots.setVisibility(View.GONE);
+        }
         binding.recFeatured.setHasFixedSize(true);
         final LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
@@ -114,6 +120,10 @@ public class StudentHome extends Fragment implements StudentHomeInterface {
 
         public void onFilter(View v) {
             ((MainScreen) getActivity()).goToFilter();
+        }
+        public void onSearch(View v) {
+            ((MainScreen) getActivity()).goToSearch();
+
         }
     }
 }

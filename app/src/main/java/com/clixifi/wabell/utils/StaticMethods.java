@@ -48,18 +48,13 @@ import static android.content.ContentValues.TAG;
 
 /*Created By Ahmed Ashraf Android Developer @Egypt +201016348221*/
 public class StaticMethods {
-    public static int  User_Status;
+    public static int User_Status;
     public static String auth = "";
     /*private static Retrofit retrofit = null;*/
-    public  final static int REQUEST_CAMERA = 0, SELECT_FILE = 1
-            , MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE=14
-            , MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE=15
-            ,PICK_FROM_GALLERY = 102,CALLL_PERMISION = 2
-            ,MY_PERMISSIONS_REQUEST_CAMERA = 100,REQUEST_PICK_IMAGE = 1002;
+    public final static int REQUEST_CAMERA = 0, SELECT_FILE = 1, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 14, MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 15, PICK_FROM_GALLERY = 102, CALLL_PERMISION = 2, MY_PERMISSIONS_REQUEST_CAMERA = 100, REQUEST_PICK_IMAGE = 1002;
     public static final int REQUEST_CAMERASTATIC = 90;
     public static final String BASE_URL = "https://api-test.wabell.net";//http://api.wabell.net/ //https://api-test.wabell.net/
     public static final String CONTENT = "application/json";
-
 
 
     /*public static Retrofit RetrofitDataInsc() {
@@ -73,16 +68,18 @@ public class StaticMethods {
         }
         return retrofit;
     }*/
-    public static void statusBar(Activity activity){
+    public static void statusBar(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            activity.getWindow().getDecorView().setSystemUiVisibility( View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN| View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             // edited here
             activity.getWindow().setStatusBarColor(Color.parseColor("#F4F7FC"));
         }
     }
+
     public static void fullScrean(Activity activity) {
         activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
+
     public static void downloadUsingStream(String urlStr, String file) throws IOException {
         URL url = new URL(urlStr);
         ReadableByteChannel rbc = Channels.newChannel(url.openStream());
@@ -91,6 +88,7 @@ public class StaticMethods {
         fos.close();
         rbc.close();
     }
+
     public static String getMimeType(String url) {
         String type = null;
         String extension = MimeTypeMap.getFileExtensionFromUrl(url);
@@ -99,6 +97,7 @@ public class StaticMethods {
         }
         return type;
     }
+
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         //Find the currently focused view, so we can grab the correct window token from it.
@@ -109,11 +108,12 @@ public class StaticMethods {
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
     public static void LoadImage(final Context context, final CircleImageView imageView, String Url, final ProgressBar progressBar) {
-        try{
-            if(progressBar != null)
+        try {
+            if (progressBar != null)
                 progressBar.setVisibility(View.VISIBLE);
-            Log.e(TAG, "LoadImageC: "+Url );
+            Log.e(TAG, "LoadImageC: " + Url);
             Glide.with(context)
                     .load(Url)
                     .asBitmap()
@@ -121,7 +121,7 @@ public class StaticMethods {
                     .into(new SimpleTarget<Bitmap>() {
                         @Override
                         public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                            if(progressBar != null)
+                            if (progressBar != null)
                                 progressBar.setVisibility(View.GONE);
 
                             imageView.setVisibility(View.VISIBLE);
@@ -130,22 +130,25 @@ public class StaticMethods {
                             Bitmap bitmap = Bitmap.createScaledBitmap(resource, pixels, pixels, true);
                             imageView.setImageBitmap(bitmap);
                         }
+
                         @Override
                         public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                            if(progressBar != null)
+                            if (progressBar != null)
                                 progressBar.setVisibility(View.GONE);
                             imageView.setVisibility(View.VISIBLE);
                             imageView.setImageResource(R.drawable.wabell_logode);
                         }
                     });
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
-    public  static   void LoadImage(final Context context , final ImageView imageView, String Url, final ProgressBar progressBar) {
 
-        try{
-            if(progressBar != null)
+    public static void LoadImage(final Context context, final ImageView imageView, String Url, final ProgressBar progressBar) {
+        try {
+            if (progressBar != null)
                 progressBar.setVisibility(View.VISIBLE);
-            Log.e(TAG, "LoadImageI: "+Url );
+
+
             Glide.with(context)
                     .load(Url)
                     .asBitmap()
@@ -153,48 +156,49 @@ public class StaticMethods {
                     .into(new SimpleTarget<Bitmap>() {
                         @Override
                         public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                            if(progressBar != null)
+                            if (progressBar != null)
                                 progressBar.setVisibility(View.GONE);
 
                             imageView.setVisibility(View.VISIBLE);
-                            /*float scale = context.getResources().getDisplayMetrics().density;
+                            float scale = context.getResources().getDisplayMetrics().density;
                             int pixels = (int) (1000 * scale + 0.5f);
-                            Bitmap bitmap = Bitmap.createScaledBitmap(resource, pixels, pixels, true);*/
-                            imageView.setImageBitmap(resource);
+                            Bitmap bitmap = Bitmap.createScaledBitmap(resource, pixels, pixels, true);
+                            imageView.setImageBitmap(bitmap);
                         }
+
                         @Override
                         public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                            if(progressBar != null)
+                            if (progressBar != null)
                                 progressBar.setVisibility(View.GONE);
                             imageView.setVisibility(View.VISIBLE);
                             imageView.setImageResource(R.drawable.wabell_logode);
                         }
                     });
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
+
     public static boolean checkCameraPermission(Context context, Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(context,
                     Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 return false;
-            }
-            else if (ContextCompat.checkSelfPermission(context,
+            } else if (ContextCompat.checkSelfPermission(context,
                     Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 return false;
-            }
-            else  if (ContextCompat.checkSelfPermission(context,
+            } else if (ContextCompat.checkSelfPermission(context,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 return false;
-            }
-            else
-                return  true ;
-        }else{
-            return  true  ;
+            } else
+                return true;
+        } else {
+            return true;
         }
     }
+
     public static boolean isConnectingToInternet(Context _context) {
         ConnectivityManager connectivity = (ConnectivityManager) _context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -208,20 +212,23 @@ public class StaticMethods {
         }
         return false;
     }
+
     public static void printJson(String tag, Object object) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Log.e(tag, gson.toJson(object));
     }
-    public static UserResponse<RegisterData> userRegisterResponse =  null ;
-    public static ArrayList<Integer> TopicsIds = null ;
-    public static String tutorId = null ;
-    public static LoginData userData = null ;
-    public static String  date = null ;
-    public static ArrayList<ImageUrl> images = null ;
-    public static TutorListArray tutors = null ;
-    public static boolean selected = false ;
-    public static int selectedPostion = 0 ;
-    public static String typeS = "" ;
+
+    public static UserResponse<RegisterData> userRegisterResponse = null;
+    public static ArrayList<Integer> TopicsIds = null;
+    public static String tutorId = null;
+    public static LoginData userData = null;
+    public static String date = null;
+    public static ArrayList<ImageUrl> images = null;
+    public static TutorListArray tutors = null;
+    public static boolean selected = false;
+    public static int selectedPostion = 0;
+    public static String typeS = "";
+
     public static void ClearChash() {
         StaticMethods.userData = null;
         StaticMethods.userRegisterResponse = null;

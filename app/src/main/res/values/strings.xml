@@ -6,9 +6,10 @@
     <string name="splash_text_en">English</string>
     <string name="from_hp">From</string>
     <string name="to_hp">To</string>
-
+    <string name="requestSub">Request subject(s)</string>
     <string name="rate_file">Enter the rate</string>
-
+    //
+    <string name="txtRequest">Tell us what you want to learn and our moderators will find your tutors</string>
     <string name="login">Log in</string>
     <string name="mProfile">Master`s Profile</string>
 
@@ -29,7 +30,7 @@
     <string name="exp">Add Experience and Education</string>
     <string name="media">Upload Certificates</string>
     <string name="bio">Add your Biography</string>
-    <string name="noReviews">This Tutor don`t have any Reviews</string>
+    <string name="noReviews">This Tutor dose not have any Reviews</string>
     <string name="workDetails">Work details</string>
     <string name="register">Register</string>
     <string name="bios">Bio</string>
@@ -50,6 +51,8 @@
     <string name="registerNow">Register Now</string>
     <string name="txt_or">OR</string>
     <string name="txt_message">Message</string>
+    <string name="title1">We’ve sent him the request.</string>
+    <string name="title2">But we advise you to contact another tutor if you didn’t get a response in 24 hours.</string>
     <string name="txt_hint">Say Something to your tutor</string>
     <string name="fiTitle">Thank you for your registration</string>
     <string name="firestDe">Your application has been sent successfully to the moderators. your application is under assessment. One of our moderators will contact you soon.</string>
@@ -70,8 +73,10 @@
     <string name="teStudent">Student</string>
     <string name="tuAbout">About</string>
     <string name="reMessages">Messages</string>
+    <string name="viewMessage">View Messages</string>
     <string name="reCalls">Calls</string>
     <string name="reCall">Call</string>
+    <string name="Call_Now">Call Now</string>
     <string name="tuReviews">Reviews</string>
     <string name="teName">Name</string>
     <string name="Experience">Experience</string>
@@ -80,6 +85,7 @@
     <string name="example2">Ex: King Fahd University, Master of Education,, 2013 - 2014 King Fahd University, Diploma of education, 2007 - 2011</string>
     <string name="teLocation">Location</string>
     <string name="tePhoneNum">Phone</string>
+    <string name="txtPhoneNum">Phone Number</string>
     <string name="teEmail">Email</string>
     <string name="te1">By Register, you agree to the following </string>
     <string name="teTerms"> terms of service </string>
@@ -87,6 +93,7 @@
     <string name="tePrivacy">privacy policy</string>
     <string name="te3">Already have an account?</string>
     <string name="ok">Ok</string>
+    <string name="sendRequest">Send Request</string>
     <string name="save">Save</string>
     <string name="no">No</string>
     <string name="await">awaiting for admin approval</string>
@@ -104,6 +111,9 @@
     <string name="ids">Id</string>
     <string name="profile">Profile</string>
     <string name="req">Requests</string>
+    <string name="subs">Subscription</string>
+    <string name="packages">Packages</string>
+    <string name="history">History</string>
     <string name="reqTopic">Request Specialty</string>
     <string name="more">More</string>
     <string name="home">Home</string>
@@ -120,6 +130,7 @@
     <string name="certificate">IDs and Certificates</string>
     <string name="error">Please try again</string>
     <string name="saved">Saved</string>
+    <string name="delete">Deleted</string>
     <string name="newPassSuccess">New Password Added Successfully</string>
     <string name="match">Password Not Match</string>
     <string name="emailValid">Enter a valid Email</string>

@@ -158,6 +158,11 @@ public class TutorTopics extends Fragment implements TopicsCategoryInterface {
 
     private void callRequestApi(String message) {
         dialog.ShowDialog();
-        presenter.req(getActivity() , message , StaticMethods.userRegisterResponse.Data.getEmail());
+        if(StaticMethods.userRegisterResponse != null){
+            presenter.req(getActivity() , message , StaticMethods.userRegisterResponse.Data.getEmail());
+        }else{
+            presenter.req(getActivity() , message , StaticMethods.userData.getEmail());
+        }
+
     }
 }

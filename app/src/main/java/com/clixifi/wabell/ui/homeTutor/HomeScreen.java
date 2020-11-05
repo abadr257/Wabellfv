@@ -50,6 +50,11 @@ public class HomeScreen extends Fragment implements HomeTutorInterface , Dialoug
     boolean isOnline = true ;
     DialogUtil dailogDate ;
     String date ;
+    LayoutInflater inflater ;
+    AlertDialog alertDialog ;
+    TextView txtUntil ;
+    UserTutorCounters userTutorCounters ;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -85,7 +90,11 @@ public class HomeScreen extends Fragment implements HomeTutorInterface , Dialoug
     @Override
     public void onSuccess(UserTutorCounters userTutorCounters) {
         dialog.DismissDialog();
-
+        this.userTutorCounters = userTutorCounters ;
+        if(!userTutorCounters.IsOnline){
+            binding.avilabilty.setText("Offline");
+            binding.avilabilty.setTextColor(getResources().getColor(R.color.colorRed));
+        }
         binding.simTxt.setText(userTutorCounters.getSimilarMastersCount() + "");
         binding.favTxt.setText(userTutorCounters.getFavoritedCount() + "");
         binding.requTxt.setText(userTutorCounters.getCallsCount() + "");
@@ -134,7 +143,8 @@ public class HomeScreen extends Fragment implements HomeTutorInterface , Dialoug
         int month = myCalendar.get(Calendar.MONTH);
         int year = myCalendar.get(Calendar.YEAR);
         date = day+"/"+month+"/"+year;
-        StaticMethods.date = date ;
+        txtUntil.setText(date);
+        //StaticMethods.date = date ;
     }
 
     public class MyHandler {
@@ -151,17 +161,22 @@ public class HomeScreen extends Fragment implements HomeTutorInterface , Dialoug
 
     public void openAlertDialog() {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        inflater = getActivity().getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.isonline_change, null);
         dialogBuilder.setView(dialogView);
-        final AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog = dialogBuilder.create();
         Button update = dialogView.findViewById(R.id.btn_update);
         ImageView close = dialogView.findViewById(R.id.close);
         final RadioButton online = dialogView.findViewById(R.id.rad_online);
         final RadioButton offline = dialogView.findViewById(R.id.rad_offline);
 
-        TextView txtUntil = dialogView.findViewById(R.id.txt_untill);
-
+        txtUntil = dialogView.findViewById(R.id.txt_untill);
+        txtUntil.setText(userTutorCounters.getOfflineUntil()+"");
+        if(userTutorCounters.IsOnline){
+            online.setChecked(true);
+        }else {
+            offline.setChecked(true);
+        }
         online.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -184,9 +199,7 @@ public class HomeScreen extends Fragment implements HomeTutorInterface , Dialoug
                 }
             }
         });
-        if (StaticMethods.date != null){
-            txtUntil.setText(StaticMethods.date);
-        }
+
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,10 +207,31 @@ public class HomeScreen extends Fragment implements HomeTutorInterface , Dialoug
                 alertDialog.dismiss();
             }
         });
+
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.e(TAG, "onClick: "+date );
                 pre.updateAva(getActivity() , isOnline , date);
+                if(offline.isChecked()){
+                    if(LocaleManager.getLanguage(getActivity()).equals("en")){
+                        binding.avilabilty.setText("Offline");
+                        binding.avilabilty.setTextColor(getResources().getColor(R.color.colorRed));
+                    }else {
+                        binding.avilabilty.setText("غير متاح");
+                        binding.avilabilty.setTextColor(getResources().getColor(R.color.colorRed));
+                    }
+
+                }else if(online.isChecked()){
+                    if(LocaleManager.getLanguage(getActivity()).equals("en")){
+                        binding.avilabilty.setText("Online");
+                        binding.avilabilty.setTextColor(getResources().getColor(R.color.online));
+                    }else {
+                        binding.avilabilty.setText("نشط");
+                        binding.avilabilty.setTextColor(getResources().getColor(R.color.online));
+                    }
+                }
+
                 alertDialog.dismiss();
             }
         });

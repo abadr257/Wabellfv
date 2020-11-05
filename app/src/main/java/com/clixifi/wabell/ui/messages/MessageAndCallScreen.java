@@ -35,7 +35,7 @@ public class MessageAndCallScreen extends Fragment {
     }
 
     private void configTabs() {
-        adapter = new MessagePagerAdapter(getFragmentManager(), getActivity());
+        adapter = new MessagePagerAdapter(getChildFragmentManager(), getActivity());
         binding.tabLayout.setupWithViewPager(binding.pager);
         binding.pager.setAdapter(adapter);
     }

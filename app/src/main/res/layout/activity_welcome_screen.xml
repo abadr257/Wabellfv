@@ -20,6 +20,7 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:id="@+id/back_icon"
+            android:layoutDirection="locale"
             android:onClick="@{handlers::back}"
             android:src="@drawable/arrow_back_24"
             android:layout_margin="15sp" />

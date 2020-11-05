@@ -5,7 +5,9 @@ import androidx.databinding.DataBindingUtil;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.clixifi.wabell.R;
 import com.clixifi.wabell.data.Response.AddFav.AddFavorite;
@@ -32,6 +35,8 @@ import com.clixifi.wabell.utils.ToastUtil;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static com.clixifi.wabell.utils.StaticMethods.tutorId;
 
 public class TutorProfileView extends AppCompatActivity implements TutorProfileInterface {
@@ -40,7 +45,7 @@ public class TutorProfileView extends AppCompatActivity implements TutorProfileI
     ProfilePagerAdapter adapter;
     TutorProfilePresenter presenter;
     CustomDialog dialog;
-
+    TutorProfileForStudent data;
     String id;
     boolean favorite = false;
 
@@ -57,11 +62,14 @@ public class TutorProfileView extends AppCompatActivity implements TutorProfileI
         getID();
         dialog.ShowDialog();
     }
-    public void onViewAll(ArrayList<ImageUrl> listOfImages){
-        StaticMethods.images  = new ArrayList<>();
-        StaticMethods.images = listOfImages ;
-        IntentUtilies.openActivity(TutorProfileView.this , AllCertificates.class);
+
+    public void onViewAll(ArrayList<ImageUrl> listOfImages) {
+        StaticMethods.images = new ArrayList<>();
+        StaticMethods.images = listOfImages;
+        Log.e("TAG", "onViewAll: " + "Hr");
+        IntentUtilies.openActivity(TutorProfileView.this, AllCertificates.class);
     }
+
     private void getID() {
         Bundle extras = getIntent().getExtras();
 
@@ -69,7 +77,7 @@ public class TutorProfileView extends AppCompatActivity implements TutorProfileI
             id = extras.getString("ID");
         }
 
-        presenter.getTutorData(this, id , true);
+        presenter.getTutorData(this, id, true);
     }
 
     private void configTabs() {
@@ -80,6 +88,7 @@ public class TutorProfileView extends AppCompatActivity implements TutorProfileI
 
     @Override
     public void onSuccess(TutorProfileForStudent tutor) {
+        this.data = tutor;
         if (LocaleManager.getLanguage(TutorProfileView.this).equals("ar")) {
             binding.txtPrice.setText(tutor.getHourPrice() + "ريال / للساعة");
             binding.callsCountTxt.setText(tutor.getCallsCount() + "مكالمة");
@@ -90,7 +99,7 @@ public class TutorProfileView extends AppCompatActivity implements TutorProfileI
             Log.e("TAG", "onSuccess: from profile" + tutor.getViewsCount());
             binding.viewCountTxt.setText(tutor.getViewsCount() + " Views");
         }
-        StaticMethods.LoadImage(TutorProfileView.this , binding.tutorImg,tutor.getProfilePicture() ,null);
+        StaticMethods.LoadImage(TutorProfileView.this, binding.tutorImg, tutor.getProfilePicture(), null);
         binding.txtTutorName.setText(tutor.getName());
         binding.txtNumOfRate.setText("(" + tutor.getRankCount() + ")");
         binding.txtDisc.setText(tutor.getBiography());
@@ -102,13 +111,13 @@ public class TutorProfileView extends AppCompatActivity implements TutorProfileI
         }
         if (!tutor.IsSubscribe) {
             binding.message.setVisibility(View.GONE);
-            if(LocaleManager.getLanguage(TutorProfileView.this ).equals("ar")){
+            if (LocaleManager.getLanguage(TutorProfileView.this).equals("ar")) {
                 binding.call.setText("طلب");
-            }else {
+            } else {
                 binding.call.setText("Request");
             }
         }
-        if (tutor.IsFeatured){
+        if (tutor.IsFeatured) {
             binding.isFea.setVisibility(View.VISIBLE);
         }
         dialog.DismissDialog();
@@ -155,7 +164,7 @@ public class TutorProfileView extends AppCompatActivity implements TutorProfileI
                 binding.favImage.setImageResource(R.drawable.unfav_master);
                 favorite = false;
                 dialog.ShowDialog();
-                presenter.unFavorite(TutorProfileView.this , id);
+                presenter.unFavorite(TutorProfileView.this, id);
             } else {
                 binding.favImage.setImageResource(R.drawable.favorite_24);
                 favorite = true;
@@ -166,13 +175,75 @@ public class TutorProfileView extends AppCompatActivity implements TutorProfileI
 
         }
 
-        public void sendMessage(View v){
+        public void sendMessage(View v) {
             openDialog();
+        }
+
+        public void call(View v) {
+            if (binding.call.getText().equals("طلب")) {
+                openRequestDialog();
+            } else if (binding.call.getText().equals("Request")) {
+                openRequestDialog();
+            } else {
+                openCallDialog();
+            }
+
         }
 
 
     }
 
+    private void openCallDialog() {
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.calls_dialog, null);
+        dialogBuilder.setView(dialogView);
+        final AlertDialog alertDialog = dialogBuilder.create();
+        Button call = dialogView.findViewById(R.id.btn_call);
+        ImageView close = dialogView.findViewById(R.id.close);
+        CircleImageView tutor_img = dialogView.findViewById(R.id.tutor_img);
+        StaticMethods.LoadImage(TutorProfileView.this, tutor_img, data.getProfilePicture(), null);
+        TextView txtPhone = dialogView.findViewById(R.id.phone);
+        txtPhone.setText(data.getPhoneNumber() + "");
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+        call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + data.getPhoneNumber()));
+                startActivity(intent);
+            }
+        });
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        alertDialog.show();
+    }
+    private void openRequestDialog() {
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.send_request_tutor, null);
+        dialogBuilder.setView(dialogView);
+        final AlertDialog alertDialog = dialogBuilder.create();
+        ImageView close = dialogView.findViewById(R.id.close);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+        Button done = dialogView.findViewById(R.id.btn_done);
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        alertDialog.show();
+    }
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(LocaleManager.onAttach(base));
@@ -184,8 +255,10 @@ public class TutorProfileView extends AppCompatActivity implements TutorProfileI
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.send_message_dialoge, null);
         dialogBuilder.setView(dialogView);
+        CircleImageView tutor_img = dialogView.findViewById(R.id.tutor_img);
+        StaticMethods.LoadImage(TutorProfileView.this, tutor_img, data.getProfilePicture(), null);
         final AlertDialog alertDialog = dialogBuilder.create();
-        Button send = dialogView.findViewById(R.id.btn_send);
+        Button send = dialogView.findViewById(R.id.btn_submit);
         ImageView close = dialogView.findViewById(R.id.close);
         final EditText message = dialogView.findViewById(R.id.ed_review);
         close.setOnClickListener(new View.OnClickListener() {
@@ -198,9 +271,9 @@ public class TutorProfileView extends AppCompatActivity implements TutorProfileI
             @Override
             public void onClick(View view) {
                 String messages = message.getText().toString();
-                if(messages.isEmpty()){
-                    ToastUtil.showErrorToast(TutorProfileView.this , R.string.empty);
-                }else {
+                if (messages.isEmpty()) {
+                    ToastUtil.showErrorToast(TutorProfileView.this, R.string.empty);
+                } else {
                     alertDialog.dismiss();
                 }
 

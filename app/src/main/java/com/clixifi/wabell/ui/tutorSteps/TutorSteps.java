@@ -72,6 +72,15 @@ public class TutorSteps extends AppCompatActivity {
                 b.putString("type", StaticMethods.userData.getUserType());
             }
             displayView(ProfileEdit, b);
+        }else if (ProfileEdit == 2 && edit) {
+            Bundle b = new Bundle();
+            b.putBoolean("edit", edit);
+            if (StaticMethods.userRegisterResponse != null){
+                b.putString("type", StaticMethods.userRegisterResponse.Data.getType());
+            }else {
+                b.putString("type", StaticMethods.userData.getUserType());
+            }
+            displayView(ProfileEdit, b);
         } else if (type.equals("student")) {
             Bundle bundles = new Bundle();
             bundles.putString("type", "student");
@@ -145,6 +154,9 @@ public class TutorSteps extends AppCompatActivity {
                 fragmentTransaction.replace(R.id.fragment_parent, new TutorExpEdu());
                 break;
             case 2:
+                if (edit) {
+                    binding.backIcon.setVisibility(View.GONE);
+                }
                 binding.pageCount.setText("" + 2);
                 binding.prograssBar.setProgress(50);
                 binding.title.setText(R.string.media);
@@ -236,7 +248,11 @@ public class TutorSteps extends AppCompatActivity {
                 displayView(2, null);
                 break;
             case 2:
-                displayView(1, null);
+                if(edit){
+                    super.onBackPressed();
+                }else {
+                    displayView(1, null);
+                }
                 break;
             case 1:
                 Bundle bundle = new Bundle();

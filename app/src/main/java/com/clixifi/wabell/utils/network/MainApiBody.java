@@ -20,10 +20,11 @@ public class MainApiBody {
         return RequestBody.create(MediaType.parse(JSON_TYPE), jsonBody.toString());
     }
 
-    public static RequestBody loginBody(String userName, String pass) throws JSONException {
+    public static RequestBody loginBody(String userName, String pass , String fireToken) throws JSONException {
         JSONObject params = new JSONObject();
         params.put("UserName", userName);
         params.put("Password", pass);
+        params.put("FirebaseToken", fireToken);
         return requestBody(params);
     }
     public static RequestBody unFavBody(String tutorId, String studentId) throws JSONException {
@@ -189,6 +190,7 @@ public class MainApiBody {
                                                      String Experience, String Education,
                                                      String Tagline, String Biography , String  id) throws JSONException {
         JSONObject params = new JSONObject();
+        params.put("Id", id);
         params.put("Name", Name);
         params.put("Email", Email);
         params.put("Phone", Phone);
@@ -197,7 +199,6 @@ public class MainApiBody {
         params.put("Education", Education);
         params.put("Tagline", Tagline);
         params.put("Biography", Biography);
-        params.put("Id", id);
         return requestBody(params);
     }
 

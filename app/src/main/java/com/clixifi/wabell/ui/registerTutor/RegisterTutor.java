@@ -1,6 +1,7 @@
 package com.clixifi.wabell.ui.registerTutor;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,6 +9,9 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,8 +30,17 @@ import com.clixifi.wabell.utils.StaticMethods;
 import com.clixifi.wabell.utils.ToastUtil;
 import com.clixifi.wabell.utils.dialogs.DialogUtil;
 import com.clixifi.wabell.utils.dialogs.DialogUtilResponse;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,6 +59,9 @@ public class RegisterTutor extends Fragment implements DialogUtilResponse, Tutor
     ArrayList<AreasItem> areasList;
     int locationId = 1;
     String UserType = "tutor";
+    boolean inputTypeChanged = false ;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,10 +72,78 @@ public class RegisterTutor extends Fragment implements DialogUtilResponse, Tutor
         handlers = new MyHandlers(getActivity());
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding.setHandler(handlers);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && isRTL(getActivity())) {
+
+            // Force a right-aligned text entry, otherwise latin character input,
+            // like "abc123", will jump to the left and may even disappear!
+            binding.edPhone.setTextDirection(View.TEXT_DIRECTION_RTL);
+
+            // Make the "Enter password" hint display on the right hand side
+            binding.edPhone.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && isRTL(getActivity())) {
+
+            // Force a right-aligned text entry, otherwise latin character input,
+            // like "abc123", will jump to the left and may even disappear!
+            binding.edPassword.setTextDirection(View.TEXT_DIRECTION_RTL);
+
+            // Make the "Enter password" hint display on the right hand side
+            binding.edPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        }
+        binding.edPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && isRTL(getActivity())) {
+                    if (s.length() > 0) {
+                        if (!inputTypeChanged) {
+
+                            // When a character is typed, dynamically change the EditText's
+                            // InputType to PASSWORD, to show the dots and conceal the typed characters.
+                            binding.edPassword.setInputType(InputType.TYPE_CLASS_TEXT |
+                                    InputType.TYPE_TEXT_VARIATION_PASSWORD |
+                                    InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+
+                            // Move the cursor to the correct place (after the typed character)
+                            binding.edPassword.setSelection(s.length());
+
+                            inputTypeChanged = true;
+                        }
+                    } else {
+                        // Reset EditText: Make the "Enter password" hint display on the right
+                        binding.edPassword.setInputType(InputType.TYPE_CLASS_TEXT |
+                                InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+
+                        inputTypeChanged = false;
+                    }
+                }
+            }
+
+        });
         initialViews();
         return v;
     }
-
+    public static boolean isRTL(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            return context.getResources().getConfiguration().getLayoutDirection()
+                    == View.LAYOUT_DIRECTION_RTL;
+            // Another way:
+            // Define a boolean resource as "true" in res/values-ldrtl
+            // and "false" in res/values
+            // return context.getResources().getBoolean(R.bool.is_right_to_left);
+        } else {
+            return false;
+        }
+    }
     private void initialViews() {
         dialog = new CustomDialog(getActivity());
         tutorPresenter = new TutorPresenter(this);
@@ -79,6 +163,7 @@ public class RegisterTutor extends Fragment implements DialogUtilResponse, Tutor
         if (arrayType.equals("city")) {
             locationId = citiesList.get(position).getId();
             binding.edCity.setText(citiesList.get(position).getName());
+            binding.edNeighborhood.setText("");
         } else if (arrayType.equals("area")) {
             locationId = areasList.get(position).getId();
             binding.edNeighborhood.setText(areasList.get(position).getName());
@@ -163,6 +248,7 @@ public class RegisterTutor extends Fragment implements DialogUtilResponse, Tutor
                     ToastUtil.showErrorToast(getActivity(), R.string.validPhone);
                 } else if (isEmailValid(email)) {
                     Log.e(TAG, "registerView: " + locationId);
+                    registerWithFirebase(email ,pass);
                     tutorPresenter.tutorRegister(getActivity(), email, pass, phone, UserName, locationId, UserType);
                 } else {
                     dialog.DismissDialog();
@@ -229,5 +315,38 @@ public class RegisterTutor extends Fragment implements DialogUtilResponse, Tutor
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(LocaleManager.onAttach(context));
+    }
+
+    public void registerWithFirebase(String email , String pass){
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.createUserWithEmailAndPassword(email, pass)
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+                            String uid = current_user.getUid();
+                            mDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+                            String device_token = FirebaseInstanceId.getInstance().getToken();
+                            HashMap<String, String> userMap = new HashMap<>();
+                            userMap.put("name", binding.edName.getText().toString());
+                            userMap.put("image", "default");
+                            userMap.put("thumb_image", "default");
+                            userMap.put("device_token", device_token);
+                            userMap.put("user_type", "tutor");
+                            mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.e(TAG, "onComplete: " + "Success");
+                                    }
+                                }
+                            });
+                        }else {
+
+                        }
+                    }
+                });
     }
 }

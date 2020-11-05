@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="handler"
             type="com.clixifi.wabell.ui.homeStudent.StudentHome.StudentHandler" />
@@ -15,14 +16,14 @@
         tools:context=".ui.homeStudent.StudentHome">
 
         <RelativeLayout
+            android:id="@+id/rel_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginStart="8dp"
-            android:layoutDirection="locale"
             android:layout_marginTop="15dp"
-            android:id="@+id/rel_top"
-            android:layout_marginEnd="8dp">
+            android:layout_marginEnd="8dp"
+            android:layoutDirection="locale">
 
             <TextView
                 android:id="@+id/home_txt"
@@ -46,60 +47,64 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginEnd="15dp"
-                    android:src="@drawable/search_24" />
+                    android:onClick="@{handler::onSearch}"
+                    android:src="@drawable/ic_search" />
+
                 <ImageView
+                    android:id="@+id/filter"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:id="@+id/filter"
-                    android:onClick="@{handler::onFilter}"
                     android:layout_marginEnd="10dp"
+                    android:onClick="@{handler::onFilter}"
                     android:src="@drawable/filter" />
             </LinearLayout>
 
 
         </RelativeLayout>
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/rel_top"
-            android:layout_marginTop="10dp"
-            >
+            android:layout_marginTop="10dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
 
                 >
+
                 <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:id="@+id/rec_featured"
-                    />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:orientation="horizontal"
-                    >
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
                     <LinearLayout
+                        android:id="@+id/dots"
                         android:layout_width="5dp"
                         android:layout_height="5dp"
-                        android:background="@drawable/blue_btn_style"
-                        android:layout_marginEnd="5dp"
                         android:layout_marginStart="5dp"
-                        />
+                        android:layout_marginEnd="5dp"
+                        android:background="@drawable/blue_btn_style" />
 
                 </LinearLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rec_tutors"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/rec_tutors"
-                    android:layout_marginTop="10dp"
                     android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    />
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="5dp" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

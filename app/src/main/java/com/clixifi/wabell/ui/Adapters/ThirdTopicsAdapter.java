@@ -16,6 +16,11 @@ import com.clixifi.wabell.data.Response.FourthLevel;
 import com.clixifi.wabell.data.Response.ResultBoolean;
 import com.clixifi.wabell.data.Response.topicChild.ChildItem;
 import com.clixifi.wabell.data.Response.topicChild.ChildResponse;
+import com.clixifi.wabell.helpers.prefs.PrefUtils;
+import com.clixifi.wabell.ui.login.LoginScreen;
+import com.clixifi.wabell.ui.main.MainScreen;
+import com.clixifi.wabell.utils.CustomDialog;
+import com.clixifi.wabell.utils.IntentUtilies;
 import com.clixifi.wabell.utils.StaticMethods;
 import com.clixifi.wabell.utils.ToastUtil;
 import com.clixifi.wabell.utils.dialogs.DialogUtil;
@@ -24,6 +29,7 @@ import com.clixifi.wabell.utils.network.ConnectionListener;
 import com.clixifi.wabell.utils.network.ConnectionResponse;
 import com.clixifi.wabell.utils.network.MainApi;
 import com.clixifi.wabell.utils.network.MainApiBody;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,7 +46,7 @@ public class ThirdTopicsAdapter extends RecyclerView.Adapter<ThirdTopicsAdapter.
     DialogUtil dialogUtil;
     String lang;
     ArrayList<String> names;
-
+    CustomDialog dialog ;
     ArrayList<Integer> ids;
     MyViewHolder holder;
     int position;
@@ -53,6 +59,7 @@ public class ThirdTopicsAdapter extends RecyclerView.Adapter<ThirdTopicsAdapter.
         this.context = context;
         this.SubTopics = SubTopics;
         this.lang = lang;
+        dialog = new CustomDialog(context);
         this.mInflater = LayoutInflater.from(context);
         dialogUtil = new DialogUtil(this);
         StaticMethods.TopicsIds = new ArrayList<>();
@@ -125,6 +132,8 @@ public class ThirdTopicsAdapter extends RecyclerView.Adapter<ThirdTopicsAdapter.
                     if (connectionResponse.data != null) {
                         if (connectionResponse.data.isResult()) {
                             Log.e(TAG, "onSuccess: " + "Cancel");
+                            dialog.DismissDialog();
+
                         }
                     }
                 }
@@ -146,6 +155,7 @@ public class ThirdTopicsAdapter extends RecyclerView.Adapter<ThirdTopicsAdapter.
             holder.itemView.setBackground(context.getResources().getDrawable(R.drawable.third_child_style));
             Log.e(TAG, "onClick: " + "I`m here");
             holder.txt_name.setTextColor(context.getResources().getColor(R.color.notActive));
+            dialog.ShowDialog();
             cancleThis(SubTopics.get(position).getId());
         } else {
             names = new ArrayList<>();
@@ -240,7 +250,9 @@ public class ThirdTopicsAdapter extends RecyclerView.Adapter<ThirdTopicsAdapter.
         holder.rel.setBackground(context.getResources().getDrawable(R.drawable.selected_forth));
         holder.txt_name.setTextColor(context.getResources().getColor(R.color.colorWhite));
         hisHolder.checkBox.setChecked(true);
+        dialog.ShowDialog();
         addUserTopic(ids.get(id));
+
     }
 
     private void addUserTopic(int integer) {
@@ -265,6 +277,7 @@ public class ThirdTopicsAdapter extends RecyclerView.Adapter<ThirdTopicsAdapter.
                     if (connectionResponse.data != null) {
                         if (connectionResponse.data.isResult()) {
                             Log.e(TAG, "onSuccess: " + "Added");
+                            dialog.DismissDialog();
                         }
                     }
                 }

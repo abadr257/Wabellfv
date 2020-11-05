@@ -60,6 +60,17 @@ public class FavMastersItem {
     @SerializedName("RankCount")
     public int RankCount;
 
+    @SerializedName("HourPrice")
+    public double HourPrice ;
+
+    public double getHourPrice() {
+        return HourPrice;
+    }
+
+    public void setHourPrice(double hourPrice) {
+        HourPrice = hourPrice;
+    }
+
     public int getRankCount() {
         return RankCount;
     }

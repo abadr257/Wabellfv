@@ -1,7 +1,9 @@
 package com.clixifi.wabell.ui.more;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,9 +11,14 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.clixifi.wabell.R;
 import com.clixifi.wabell.databinding.FragmentMoreScreenBinding;
@@ -25,12 +32,18 @@ import com.clixifi.wabell.utils.dialogs.DialogUtilResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
+
 
 public class MoreScreen extends Fragment {
 
     FragmentMoreScreenBinding binding;
     View v;
+    LayoutInflater inflater;
+    AlertDialog alertDialog;
+    TextView txtUntil;
     MyHandler handler;
+    boolean isOnline = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,15 +98,12 @@ public class MoreScreen extends Fragment {
         public void logout(View v) {
             ((MainScreen) getActivity()).logout();
         }
-
+        public void onSub(View v) {
+            ((MainScreen) getActivity()).onSub();
+        }
         public void lang(View v) {
-            if (LocaleManager.getLanguage(getActivity()).equals("ar")) {
-                ((MainScreen) getActivity()).updateViews("en");
-                binding.langTxt.setText(getActivity().getResources().getString(R.string.splash_text_ar));
-            } else {
-                ((MainScreen) getActivity()).updateViews("ar");
-                binding.langTxt.setText(getActivity().getResources().getString(R.string.splash_text_en));
-            }
+            openAlertDialog();
+
         }
 
         public void share(View v) {
@@ -103,5 +113,68 @@ public class MoreScreen extends Fragment {
         public void about(View v) {
             ((MainScreen) getActivity()).gotoAbout();
         }
+    }
+
+    public void openAlertDialog() {
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        inflater = getActivity().getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.change_lang, null);
+        dialogBuilder.setView(dialogView);
+        alertDialog = dialogBuilder.create();
+        Button update = dialogView.findViewById(R.id.btn_update);
+        ImageView close = dialogView.findViewById(R.id.close);
+        final RadioButton online = dialogView.findViewById(R.id.rad_online);
+        final RadioButton offline = dialogView.findViewById(R.id.rad_offline);
+
+
+        if (LocaleManager.getLanguage(getActivity()).equals("ar")) {
+            online.setChecked(true);
+        } else {
+            offline.setChecked(true);
+        }
+        online.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (online.isChecked()) {
+                    isOnline = true;
+                    offline.setChecked(false);
+                }
+            }
+        });
+        offline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (offline.isChecked()) {
+                    isOnline = false;
+                    online.setChecked(false);
+
+                }
+            }
+        });
+
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (offline.isChecked()) {
+                    ((MainScreen) getActivity()).updateViews("en");
+                    binding.langTxt.setText(getActivity().getResources().getString(R.string.splash_text_ar));
+
+                } else if (online.isChecked()) {
+                    ((MainScreen) getActivity()).updateViews("ar");
+                    binding.langTxt.setText(getActivity().getResources().getString(R.string.splash_text_ar));
+                }
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        alertDialog.show();
     }
 }

@@ -23,7 +23,7 @@
                 android:orientation="vertical"
                 >
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_margin="10dp"
@@ -138,7 +138,6 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/recCertificate"
                         android:layout_marginTop="10dp"
-
                         />
                 </LinearLayout>
                 <RelativeLayout
@@ -186,6 +185,7 @@
                         android:gravity="start|center"
                         android:paddingStart="5dp"
                         android:textSize="15sp"
+                        android:textDirection="locale"
                         android:id="@+id/ed_workDetails"
                         android:paddingEnd="5dp"
                         android:focusable="false"
@@ -230,6 +230,7 @@
                         android:paddingStart="5dp"
                         android:textSize="15sp"
                         android:id="@+id/ed_edu"
+                        android:textDirection="locale"
                         android:focusable="false"
                         android:paddingEnd="5dp"
                         />
@@ -274,6 +275,7 @@
                         android:textSize="15sp"
                         android:focusable="false"
                         android:id="@+id/ed_exp"
+                        android:textDirection="locale"
                         android:paddingEnd="5dp"
                         />
                 </LinearLayout>
@@ -317,6 +319,7 @@
                         android:paddingStart="5dp"
                         android:textSize="15sp"
                         android:paddingEnd="5dp"
+                        android:textDirection="locale"
                         android:id="@+id/ed_biography"
                         />
                 </LinearLayout>

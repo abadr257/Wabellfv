@@ -18,6 +18,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
         this.context = context ;
     }
 
+
     @Override
     public Fragment getItem(int position) {
         Fragment fragment = null;

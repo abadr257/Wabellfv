@@ -9,7 +9,10 @@
     <string name="mProfile">بيانات المعلم</string>
     <string name="apply">تنفيذ</string>
     <string name="from_hp">من</string>
+    <string name="requestSub">طلب موضوع (مواضيع)</string>
     <string name="to_hp">الى</string>
+    <string name="sendRequest">إرسال طلب</string>
+    <string name="txtRequest">أخبرنا بما تريد أن تتعلمه وسيجد المشرفون لدينا مدرسين لك</string>
     <string name="sRe">ارسال التقيم</string>
     <string name="reViewHint">اكتب شئ عن معلمك</string>
     <string name="reView">تعليقك</string>
@@ -60,6 +63,7 @@
     <string name="noReviews">لا يوجد تعليقات على هذا المدرس</string>
     <string name="teStudent">طالب</string>
     <string name="tuAbout">عن المعلم</string>
+    <string name="viewMessage">إظهار الرسائل</string>
     <string name="tuReviews">التقيمات</string>
     <string name="teName">الاسم</string>
     <string name="reMessages">الرسائل</string>
@@ -70,6 +74,8 @@
     <string name="Education">المراحل التعليمية</string>
     <string name="example2"></string>
     <string name="teLocation">الموقع</string>
+    <string name="txtPhoneNum">رقم الهاتف</string>
+    <string name="Call_Now">اتصال الأن</string>
     <string name="tePhoneNum">رقم الهاتف</string>
     <string name="teEmail">البريد الإلكترونى</string>
     <string name="te1">بتسجيل حسابك فأنت موافق على الأتى</string>
@@ -83,6 +89,7 @@
     <string name="v">اصدار 1.0</string>
     <string name="aboutDetails">Wabell هو تطبيق الخدمة التي تربط الناس مع الناس. استخدامك المعرفة والخبرة والوقت لخدمة السكان في مدينتك. عندما تسجل على درجة الماجستير، Wabell تمكن العملاء للاتصال معكم لتوفير خدمة متخصصة الخاص بك .‌ ‌ ‌ الانضمام الفريق ‌ و ‌ المرور ‌ كلمة… .‌ ‌</string>
     <string name="saved">تم الحفظ</string>
+    <string name="delete">تم الحذف</string>
     <string name="aboutUs">عن التطبيق</string>
     <string name="logout">تسجيل خروج</string>
     <string name="error">يرجي المحاولة مرة اخرى</string>
@@ -104,7 +111,9 @@
     <string name="studentFav">المفضلة</string>
     <string name="profile">الشخصية</string>
     <string name="req">الطلبات</string>
-
+    <string name="subs">الاشتراكات</string>
+    <string name="packages">الباقات</string>
+    <string name="history">سجل</string>
     <string name="reqTopic">طلب تخصص</string>
 
     <string name="save">حفظ</string>
@@ -135,6 +144,8 @@
     <string name="empty">يرجي استكمال الخانات الفارغة</string>
     <string name="RateEmpty">يرجى ادخال التقيم</string>
     <string name="fiTitle">شكرا لتسجيلك فى تطبيق Wabell</string>
+    <string name="title1">تم ارسال الطلب الى المدرس بنجاح</string>
+    <string name="title2">ولكن ننصحك بالتواصل مع مدرسين اخرين فى حالة عدم الرد فى خلال 24 ساعة</string>
     <string name="firestDe">تم ارسال بياناتك بنجاح , بياناتك تحت المراجعة من قبل احد المديرين , سوف يتواصل معك احد المديرين عن قريب</string>
     <string name="done">حسنا</string>
     <string name="Continue">استمرار</string>

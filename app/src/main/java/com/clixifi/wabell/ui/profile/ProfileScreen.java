@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.provider.MediaStore;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,11 +28,14 @@ import com.clixifi.wabell.data.Response.User.UserProfile;
 import com.clixifi.wabell.data.Response.User.UserResponse;
 import com.clixifi.wabell.databinding.FragmentProfileScreenBinding;
 import com.clixifi.wabell.ui.Adapters.CertificatesAdapter;
+import com.clixifi.wabell.ui.login.LoginScreen;
 import com.clixifi.wabell.ui.main.MainScreen;
 import com.clixifi.wabell.utils.CustomDialog;
+import com.clixifi.wabell.utils.IntentUtilies;
 import com.clixifi.wabell.utils.LocaleManager;
 import com.clixifi.wabell.utils.StaticMethods;
 import com.clixifi.wabell.utils.ToastUtil;
+import com.facebook.login.Login;
 
 import org.json.JSONArray;
 
@@ -52,6 +57,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
     final int REQUEST_PICK_IMAGE_PROFILE = 1002;
     ArrayList<File> profileImage;
     CertificatesAdapter adapter ;
+    String type ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,6 +67,16 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         profile = new ProfileHandler(getActivity());
         binding.setHandler(profile);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && isRTL(getActivity())) {
+
+            // Force a right-aligned text entry, otherwise latin character input,
+            // like "abc123", will jump to the left and may even disappear!
+            binding.edPhone.setTextDirection(View.TEXT_DIRECTION_RTL);
+
+            // Make the "Enter password" hint display on the right hand side
+            binding.edPhone.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        }
+
         dialog = new CustomDialog(getActivity());
         presenter = new ProfilePresenter(this);
 
@@ -81,7 +97,14 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
         fillUserData();
         return v;
     }
-
+    public static boolean isRTL(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            return context.getResources().getConfiguration().getLayoutDirection()
+                    == View.LAYOUT_DIRECTION_RTL;
+        } else {
+            return false;
+        }
+    }
     private void fillUserData() {
         dialog.ShowDialog();
         presenter.getProfileData(getActivity());
@@ -123,12 +146,14 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
         binding.edName.setText(profile.DataProfile.getName());
         binding.userName.setText(profile.DataProfile.getName());
         binding.edPhone.setText(profile.DataProfile.getPhoneNumber());
-        if(profile.DataProfile.getFiles().size() > 0 ){
-            adapter = new CertificatesAdapter(getActivity() , null ,profile.DataProfile.getFiles());
-            LinearLayoutManager layoutManager
-                    = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-            binding.recCertificate.setLayoutManager(layoutManager);
-            binding.recCertificate.setAdapter(adapter);
+        if(profile.DataProfile.getFiles() != null){
+            if(profile.DataProfile.getFiles().size() > 0 ){
+                adapter = new CertificatesAdapter(getActivity() , null ,profile.DataProfile.getFiles());
+                LinearLayoutManager layoutManager
+                        = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+                binding.recCertificate.setLayoutManager(layoutManager);
+                binding.recCertificate.setAdapter(adapter);
+            }
         }
 
         dialog.DismissDialog();
@@ -150,6 +175,15 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
     public void onUpdate(boolean updated) {
         dialog.DismissDialog();
         ToastUtil.showSuccessToast(getActivity(), R.string.updatedSuccessfully);
+        if(StaticMethods.userData != null){
+            if(StaticMethods.userData.getUserType().equals("tutor")){
+                ((MainScreen)getActivity()).onUpdate();
+            }
+        }else {
+            if(StaticMethods.userRegisterResponse.Data.getType().equals("tutor")){
+                ((MainScreen)getActivity()).onUpdate();
+            }
+        }
         if (LocaleManager.getLanguage(getActivity()).equals("ar")) {
             if (binding.txtEditAll.getText().toString().equals("حفظ")) {
                 binding.setOnEdit(false);
@@ -258,11 +292,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
                     Name = binding.edName.getText().toString();
                     email = binding.edEmail.getText().toString();
                     phone = binding.edPhone.getText().toString();
-                    Experience = binding.edExp.getText().toString();
-                    Education = binding.edEdu.getText().toString();
-                    Tagline = binding.edTagLine.getText().toString();
-                    Biography = binding.edBiography.getText().toString();
-                    presenter.updateTutorProfile(getActivity(), Name, email, phone, 2, Experience, Education, Tagline, Biography);
+                    onSaveEdit(null);
                     binding.setOnEdit(false);
                     binding.edName.setFocusableInTouchMode(false);
                     binding.edName.setFocusable(false);
@@ -283,6 +313,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
                     binding.setOnEdit(true);
                     binding.edName.setFocusableInTouchMode(true);
                     binding.edName.setFocusable(true);
+                    onSaveEdit(null);
                     binding.edPhone.setFocusableInTouchMode(true);
                     binding.edPhone.setFocusable(true);
                     binding.edEmail.setFocusableInTouchMode(true);
@@ -308,7 +339,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
                     Education = binding.edEdu.getText().toString();
                     Tagline = binding.edTagLine.getText().toString();
                     Biography = binding.edBiography.getText().toString();
-                    presenter.updateTutorProfile(getActivity(), Name, email, phone, 2, Experience, Education, Tagline, Biography);
+                    onSaveEdit(null);
                     binding.edName.setFocusableInTouchMode(false);
                     binding.edName.setFocusable(false);
                     binding.edPhone.setFocusableInTouchMode(false);
@@ -348,7 +379,10 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
         }
 
         public void onEditMedia(View v) {
-
+            Bundle bundle = new Bundle();
+            bundle.putInt("position", 2);
+            bundle.putBoolean("isEdit", true);
+            ((MainScreen) getActivity()).onEditMedia(bundle);
         }
 
         public void onEditWork(View v) {
@@ -399,19 +433,19 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
                     Education = binding.edEdu.getText().toString();
                     Tagline = binding.edTagLine.getText().toString();
                     Biography = binding.edBiography.getText().toString();
-                    onEditDo();
+                    //onEditDo();
                     presenter.updateTutorProfile(getActivity(), Name, email, phone, 2, Experience, Education, Tagline, Biography);
                 } else {
                     String Name, email, phone;
                     Name = binding.edName.getText().toString();
                     email = binding.edEmail.getText().toString();
                     phone = binding.edPhone.getText().toString();
-                    onEditDo();
+                    //onEditDo();
                     presenter.updateStudentProfile(getActivity(), Name, email, phone, 2);
                 }
             } else if (StaticMethods.userData != null) {
                 if (StaticMethods.userData.getUserType().equals("tutor")) {
-                    onEditDo();
+                    //onEditDo();
                     String Name, email,
                             phone, Experience, Education, Tagline, Biography;
                     Name = binding.edName.getText().toString();

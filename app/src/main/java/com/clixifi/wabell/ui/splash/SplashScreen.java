@@ -11,6 +11,9 @@ import android.view.View;
 
 import com.clixifi.wabell.R;
 import com.clixifi.wabell.databinding.ActivityMainBinding;
+import com.clixifi.wabell.helpers.prefs.PrefUtils;
+import com.clixifi.wabell.ui.homeTutor.HomeScreen;
+import com.clixifi.wabell.ui.main.MainScreen;
 import com.clixifi.wabell.ui.welcome.WelcomeScreen;
 import com.clixifi.wabell.utils.IntentUtilies;
 import com.clixifi.wabell.utils.LocaleManager;
@@ -37,7 +40,13 @@ public class SplashScreen extends AppCompatActivity {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                binding.setOnSplash(true);
+                if(PrefUtils.getUserformation(SplashScreen.this)){
+                    IntentUtilies.openActivity(SplashScreen.this, MainScreen.class);
+                }else {
+                    binding.setOnSplash(true);
+
+                }
+
             }
         }, 3000);
 
@@ -71,5 +80,6 @@ public class SplashScreen extends AppCompatActivity {
     private void updateViews(String languageCode) {
         LocaleManager.setLocale(SplashScreen.this, languageCode);
         IntentUtilies.openActivity(SplashScreen.this, WelcomeScreen.class);
+
     }
 }

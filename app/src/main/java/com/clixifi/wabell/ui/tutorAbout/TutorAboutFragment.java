@@ -73,7 +73,7 @@ public class TutorAboutFragment extends Fragment implements TutorProfileInterfac
 
                         binding.txtSub1.setText(tutor.getEngTopics().get(0));
                         binding.txtSub2.setText(tutor.getEngTopics().get(1));
-                        binding.txtSubMany.setVisibility(View.GONE);
+                        binding.linSub3.setVisibility(View.GONE);
                     }else if(size == 1){
 
                         binding.txtSub1.setText(tutor.getEngTopics().get(0));
@@ -102,11 +102,11 @@ public class TutorAboutFragment extends Fragment implements TutorProfileInterfac
                     if(size == 2 ){
                         binding.txtSub1.setText(tutor.getArTopics().get(0));
                         binding.txtSub2.setText(tutor.getArTopics().get(1));
-                        binding.txtSubMany.setVisibility(View.GONE);
+                        binding.linSub3.setVisibility(View.GONE);
                     }else if(size == 1){
                         binding.txtSub1.setText(tutor.getArTopics().get(0));
-                        binding.txtSub2.setVisibility(View.GONE);
-                        binding.txtSubMany.setVisibility(View.GONE);
+                        binding.linSub2.setVisibility(View.GONE);
+                        binding.linSub3.setVisibility(View.GONE);
                     }
                 }
             }else {
@@ -127,6 +127,9 @@ public class TutorAboutFragment extends Fragment implements TutorProfileInterfac
         }
         if(tutor.getFiles().size() == 0){
          binding.txtToMedia.setVisibility(View.GONE);
+        }
+        for (int i=0 ; i < tutor.getFiles().size() ; i ++){
+            Log.e(TAG, "onFiles: "+tutor.getFiles().get(i).getFilePath() );
         }
         adapter = new CertificatesAdapter(getActivity() , tutor.getFiles() ,null);
         LinearLayoutManager layoutManager

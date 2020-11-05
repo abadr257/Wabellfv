@@ -44,19 +44,19 @@ import java.util.ArrayList;
 import static android.content.ContentValues.TAG;
 
 
-public class TutorMedia extends Fragment implements onRemoveImage , ProfileInteface {
+public class TutorMedia extends Fragment implements onRemoveImage, ProfileInteface {
 
 
-
-    FragmentTutorMediaBinding binding ;
-    View v ;
-    MyHandlers handlers ;
-    ArrayList<Bitmap> certificate , Ids ;
-    ArrayList<File> certificatePaths , IdsPaths ;
-    final int REQUEST_PICK_IMAGE_CER = 1002 ,REQUEST_PICK_IMAGE_IDS = 1001 ;
-    UploadCertificateAdapter adapter ;
-    ProfilePresenter profilePresenter ;
-    CustomDialog dialog ;
+    FragmentTutorMediaBinding binding;
+    View v;
+    MyHandlers handlers;
+    ArrayList<Bitmap> certificate, Ids;
+    ArrayList<File> certificatePaths, IdsPaths;
+    final int REQUEST_PICK_IMAGE_CER = 1002, REQUEST_PICK_IMAGE_IDS = 1001;
+    UploadCertificateAdapter adapter;
+    ProfilePresenter profilePresenter;
+    CustomDialog dialog;
+    boolean edit = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,7 +70,12 @@ public class TutorMedia extends Fragment implements onRemoveImage , ProfileIntef
         dialog = new CustomDialog(getActivity());
         profilePresenter = new ProfilePresenter(this);
         initialArrayList();
-        adapter = new UploadCertificateAdapter(getActivity() , certificate , this , certificatePaths );
+        try {
+            edit = getArguments().getBoolean("edit");
+        } catch (Exception e) {
+
+        }
+        adapter = new UploadCertificateAdapter(getActivity(), certificate, this, certificatePaths);
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         binding.recCertificate.setLayoutManager(layoutManager);
@@ -86,8 +91,8 @@ public class TutorMedia extends Fragment implements onRemoveImage , ProfileIntef
     }
 
     @Override
-    public void onRemoveImage(ArrayList<Bitmap> bitmaps , ArrayList<File> files ,int position) {
-       // certificate.remove(position);
+    public void onRemoveImage(ArrayList<Bitmap> bitmaps, ArrayList<File> files, int position) {
+        // certificate.remove(position);
         certificatePaths.remove(position);
         adapter.notifyItemRemoved(position);
         adapter.notifyItemRangeChanged(position, certificatePaths.size());
@@ -104,13 +109,13 @@ public class TutorMedia extends Fragment implements onRemoveImage , ProfileIntef
     @Override
     public void onFail(boolean fail) {
         dialog.DismissDialog();
-        ToastUtil.showErrorToast(getActivity() , R.string.error);
+        ToastUtil.showErrorToast(getActivity(), R.string.error);
     }
 
     @Override
     public void onConnection(boolean isConnected) {
         dialog.DismissDialog();
-        ToastUtil.showErrorToast(getActivity() , R.string.noInternet);
+        ToastUtil.showErrorToast(getActivity(), R.string.noInternet);
     }
 
     @Override
@@ -121,38 +126,46 @@ public class TutorMedia extends Fragment implements onRemoveImage , ProfileIntef
     @Override
     public void onUpdateProfile(MediaResponse media) {
         dialog.DismissDialog();
-        ((TutorSteps)getActivity()).step3();
+        if (edit) {
+            ((TutorSteps) getActivity()).goToMain();
+        } else {
+            ((TutorSteps) getActivity()).step3();
+        }
+
     }
 
     public class MyHandlers {
-        Context context ;
+        Context context;
 
         public MyHandlers(Context context) {
             this.context = context;
         }
-        public void nextStep(View v){
-            if(certificatePaths != null){
-                if(certificatePaths.size() > 0){
-                    dialog.ShowDialog();
-                    Log.e(TAG, "nextStep: "+certificatePaths.size() );
-                    profilePresenter.uploadImageProfileCertificates(getActivity() , certificatePaths);
-                }
-            }else {
-                ((TutorSteps)getActivity()).step3();
-            }
 
+        public void nextStep(View v) {
+            if (certificatePaths != null) {
+                if (certificatePaths.size() > 0) {
+                    dialog.ShowDialog();
+                    Log.e(TAG, "nextStep: " + certificatePaths.size());
+                    profilePresenter.uploadImageProfileCertificates(getActivity(), certificatePaths);
+                }else {
+                    ((TutorSteps) getActivity()).step3();
+                }
+            }
         }
-        public void uploadCer(View v){
+
+        public void uploadCer(View v) {
             Intent getIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             getIntent.setType("image/*");
             startActivityForResult(getIntent, REQUEST_PICK_IMAGE_CER);
         }
-        public void uploadImgs(View v){
+
+        public void uploadImgs(View v) {
             Intent getIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             getIntent.setType("image/*");
             startActivityForResult(getIntent, REQUEST_PICK_IMAGE_IDS);
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -163,13 +176,13 @@ public class TutorMedia extends Fragment implements onRemoveImage , ProfileIntef
                 Bitmap bitmap = null;
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
-                    File f = new File(getRealPathFromURI(getActivity() , uri));
-                    certificatePaths = adapter.addToList(bitmap , uri);
+                    File f = new File(getRealPathFromURI(getActivity(), uri));
+                    certificatePaths = adapter.addToList(bitmap, uri);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-            }  else if (requestCode == REQUEST_PICK_IMAGE_IDS) {
+            } else if (requestCode == REQUEST_PICK_IMAGE_IDS) {
                 Uri uri = data.getData();
                 Bitmap bitmap = null;
                 try {
@@ -185,13 +198,13 @@ public class TutorMedia extends Fragment implements onRemoveImage , ProfileIntef
 
         }
     }
+
     public static String getRealPathFromURI(Context inContext, Uri uri) {
         Cursor cursor = inContext.getContentResolver().query(uri, null, null, null, null);
         cursor.moveToFirst();
         int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
         return cursor.getString(idx);
     }
-
 
 
 }

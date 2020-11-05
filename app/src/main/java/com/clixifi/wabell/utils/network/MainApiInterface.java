@@ -98,7 +98,7 @@ public interface MainApiInterface {
 
 
     //requestTopics
-    @POST("/api/Tutor/TutorCounters")
+    @POST("/api/Topic/RequestTopic")
     Observable<RequestTopic> requestTopic(@Header("Authorization") String auth , @Body RequestBody body);
 
 
@@ -197,6 +197,28 @@ public interface MainApiInterface {
     Observable<MediaResponse> uploadMedia(@Query("AccountId") String AccountId ,
                                           @Query("Category") String Category, @Query("fromUi") boolean fromUi,
                                           @Part List<MultipartBody.Part> body );
+
+
+    // get Tutor calls
+    @GET("/api/Tutor/RequestCalls")
+    Observable<AddFavorite> getTutorCalls(@Header("Authorization") String auth );
+
+
+   // get tutor messages
+   @GET("/api/Tutor/RequestMessages")
+   Observable<AddFavorite> getTutorMessages(@Header("Authorization") String auth  );
+
+
+
+    // get student messages
+    @GET("/api/Student/RequestMessages")
+    Observable<AddFavorite> getStudentMessages(@Header("Authorization") String auth  );
+
+
+    // get Student calls
+    @GET("/api/Student/RequestCalls")
+    Observable<AddFavorite> getStudentCalls(@Header("Authorization") String auth  );
+
 
 
 }

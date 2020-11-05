@@ -2,7 +2,6 @@ package com.clixifi.wabell.ui.Adapters;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -10,8 +9,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.clixifi.wabell.R;
 import com.clixifi.wabell.ui.callsTap.CallsFragmentTap;
 import com.clixifi.wabell.ui.messagesTap.MessagesFragmentTap;
-import com.clixifi.wabell.ui.tutorAbout.TutorAboutFragment;
-import com.clixifi.wabell.ui.tutorReviews.TutorReviewsFragment;
 
 public class MessagePagerAdapter extends FragmentPagerAdapter {
     Context context;

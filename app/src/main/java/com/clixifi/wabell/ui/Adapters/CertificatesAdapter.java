@@ -1,6 +1,7 @@
 package com.clixifi.wabell.ui.Adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import com.clixifi.wabell.data.Response.ImageUrl;
 import com.clixifi.wabell.utils.StaticMethods;
 
 import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
 
 public class CertificatesAdapter extends RecyclerView.Adapter<CertificatesAdapter.MyViewHolder> {
     Context context ;
@@ -43,6 +46,7 @@ public class CertificatesAdapter extends RecyclerView.Adapter<CertificatesAdapte
             StaticMethods.LoadImage(context , holder.img ,images.get(position).getFilePath() , null);
         }else  {
             StaticMethods.LoadImage(context , holder.img ,imgs.get(position) , null);
+
         }
 
     }

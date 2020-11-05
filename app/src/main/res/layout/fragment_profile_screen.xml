@@ -92,7 +92,7 @@
                             android:layout_height="110dp"
                             android:layout_centerHorizontal="true"
                             android:layout_marginBottom="10dp"
-                            android:src="@drawable/avatar" />
+                             />
                         <ImageView
                             android:layout_width="25dp"
                             android:layout_height="25dp"
@@ -111,7 +111,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/rel_img"
-                        android:text="UserName"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#2D4379"
                         android:textSize="17sp"
@@ -175,6 +175,7 @@
                                 android:focusable="false"
                                 android:gravity="start|center"
                                 android:hint="@string/teName"
+                                android:textDirection="locale"
                                 android:inputType="text"
                                 android:paddingStart="5dp"
                                 android:paddingEnd="5dp"
@@ -208,8 +209,8 @@
                                 android:layout_height="50dp"
                                 android:layout_weight="1.5"
                                 android:backgroundTint="#FFFFFF"
-
                                 android:focusable="false"
+                                android:textDirection="locale"
                                 android:gravity="start|center"
                                 android:hint="@string/tePhoneNum"
                                 android:inputType="phone"
@@ -248,6 +249,7 @@
                                 android:focusable="false"
                                 android:gravity="start|center"
                                 android:hint="@string/teEmail"
+                                android:textDirection="locale"
                                 android:inputType="textEmailAddress"
                                 android:paddingStart="5dp"
                                 android:paddingEnd="5dp"
@@ -307,6 +309,7 @@
                                 android:gravity="start|center"
                                 android:hint="@string/spec"
                                 android:inputType="text"
+                                android:textDirection="locale"
                                 android:paddingStart="5dp"
                                 android:paddingEnd="5dp"
                                 android:textSize="15sp" />
@@ -429,6 +432,7 @@
                                 android:gravity="start|center"
                                 android:inputType="textMultiLine"
                                 android:paddingStart="5dp"
+                                android:textDirection="locale"
                                 android:paddingEnd="5dp"
                                 android:textSize="15sp" />
                         </LinearLayout>
@@ -473,6 +477,7 @@
                                 android:layout_height="80dp"
                                 android:backgroundTint="#FFFFFF"
                                 android:focusable="false"
+                                android:textDirection="locale"
                                 android:gravity="start|center"
                                 android:inputType="textMultiLine"
                                 android:paddingStart="5dp"
@@ -521,6 +526,7 @@
                                 android:backgroundTint="#FFFFFF"
                                 android:focusable="false"
                                 android:gravity="start|center"
+                                android:textDirection="locale"
                                 android:inputType="textMultiLine"
                                 android:paddingStart="5dp"
                                 android:paddingEnd="5dp"
@@ -565,6 +571,7 @@
                                 android:layout_height="50dp"
                                 android:backgroundTint="#FFFFFF"
                                 android:focusable="false"
+                                android:textDirection="locale"
                                 android:gravity="start|center"
                                 android:inputType="text"
                                 android:paddingStart="5dp"
@@ -612,6 +619,7 @@
                                 android:layout_height="80dp"
                                 android:backgroundTint="#FFFFFF"
                                 android:focusable="false"
+                                android:textDirection="locale"
                                 android:gravity="start|center"
                                 android:inputType="textMultiLine"
                                 android:paddingStart="5dp"
@@ -631,7 +639,7 @@
                             android:onClick="@{handler::onSaveEdit}"
                             android:text="@string/save"
                             android:textColor="@color/colorWhite"
-                            android:visibility="@{onEdit == true ? View.VISIBLE : View.GONE}" />
+                            android:visibility="gone" />
                     </LinearLayout>
 
                 </RelativeLayout>

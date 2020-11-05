@@ -24,7 +24,7 @@ public class LoginPresenter {
         this.login = login;
     }
 
-    public void loginWithEmail(Context context , String userName , String password){
+    public void loginWithEmail(Context context , String userName , String password ,String fireToken){
         boolean network = StaticMethods.isConnectingToInternet(context);
         if(!network){
             login.onNoConnection(true);
@@ -33,7 +33,7 @@ public class LoginPresenter {
         }else {
             RequestBody requestBody = null;
             try {
-                requestBody = MainApiBody.loginBody(userName ,  password);
+                requestBody = MainApiBody.loginBody(userName ,  password , fireToken);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

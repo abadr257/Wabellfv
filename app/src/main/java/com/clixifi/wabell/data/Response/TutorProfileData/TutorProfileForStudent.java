@@ -28,6 +28,10 @@ public class TutorProfileForStudent {
     @SerializedName("ArTopics")
     public ArrayList<String> ArTopics ;
 
+    @SerializedName("PhoneNumber")
+    public String PhoneNumber ;
+
+
     @SerializedName("EngTopics")
     public ArrayList<String> EngTopics ;
 
@@ -57,6 +61,15 @@ public class TutorProfileForStudent {
 
     @SerializedName("AvailableTimesText")
     public String AvailableTimesText ;
+
+
+    public String getPhoneNumber() {
+        return PhoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        PhoneNumber = phoneNumber;
+    }
 
     public boolean isFeatured() {
         return IsFeatured;

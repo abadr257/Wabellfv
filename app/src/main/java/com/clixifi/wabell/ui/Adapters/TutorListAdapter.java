@@ -118,7 +118,7 @@ public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.MyVi
                 Bundle bun = new Bundle( );
                 bun.putString("ID" ,array.getResult().get(position).getId() );
                 tutorId = array.getResult().get(position).getId();
-                Log.e(TAG, "onClick: from adapter"+array.getResult().get(position).getViewsCount() );
+                Log.e(TAG, "onClick: from adapter"+array.getResult().get(position).getEngTopics().size() );
                 IntentUtilies.openActivityWithBundle(context, TutorProfileView.class , bun);
             }
         });

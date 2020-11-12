@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -49,10 +50,10 @@ public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.MyVi
         holder.numOfRate.setText(array.getResult().get(position).getRankCount()+"");
         holder.numOfViews.setText(array.getResult().get(position).getViewsCount()+"");
         holder.location.setText(array.getResult().get(position).getLocation());
-        holder.bio.setText(array.getResult().get(position).getBiography());
+        holder.bio.setText(array.getResult().get(position).getTagLine());
         StaticMethods.LoadImage(context , holder.img,array.getResult().get(position).getProfilePicture() ,null);
         if(LocaleManager.getLanguage(context).equals("en")){
-            holder.price.setText(array.getResult().get(position).getHourPrice()+"SAR/hr");
+            holder.price.setText(array.getResult().get(position).getHourPrice()+" SAR / Hr");
             Log.e(TAG, "onBindViewHolder: "+"here" );
             if(array.getResult().get(position).getEngTopics() != null){
                 Log.e(TAG, "onBindViewHolder: "+"here 1 " );
@@ -84,7 +85,7 @@ public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.MyVi
                 holder.sub3.setVisibility(View.GONE);
             }
         }else {
-            holder.price.setText(array.getResult().get(position).getHourPrice()+"ريال/س");
+            holder.price.setText(array.getResult().get(position).getHourPrice()+" ريال / س ");
             if(array.getResult().get(position).getArTopics() != null){
                 int size = array.getResult().get(position).getArTopics().size() ;
                 if(size == 0 ){
@@ -118,10 +119,34 @@ public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.MyVi
                 Bundle bun = new Bundle( );
                 bun.putString("ID" ,array.getResult().get(position).getId() );
                 tutorId = array.getResult().get(position).getId();
-                Log.e(TAG, "onClick: from adapter"+array.getResult().get(position).getEngTopics().size() );
+                Log.e(TAG, "onClick: from adapter"+array.getResult().get(position).getId() );
                 IntentUtilies.openActivityWithBundle(context, TutorProfileView.class , bun);
             }
         });
+        if(StaticMethods.userRegisterResponse != null){
+            if(StaticMethods.userRegisterResponse.Data.getType().equals("tutor")){
+                holder.status.setVisibility(View.GONE);
+            }else {
+                if(array.getResult().get(position).IsOnline){
+                    holder.status.setVisibility(View.VISIBLE);
+                }else {
+                    holder.status.setVisibility(View.VISIBLE);
+                    holder.status.setBackgroundResource(R.drawable.offline);
+                }
+
+            }
+        }else {
+            if(StaticMethods.userData.getUserType().equals("tutor")){
+                holder.status.setVisibility(View.GONE);
+            }else {
+                if(array.getResult().get(position).IsOnline){
+                    holder.status.setVisibility(View.VISIBLE);
+                }else {
+                    holder.status.setVisibility(View.VISIBLE);
+                    holder.status.setBackgroundResource(R.drawable.offline);
+                }
+            }
+        }
     }
 
     @Override
@@ -133,8 +158,10 @@ public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.MyVi
         TextView name , price , sub1 , sub2 , sub3 ,location , bio , numOfRate , numOfViews ;
         RatingBar rate ;
         CircleImageView img ;
+        RelativeLayout status ;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            status = itemView.findViewById(R.id.rel_online);
             name = itemView.findViewById(R.id.txt_tutorName );
             price = itemView.findViewById(R.id.txt_price );
             sub1 = itemView.findViewById(R.id.txt_sub1 );

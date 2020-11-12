@@ -25,7 +25,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="33dp"
                 android:layout_marginEnd="10dp"
-                android:text="25 SAR/hr"
+                android:text=""
                 android:textColor="#279EFF" />
 
             <TextView
@@ -49,11 +49,25 @@
                 android:layoutDirection="locale"
                 android:orientation="horizontal">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/tutor_img"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/profile_inactive" />
+                <RelativeLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    >
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/tutor_img"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        />
+                    <RelativeLayout
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:visibility="gone"
+                        android:id="@+id/rel_online"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/online_dot"
+                        />
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -66,7 +80,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:drawableEnd="@drawable/featured_true_big"
-                        android:text="Ahmed Badr"
+                        android:text=""
                         android:drawablePadding="5dp"
                         android:textColor="#2D4379"
                         android:textSize="18sp" />
@@ -78,7 +92,7 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="8dp"
                         android:drawableStart="@drawable/location_on_24"
-                        android:text="Egypt - Cairo"
+                        android:text=""
                         android:textColor="#2D4379"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -95,7 +109,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="8dp"
-                android:text="25 years of teaching math in Saudi Arabia"
+                android:text=""
                 android:textColor="#7C79A6" />
 
             <LinearLayout
@@ -178,7 +192,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:text="(10)"
+                        android:text="()"
                         android:textColor="#7C79A6"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -195,7 +209,7 @@
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/eye_views"
                         android:drawablePadding="5dp"
-                        android:text="250 Views"
+                        android:text=""
                         android:textColor="#7C79A6"
                         android:textSize="14sp" />
                 </LinearLayout>

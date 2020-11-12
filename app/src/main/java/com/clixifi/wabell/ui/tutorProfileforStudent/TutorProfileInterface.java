@@ -11,4 +11,8 @@ public interface TutorProfileInterface {
 
     void OnAddedToFavorite(AddFavorite addFavorite);
     void onDeleteFav(ResultBoolean result);
+
+    void onSendMessage(ResultBoolean resultBoolean) ;
+
+    void onCall(ResultBoolean resultBoolean);
 }

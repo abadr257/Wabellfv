@@ -1,7 +1,15 @@
 package com.clixifi.wabell.utils.network;
 
 
+import com.clixifi.wabell.data.AddReviewObject;
+import com.clixifi.wabell.data.CallsArray;
+import com.clixifi.wabell.data.CurrentPackages;
+import com.clixifi.wabell.data.DeleteCertificates;
+import com.clixifi.wabell.data.GetCertificates;
+import com.clixifi.wabell.data.HistoryArray;
 import com.clixifi.wabell.data.MediaResponse;
+import com.clixifi.wabell.data.PackagesArray;
+import com.clixifi.wabell.data.PaymentResponse;
 import com.clixifi.wabell.data.Response.AddFav.AddFavorite;
 import com.clixifi.wabell.data.Response.AddReviews;
 import com.clixifi.wabell.data.Response.GetReviews.ReviewsData;
@@ -25,6 +33,7 @@ import com.clixifi.wabell.data.Response.featuredTutors.FeaturedArray;
 import com.clixifi.wabell.data.Response.requestTopic.RequestTopic;
 import com.clixifi.wabell.data.Response.topic.Topics;
 import com.clixifi.wabell.data.Response.topicChild.ChildResponse;
+import com.clixifi.wabell.data.WhatsAppResponse;
 import com.clixifi.wabell.utils.StaticMethods;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -244,6 +253,209 @@ public class MainApi {
                     @Override
                     public void onNext(ResultBoolean userResponse) {
                         ConnectionResponse<ResultBoolean> response = new ConnectionResponse<>();
+                        response.data = userResponse;
+                        connectionListener.onSuccess(response);
+                    }
+                });
+    }
+    public static void addRequestLog(String token, RequestBody body, final ConnectionListener<ResultBoolean> connectionListener) {
+        getApi().addRequestLogs(token, body).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResultBoolean>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        connectionListener.onFail(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(ResultBoolean userResponse) {
+                        ConnectionResponse<ResultBoolean> response = new ConnectionResponse<>();
+                        response.data = userResponse;
+                        connectionListener.onSuccess(response);
+                    }
+                });
+    }
+    public static void getPackagesApi(String token, final ConnectionListener<PackagesArray> connectionListener) {
+        getApi().getPackages(token).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<PackagesArray>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        connectionListener.onFail(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(PackagesArray userResponse) {
+                        ConnectionResponse<PackagesArray> response = new ConnectionResponse<>();
+                        response.data = userResponse;
+                        connectionListener.onSuccess(response);
+                    }
+                });
+    }
+
+    public static void getHistoryPackages(String token, final ConnectionListener<HistoryArray> connectionListener) {
+        getApi().getPackagesHistory(token).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<HistoryArray>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        connectionListener.onFail(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(HistoryArray userResponse) {
+                        ConnectionResponse<HistoryArray> response = new ConnectionResponse<>();
+                        response.data = userResponse;
+                        connectionListener.onSuccess(response);
+                    }
+                });
+    }
+    public static void getCurrentPackagesApi(String token, final ConnectionListener<ResultForProfile<CurrentPackages>> connectionListener) {
+        getApi().getCurrentPackages(token).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResultForProfile<CurrentPackages>>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        connectionListener.onFail(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(ResultForProfile<CurrentPackages> userResponse) {
+                        ConnectionResponse<ResultForProfile<CurrentPackages>> response = new ConnectionResponse<>();
+                        response.data = userResponse;
+                        connectionListener.onSuccess(response);
+                    }
+                });
+    }
+    public static void payPackage(String token,RequestBody body, final ConnectionListener<ResultForProfile<PaymentResponse>> connectionListener) {
+        getApi().payPackage(token , body).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResultForProfile<PaymentResponse>>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        connectionListener.onFail(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(ResultForProfile<PaymentResponse> userResponse) {
+                        ConnectionResponse<ResultForProfile<PaymentResponse>> response = new ConnectionResponse<>();
+                        response.data = userResponse;
+                        connectionListener.onSuccess(response);
+                    }
+                });
+    }
+    public static void getRequestCalls(String token, final ConnectionListener<RequestLogsArray> connectionListener) {
+        getApi().getStudentCalls(token).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<RequestLogsArray>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        connectionListener.onFail(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(RequestLogsArray userResponse) {
+                        ConnectionResponse<RequestLogsArray> response = new ConnectionResponse<>();
+                        response.data = userResponse;
+                        connectionListener.onSuccess(response);
+                    }
+                });
+    }
+
+    public static void getWhatsAppNum(String token, final ConnectionListener<WhatsAppResponse> connectionListener) {
+        getApi().getWhatsApp(token).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<WhatsAppResponse>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        connectionListener.onFail(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(WhatsAppResponse userResponse) {
+                        ConnectionResponse<WhatsAppResponse> response = new ConnectionResponse<>();
+                        response.data = userResponse;
+                        connectionListener.onSuccess(response);
+                    }
+                });
+    }
+
+    public static void getRequestMessages(String token, final ConnectionListener<CallsArray> connectionListener) {
+        getApi().getMessages(token).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<CallsArray>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        connectionListener.onFail(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(CallsArray userResponse) {
+                        ConnectionResponse<CallsArray> response = new ConnectionResponse<>();
                         response.data = userResponse;
                         connectionListener.onSuccess(response);
                     }
@@ -977,4 +1189,60 @@ public class MainApi {
                     }
                 });
     }
+
+
+    //delete Certificates
+
+
+    public static void deleteCer(String token,int file , final ConnectionListener<DeleteCertificates> connectionListener) {
+        getApi().deleteCertificates(token , file).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<DeleteCertificates>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        connectionListener.onFail(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(DeleteCertificates userResponse) {
+                        ConnectionResponse<DeleteCertificates> response = new ConnectionResponse<>();
+                        response.data = userResponse;
+                        connectionListener.onSuccess(response);
+                    }
+                });
+    }
+    public static void getCer(String token, final ConnectionListener<GetCertificates> connectionListener) {
+        getApi().getCertificates(token ).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<GetCertificates>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        connectionListener.onFail(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(GetCertificates userResponse) {
+                        ConnectionResponse<GetCertificates> response = new ConnectionResponse<>();
+                        response.data = userResponse;
+                        connectionListener.onSuccess(response);
+                    }
+                });
+    }
+
 }

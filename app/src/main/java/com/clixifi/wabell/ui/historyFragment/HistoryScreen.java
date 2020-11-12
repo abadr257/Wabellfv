@@ -1,66 +1,81 @@
 package com.clixifi.wabell.ui.historyFragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.clixifi.wabell.R;
+import com.clixifi.wabell.data.HistoryArray;
+import com.clixifi.wabell.databinding.FragmentHistoryScreenBinding;
+import com.clixifi.wabell.ui.Adapters.HistoryPackagesAdapter;
+import com.clixifi.wabell.utils.CustomDialog;
+import com.clixifi.wabell.utils.ToastUtil;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HistoryScreen#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class HistoryScreen extends Fragment {
+public class HistoryScreen extends Fragment implements HistoryInterface {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public HistoryScreen() {
-        // Required empty public constructor
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HistoryScreen.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HistoryScreen newInstance(String param1, String param2) {
-        HistoryScreen fragment = new HistoryScreen();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
+    View v ;
+    FragmentHistoryScreenBinding binding ;
+    CustomDialog dialog ;
+    HistoryHandler handler ;
+    HistoryPackagesAdapter adapter ;
+    HistoryPresenter presenter ;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history_screen, container, false);
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_history_screen, container, false);
+        v = binding.getRoot();
+        handler = new HistoryHandler(getActivity());
+        binding.setHandler(handler);
+        dialog = new CustomDialog(getActivity());
+        presenter = new HistoryPresenter(this);
+        dialog.ShowDialog();
+        presenter.getHistory(getActivity());
+        return v;
+    }
+
+    @Override
+    public void onHistory(HistoryArray array) {
+        if(array.getResult().size() >0){
+            adapter = new HistoryPackagesAdapter(getActivity() , array);
+            binding.recHistory.setLayoutManager(new LinearLayoutManager(getActivity()));
+            binding.recHistory.setAdapter(adapter);
+        }else {
+            binding.noHistory.setVisibility(View.VISIBLE);
+        }
+
+        dialog.DismissDialog();
+    }
+
+    @Override
+    public void onFail(boolean fail) {
+        dialog.DismissDialog();
+        ToastUtil.showErrorToast(getActivity() ,R.string.error);
+    }
+
+    @Override
+    public void onConnection(boolean isConnected) {
+        dialog.DismissDialog();
+        ToastUtil.showErrorToast(getActivity() ,R.string.noInternet);
+    }
+
+    public class HistoryHandler{
+        Context context ;
+
+        public HistoryHandler(Context context) {
+            this.context = context;
+        }
     }
 }

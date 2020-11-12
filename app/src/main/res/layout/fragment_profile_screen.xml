@@ -88,8 +88,8 @@
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/user_img"
-                            android:layout_width="110dp"
-                            android:layout_height="110dp"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:layout_centerHorizontal="true"
                             android:layout_marginBottom="10dp"
                              />
@@ -255,6 +255,43 @@
                                 android:paddingEnd="5dp"
                                 android:textSize="15sp" />
                         </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="#FFFFFF"
+                            android:gravity="center"
+                            android:layoutDirection="locale"
+                            android:orientation="horizontal"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="0.5"
+                                android:text="@string/teLocation"
+                                android:textColor="#7C79A6"
+                                android:textSize="17sp" />
+
+                            <EditText
+                                android:id="@+id/ed_location"
+                                android:layout_width="0dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1.5"
+                                android:backgroundTint="#FFFFFF"
+                                android:focusable="false"
+                                android:gravity="start|center"
+                                android:hint="@string/teLocation"
+                                android:textDirection="locale"
+                                android:inputType="text"
+                                android:paddingStart="5dp"
+                                android:onClick="@{handler::editLocation}"
+                                android:paddingEnd="5dp"
+                                android:textSize="15sp" />
+                        </LinearLayout>
 
                         <RelativeLayout
                             android:id="@+id/lin2_txt"
@@ -292,7 +329,7 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
+                            android:layout_height="wrap_content"
                             android:background="#FFFFFF"
                             android:gravity="center"
                             android:layoutDirection="ltr"
@@ -303,12 +340,12 @@
                             <EditText
                                 android:id="@+id/ed_topics"
                                 android:layout_width="match_parent"
-                                android:layout_height="50dp"
+                                android:layout_height="wrap_content"
                                 android:backgroundTint="#FFFFFF"
                                 android:focusable="false"
                                 android:gravity="start|center"
                                 android:hint="@string/spec"
-                                android:inputType="text"
+                                android:inputType="textMultiLine"
                                 android:textDirection="locale"
                                 android:paddingStart="5dp"
                                 android:paddingEnd="5dp"
@@ -429,7 +466,7 @@
                                 android:layout_height="80dp"
                                 android:backgroundTint="#FFFFFF"
                                 android:focusable="false"
-                                android:gravity="start|center"
+                                android:gravity="start|top"
                                 android:inputType="textMultiLine"
                                 android:paddingStart="5dp"
                                 android:textDirection="locale"
@@ -478,7 +515,7 @@
                                 android:backgroundTint="#FFFFFF"
                                 android:focusable="false"
                                 android:textDirection="locale"
-                                android:gravity="start|center"
+                                android:gravity="start|top"
                                 android:inputType="textMultiLine"
                                 android:paddingStart="5dp"
                                 android:paddingEnd="5dp"
@@ -525,7 +562,7 @@
                                 android:layout_height="80dp"
                                 android:backgroundTint="#FFFFFF"
                                 android:focusable="false"
-                                android:gravity="start|center"
+                                android:gravity="start|top"
                                 android:textDirection="locale"
                                 android:inputType="textMultiLine"
                                 android:paddingStart="5dp"
@@ -572,7 +609,7 @@
                                 android:backgroundTint="#FFFFFF"
                                 android:focusable="false"
                                 android:textDirection="locale"
-                                android:gravity="start|center"
+                                android:gravity="start|top"
                                 android:inputType="text"
                                 android:paddingStart="5dp"
                                 android:paddingEnd="5dp"
@@ -620,7 +657,7 @@
                                 android:backgroundTint="#FFFFFF"
                                 android:focusable="false"
                                 android:textDirection="locale"
-                                android:gravity="start|center"
+                                android:gravity="start|top"
                                 android:inputType="textMultiLine"
                                 android:paddingStart="5dp"
                                 android:paddingEnd="5dp"

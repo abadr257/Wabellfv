@@ -2,15 +2,19 @@
     <string name="app_name" translatable="false">Wabell</string>
     <string name="splash_text" translatable="false">For People , By People</string>
     <string name="splash_text_lang">Choose a language to continue</string>
-    <string name="splash_text_ar">عربى</string>
+    <string name="splash_text_ar">العربية</string>
     <string name="splash_text_en">English</string>
     <string name="from_hp">From</string>
+    <string name="mExp">Month</string>
+    <string name="yExp">Year</string>
     <string name="to_hp">To</string>
+    <string name="thanks">Thanks For Payment</string>
     <string name="requestSub">Request subject(s)</string>
     <string name="rate_file">Enter the rate</string>
-    //
+//
+    <string name="last">Last Month</string>
     <string name="txtRequest">Tell us what you want to learn and our moderators will find your tutors</string>
-    <string name="login">Log in</string>
+    <string name="login">Login</string>
     <string name="mProfile">Master`s Profile</string>
 
     <string name="mas_filters">Masters Filter</string>
@@ -28,7 +32,7 @@
     <string name="featured">Featured Masters</string>
     <string name="noThing">Please Select your Specialty</string>
     <string name="exp">Add Experience and Education</string>
-    <string name="media">Upload Certificates</string>
+    <string name="media">Upload Media</string>
     <string name="bio">Add your Biography</string>
     <string name="noReviews">This Tutor dose not have any Reviews</string>
     <string name="workDetails">Work details</string>
@@ -63,7 +67,7 @@
     <string name="custom_dialog">Please Wait</string>
     <string name="login_success">Login Successfully</string>
     <string name="noInternet">No Internet Connection</string>
-    <string name="reviewAdded">Your Review Added Successfully</string>//
+    <string name="reviewAdded">Your Review Added Successfully</string>
     <string name="updatedSuccessfully">Your Profile Updated Successfully</string>
     <string name="reqSuccess">Your Request sent successfully</string>
     <string name="inValidData">Enter a valid data </string>
@@ -73,6 +77,8 @@
     <string name="teStudent">Student</string>
     <string name="tuAbout">About</string>
     <string name="reMessages">Messages</string>
+    <string name="subPackages">You haven\' t subscribed to any plan. Subscribe to be visible to Customers</string>
+    <string name="paymentHint">You’ve selected this plan</string>
     <string name="viewMessage">View Messages</string>
     <string name="reCalls">Calls</string>
     <string name="reCall">Call</string>
@@ -87,10 +93,18 @@
     <string name="tePhoneNum">Phone</string>
     <string name="txtPhoneNum">Phone Number</string>
     <string name="teEmail">Email</string>
+
+    <string name="cname">Card Holder Name</string>
+    <string name="hname">Holder Name</string>
+    <string name="cnum">Card Number</string>
+    <string name="expir">Expiry</string>
+    <string name="cvv">CCV</string>
+    <string name="comPayment">Complete Payment</string>
+
     <string name="te1">By Register, you agree to the following </string>
-    <string name="teTerms"> terms of service </string>
+    <string name="teTerms"> Terms of service </string>
     <string name="te2">and </string>
-    <string name="tePrivacy">privacy policy</string>
+    <string name="tePrivacy">Privacy policy</string>
     <string name="te3">Already have an account?</string>
     <string name="ok">Ok</string>
     <string name="sendRequest">Send Request</string>
@@ -112,16 +126,23 @@
     <string name="profile">Profile</string>
     <string name="req">Requests</string>
     <string name="subs">Subscription</string>
+    <string name="payMent">Payment</string>
     <string name="packages">Packages</string>
     <string name="history">History</string>
     <string name="reqTopic">Request Specialty</string>
     <string name="more">More</string>
     <string name="home">Home</string>
     <string name="searchTitle">Search Results</string>
+    <string name="searchButton">Search</string>
     <string name="showing">Showing</string>
     <string name="resultFor">Result for </string>
     <string name="online">Online</string>
     <string name="update">Update</string>
+    <string name="noCalls">No Calls</string>
+    <string name="noMessages">No Messages</string>
+    <string name="hintInlogs">Connect With Master’s on Wabell \n by beginning a new conversation.</string>
+    <string name="find_masters">Find Masters</string>
+    <string name="offlines">Offline</string>
     <string name="offline">Offline until</string>
     <string name="viewProfile">View Profile</string>
     <string name="id">Upload Id</string>
@@ -183,10 +204,12 @@
 
     <string name="studentFav">Favorite Masters</string>
     <string name="sub">Subscription</string>
+    <string name="noHistory">No History yet</string>
     <string name="about">About Wabell</string>
     <string name="share">Share Wabell</string>
+    <string name="until_sub">The subscription will end on 15 Jul 2020</string>
     <string name="lang">Language</string>
-
+    <string name="active">Active</string>
     <string name="viewCer">View All</string>
     <string name="edit">Edit</string>
     <string name="Availability">Availability</string>

@@ -40,6 +40,16 @@ public class FeaturedItem {
 
     @SerializedName("Id")
     public String Id;
+    @SerializedName("TagLine")
+    public String TagLine ;
+
+    public String getTagLine() {
+        return TagLine;
+    }
+
+    public void setTagLine(String tagLine) {
+        TagLine = tagLine;
+    }
 
     public String getId() {
         return Id;

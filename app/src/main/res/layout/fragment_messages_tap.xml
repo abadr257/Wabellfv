@@ -3,7 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
 
+        <variable
+            name="onNoData"
+            type="java.lang.Boolean" />
+        <variable
+            name="button"
+            type="java.lang.Boolean" />
         <variable
             name="handler"
             type="com.clixifi.wabell.ui.messagesTap.MessagesFragmentTap.MyRooms" />
@@ -20,5 +27,54 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:id="@+id/lin_center"
+            android:visibility="@{onNoData == true ? View.VISIBLE : View.GONE}"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/messages_nomessages"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textDirection="locale"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="@string/noMessages"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textDirection="locale"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:text=""
+                />
+
+        </LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/blue_btn_style"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/find_masters"
+            android:id="@+id/btn_findMasters"
+            android:visibility="@{button == true ? View.VISIBLE : View.GONE}"
+            android:textColor="@color/colorWhite"
+            android:layout_below="@+id/lin_center"
+            />
     </RelativeLayout>
 </layout>

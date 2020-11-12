@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -21,7 +22,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.subscription.SubscriptionScreen"></activity>
+        <activity android:name=".ui.payment.PaymentScreen"></activity>
+        <activity android:name=".ui.terms.TermsScreen" />
+        <activity android:name=".ui.privecy.PrivecyScreen" />
+        <activity android:name=".ui.subscription.SubscriptionScreen" />
         <activity android:name=".ui.searchByWord.SearchByWord" />
         <activity android:name=".ui.viewAllCertificates.AllCertificates" />
         <activity android:name=".ui.chat.ChatScreen" />

@@ -137,10 +137,7 @@ public class LoginScreen extends AppCompatActivity implements LoginListener {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             return context.getResources().getConfiguration().getLayoutDirection()
                     == View.LAYOUT_DIRECTION_RTL;
-            // Another way:
-            // Define a boolean resource as "true" in res/values-ldrtl
-            // and "false" in res/values
-            // return context.getResources().getBoolean(R.bool.is_right_to_left);
+
         } else {
             return false;
         }

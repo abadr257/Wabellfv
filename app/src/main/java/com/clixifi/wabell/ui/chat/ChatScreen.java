@@ -13,8 +13,13 @@ import android.view.View;
 
 import com.clixifi.wabell.R;
 import com.clixifi.wabell.data.Messages;
+import com.clixifi.wabell.data.Response.AddFav.AddFavorite;
+import com.clixifi.wabell.data.Response.ResultBoolean;
+import com.clixifi.wabell.data.Response.TutorProfileData.TutorProfileForStudent;
 import com.clixifi.wabell.databinding.ActivityChatScreenBinding;
 import com.clixifi.wabell.ui.Adapters.MessageAdapter;
+import com.clixifi.wabell.ui.tutorProfileforStudent.TutorProfileInterface;
+import com.clixifi.wabell.ui.tutorProfileforStudent.TutorProfilePresenter;
 import com.clixifi.wabell.utils.StaticMethods;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -31,7 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ChatScreen extends AppCompatActivity {
+public class ChatScreen extends AppCompatActivity implements TutorProfileInterface {
     ActivityChatScreenBinding binding ;
     MyChatHandler handler ;
     private FirebaseAuth mAuth;
@@ -46,6 +51,8 @@ public class ChatScreen extends AppCompatActivity {
     private int mCurrentPage = 1;
     private MessageAdapter mAdapter;
     private int itemPos = 0;
+    TutorProfilePresenter presenter;
+    String userServerId = "" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +63,19 @@ public class ChatScreen extends AppCompatActivity {
         mRootRef = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         mCurrentUserId = mAuth.getCurrentUser().getUid();
-
+        presenter = new TutorProfilePresenter(this);
         mChatUser = getIntent().getStringExtra("user_id");
         String userName = getIntent().getStringExtra("user_name");
+        String userImage = getIntent().getStringExtra("user_image");
+        userServerId = getIntent().getStringExtra("userServerId");
+        if(userServerId == null){
+            userServerId = "";
+        }
+        Log.e("TAG", "onCreate: "+userServerId );
+        //user_image //
+        StaticMethods.LoadImage(ChatScreen.this , binding.tutorImg , userImage , null);
         binding.txtRecName.setText(userName);
-        mAdapter = new MessageAdapter(messagesList);
+        mAdapter = new MessageAdapter(messagesList , mCurrentUserId , ChatScreen.this);
         mLinearLayout = new LinearLayoutManager(this);
         binding.recMessages.setLayoutManager(mLinearLayout);
         binding.recMessages.setAdapter(mAdapter);
@@ -133,6 +148,7 @@ public class ChatScreen extends AppCompatActivity {
 
             }
         });
+
     }
 
     private void loadMoreMessages() {
@@ -201,25 +217,25 @@ public class ChatScreen extends AppCompatActivity {
 
         DatabaseReference messageRef = mRootRef.child("messages").child(mCurrentUserId).child(mChatUser);
 
-        Query messageQuery = messageRef.limitToLast(mCurrentPage * TOTAL_ITEMS_TO_LOAD);
+        //Query messageQuery = messageRef.limitToLast(mCurrentPage * TOTAL_ITEMS_TO_LOAD);
 
 
-        messageQuery.addChildEventListener(new ChildEventListener() {
+        messageRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
                 Messages message = dataSnapshot.getValue(Messages.class);
 
-                itemPos++;
+                //itemPos++;
 
-                if(itemPos == 1){
+                /*if(itemPos == 1){
 
                     String messageKey = dataSnapshot.getKey();
 
                     mLastKey = messageKey;
                     mPrevKey = messageKey;
 
-                }
+                }*/
 
                 messagesList.add(message);
                 mAdapter.notifyDataSetChanged();
@@ -252,6 +268,42 @@ public class ChatScreen extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onSuccess(TutorProfileForStudent tutor) {
+
+    }
+
+    @Override
+    public void onFail(boolean fail) {
+
+    }
+
+    @Override
+    public void onConnection(boolean isConnected) {
+
+    }
+
+    @Override
+    public void OnAddedToFavorite(AddFavorite addFavorite) {
+
+    }
+
+    @Override
+    public void onDeleteFav(ResultBoolean result) {
+
+    }
+
+    @Override
+    public void onSendMessage(ResultBoolean resultBoolean) {
+
+    }
+
+    @Override
+    public void onCall(ResultBoolean resultBoolean) {
+
+    }
+
     public class MyChatHandler{
         Context context ;
         public MyChatHandler(Context context) {
@@ -286,12 +338,15 @@ public class ChatScreen extends AppCompatActivity {
             messageMap.put("type", "text");
             messageMap.put("time", ServerValue.TIMESTAMP);
             messageMap.put("from", mCurrentUserId);
-
+            messageMap.put("RecUser", userServerId);
             Map messageUserMap = new HashMap();
             messageUserMap.put(current_user_ref + "/" + push_id, messageMap);
             messageUserMap.put(chat_user_ref + "/" + push_id, messageMap);
 
             binding.edMessage.setText("");
+            if(!userServerId.equals("")){
+                presenter.addRequestLogMessage(ChatScreen.this ,userServerId ,message );
+            }
 
             mRootRef.child("Chat").child(mCurrentUserId).child(mChatUser).child("seen").setValue(true);
             mRootRef.child("Chat").child(mCurrentUserId).child(mChatUser).child("timestamp").setValue(ServerValue.TIMESTAMP);

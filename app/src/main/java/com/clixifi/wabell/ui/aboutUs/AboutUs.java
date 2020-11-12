@@ -10,7 +10,10 @@ import android.view.View;
 
 import com.clixifi.wabell.R;
 import com.clixifi.wabell.databinding.ActivityAboutUsBinding;
+import com.clixifi.wabell.ui.privecy.PrivecyScreen;
 import com.clixifi.wabell.ui.register.RegisterScreen;
+import com.clixifi.wabell.ui.terms.TermsScreen;
+import com.clixifi.wabell.utils.IntentUtilies;
 
 public class AboutUs extends AppCompatActivity {
     ActivityAboutUsBinding binding ;
@@ -31,6 +34,12 @@ public class AboutUs extends AppCompatActivity {
         }
         public void back(View view){
             onBackPressed();
+        }
+        public void pri(View view){
+            IntentUtilies.openActivity(AboutUs.this , PrivecyScreen.class);
+        }
+        public void terms(View view){
+            IntentUtilies.openActivity(AboutUs.this , TermsScreen.class);
         }
     }
 }

@@ -113,7 +113,7 @@ public class StaticMethods {
         try {
             if (progressBar != null)
                 progressBar.setVisibility(View.VISIBLE);
-            Log.e(TAG, "LoadImageC: " + Url);
+
             Glide.with(context)
                     .load(Url)
                     .asBitmap()
@@ -124,19 +124,25 @@ public class StaticMethods {
                             if (progressBar != null)
                                 progressBar.setVisibility(View.GONE);
 
-                            imageView.setVisibility(View.VISIBLE);
+                            //imageView.setVisibility(View.VISIBLE);
                             final float scale = context.getResources().getDisplayMetrics().density;
-                            int pixels = (int) (50 * scale + 0.5f);
+                            int pixels = (int) (100 * scale + 0.5f);
                             Bitmap bitmap = Bitmap.createScaledBitmap(resource, pixels, pixels, true);
-                            imageView.setImageBitmap(bitmap);
+                            if (imageView != null){
+                                imageView.setImageBitmap(bitmap);
+                            }
+
                         }
 
                         @Override
                         public void onLoadFailed(Exception e, Drawable errorDrawable) {
                             if (progressBar != null)
                                 progressBar.setVisibility(View.GONE);
-                            imageView.setVisibility(View.VISIBLE);
-                            imageView.setImageResource(R.drawable.wabell_logode);
+                            if (imageView != null){
+                                imageView.setVisibility(View.VISIBLE);
+                                imageView.setImageResource(R.drawable.wabell_logode);
+                            }
+
                         }
                     });
         } catch (Exception e) {
@@ -148,7 +154,6 @@ public class StaticMethods {
             if (progressBar != null)
                 progressBar.setVisibility(View.VISIBLE);
 
-
             Glide.with(context)
                     .load(Url)
                     .asBitmap()
@@ -159,11 +164,13 @@ public class StaticMethods {
                             if (progressBar != null)
                                 progressBar.setVisibility(View.GONE);
 
-                            imageView.setVisibility(View.VISIBLE);
-                            float scale = context.getResources().getDisplayMetrics().density;
+                            //imageView.setVisibility(View.VISIBLE);
+                            final float scale = context.getResources().getDisplayMetrics().density;
                             int pixels = (int) (1000 * scale + 0.5f);
                             Bitmap bitmap = Bitmap.createScaledBitmap(resource, pixels, pixels, true);
-                            imageView.setImageBitmap(bitmap);
+                            if (imageView != null){
+                                imageView.setImageBitmap(bitmap);
+                            }
                         }
 
                         @Override
@@ -228,7 +235,7 @@ public class StaticMethods {
     public static boolean selected = false;
     public static int selectedPostion = 0;
     public static String typeS = "";
-
+    public static String searchWord = "";
     public static void ClearChash() {
         StaticMethods.userData = null;
         StaticMethods.userRegisterResponse = null;

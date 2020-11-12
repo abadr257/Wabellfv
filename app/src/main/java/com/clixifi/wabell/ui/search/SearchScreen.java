@@ -11,7 +11,13 @@ import android.view.View;
 import com.clixifi.wabell.R;
 import com.clixifi.wabell.databinding.ActivitySearchScreenBinding;
 import com.clixifi.wabell.ui.Adapters.TutorListAdapter;
+import com.clixifi.wabell.ui.filterScreen.FilterScreen;
+import com.clixifi.wabell.ui.main.MainScreen;
+import com.clixifi.wabell.ui.searchByWord.SearchByWord;
+import com.clixifi.wabell.utils.IntentUtilies;
 import com.clixifi.wabell.utils.StaticMethods;
+
+import static com.clixifi.wabell.utils.StaticMethods.searchWord;
 
 public class SearchScreen extends AppCompatActivity {
     ActivitySearchScreenBinding binding;
@@ -27,6 +33,9 @@ public class SearchScreen extends AppCompatActivity {
         if (StaticMethods.tutors.getResult().size() == 0){
             binding.noResultTv.setVisibility(View.VISIBLE);
         }
+        if(!searchWord.equals("")){
+            binding.searchName.setText(searchWord);
+        }
         binding.arrayList.setText(""+StaticMethods.tutors.getResult().size());
         listAdapter = new TutorListAdapter(SearchScreen.this, StaticMethods.tutors);
         binding.recResult.setLayoutManager(new LinearLayoutManager(SearchScreen.this));
@@ -41,16 +50,16 @@ public class SearchScreen extends AppCompatActivity {
         }
 
         public void onFilter(View v) {
-
+            IntentUtilies.openActivity(SearchScreen.this, FilterScreen.class);
         }
-
         public void onSearch(View v) {
-
+            IntentUtilies.openActivity(SearchScreen.this, SearchByWord.class);
         }
 
         public void back(View v) {
             onBackPressed();
             StaticMethods.tutors = null ;
+            searchWord = "";
         }
     }
 }

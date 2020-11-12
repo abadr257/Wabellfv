@@ -4,44 +4,79 @@ import com.google.gson.annotations.SerializedName;
 
 public class RequestLogsItem {
 
-    @SerializedName("Id")
-    public int Id;
+    @SerializedName("FromUserName")
+    public String FromUserName;
 
-    @SerializedName("Type")
-    public String Type;
+    @SerializedName("FromUserImage")
+    public String FromUserImage;
+    @SerializedName("FromUserPhoneNumber")
+    public String FromUserPhoneNumber;
+    @SerializedName("FromUserTagline")
+    public String FromUserTagline;
+    @SerializedName("FromUserId")
+    public String FromUserId;
     @SerializedName("Date")
     public String Date;
-    @SerializedName("Content")
-    public String Content;
-    @SerializedName("TutorId")
-    public String TutorId;
-    @SerializedName("TutorFullName")
-    public String TutorFullName;
-    @SerializedName("TutorImage")
-    public String TutorImage;
-    @SerializedName("StudentId")
-    public String StudentId;
-    @SerializedName("StudentFullName")
-    public String StudentFullName;
-    @SerializedName("StudentImage")
-    public String  StudentImage;
-    @SerializedName("IsFromTutor")
-    public boolean IsFromTutor;
+    @SerializedName("Time")
+    public String Time;
+    @SerializedName("Type")
+    public String Type;
+    @SerializedName("FirebaseRoomId")
+    public String FirebaseRoomId;
+    @SerializedName("Body")
+    public String  Body;
+    @SerializedName("UserFirebaseId")
+    public String  UserFirebaseId;
 
-    public int getId() {
-        return Id;
+    @SerializedName("IsOnline")
+    public boolean isOnline ;
+
+    public boolean isOnline() {
+        return isOnline;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setOnline(boolean online) {
+        isOnline = online;
     }
 
-    public String getType() {
-        return Type;
+    public String getFromUserName() {
+        return FromUserName;
     }
 
-    public void setType(String type) {
-        Type = type;
+    public void setFromUserName(String fromUserName) {
+        FromUserName = fromUserName;
+    }
+
+    public String getFromUserImage() {
+        return FromUserImage;
+    }
+
+    public void setFromUserImage(String fromUserImage) {
+        FromUserImage = fromUserImage;
+    }
+
+    public String getFromUserPhoneNumber() {
+        return FromUserPhoneNumber;
+    }
+
+    public void setFromUserPhoneNumber(String fromUserPhoneNumber) {
+        FromUserPhoneNumber = fromUserPhoneNumber;
+    }
+
+    public String getFromUserTagline() {
+        return FromUserTagline;
+    }
+
+    public void setFromUserTagline(String fromUserTagline) {
+        FromUserTagline = fromUserTagline;
+    }
+
+    public String getFromUserId() {
+        return FromUserId;
+    }
+
+    public void setFromUserId(String fromUserId) {
+        FromUserId = fromUserId;
     }
 
     public String getDate() {
@@ -52,67 +87,43 @@ public class RequestLogsItem {
         Date = date;
     }
 
-    public String getContent() {
-        return Content;
+    public String getTime() {
+        return Time;
     }
 
-    public void setContent(String content) {
-        Content = content;
+    public void setTime(String time) {
+        Time = time;
     }
 
-    public String getTutorId() {
-        return TutorId;
+    public String getType() {
+        return Type;
     }
 
-    public void setTutorId(String tutorId) {
-        TutorId = tutorId;
+    public void setType(String type) {
+        Type = type;
     }
 
-    public String getTutorFullName() {
-        return TutorFullName;
+    public String getFirebaseRoomId() {
+        return FirebaseRoomId;
     }
 
-    public void setTutorFullName(String tutorFullName) {
-        TutorFullName = tutorFullName;
+    public void setFirebaseRoomId(String firebaseRoomId) {
+        FirebaseRoomId = firebaseRoomId;
     }
 
-    public String getTutorImage() {
-        return TutorImage;
+    public String getBody() {
+        return Body;
     }
 
-    public void setTutorImage(String tutorImage) {
-        TutorImage = tutorImage;
+    public void setBody(String body) {
+        Body = body;
     }
 
-    public String getStudentId() {
-        return StudentId;
+    public String getUserFirebaseId() {
+        return UserFirebaseId;
     }
 
-    public void setStudentId(String studentId) {
-        StudentId = studentId;
-    }
-
-    public String getStudentFullName() {
-        return StudentFullName;
-    }
-
-    public void setStudentFullName(String studentFullName) {
-        StudentFullName = studentFullName;
-    }
-
-    public String getStudentImage() {
-        return StudentImage;
-    }
-
-    public void setStudentImage(String studentImage) {
-        StudentImage = studentImage;
-    }
-
-    public boolean isFromTutor() {
-        return IsFromTutor;
-    }
-
-    public void setFromTutor(boolean fromTutor) {
-        IsFromTutor = fromTutor;
+    public void setUserFirebaseId(String userFirebaseId) {
+        UserFirebaseId = userFirebaseId;
     }
 }

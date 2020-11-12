@@ -21,8 +21,10 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.clixifi.wabell.R;
+import com.clixifi.wabell.data.WhatsAppResponse;
 import com.clixifi.wabell.databinding.FragmentMoreScreenBinding;
 import com.clixifi.wabell.ui.main.MainScreen;
+import com.clixifi.wabell.utils.CustomDialog;
 import com.clixifi.wabell.utils.IntentUtilies;
 import com.clixifi.wabell.utils.LocaleManager;
 import com.clixifi.wabell.utils.StaticMethods;
@@ -35,7 +37,7 @@ import java.util.List;
 import static android.content.ContentValues.TAG;
 
 
-public class MoreScreen extends Fragment {
+public class MoreScreen extends Fragment implements MoreInterface{
 
     FragmentMoreScreenBinding binding;
     View v;
@@ -44,6 +46,9 @@ public class MoreScreen extends Fragment {
     TextView txtUntil;
     MyHandler handler;
     boolean isOnline = true;
+    String whatsNum  = "";
+    MorePresenter presenter ;
+    CustomDialog dialog ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,6 +58,10 @@ public class MoreScreen extends Fragment {
         handler = new MyHandler(getActivity());
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding.setHandler(handler);
+        dialog = new CustomDialog(getActivity());
+        presenter= new MorePresenter(this);
+        dialog.ShowDialog();
+        presenter.getNum(getActivity());
         checkType();
         return v;
     }
@@ -84,6 +93,23 @@ public class MoreScreen extends Fragment {
         super.onAttach(LocaleManager.onAttach(context));
     }
 
+    @Override
+    public void onFail(boolean fail) {
+        dialog.DismissDialog();
+    }
+
+    @Override
+    public void onConnection(boolean fail) {
+        dialog.DismissDialog();
+    }
+
+    @Override
+    public void onSuccess(WhatsAppResponse number) {
+        dialog.DismissDialog();
+        Log.e(TAG, "onSuccess: "+number.getResult() );
+        this.whatsNum = number.getResult();
+    }
+
     public class MyHandler {
         Context c;
 
@@ -103,7 +129,6 @@ public class MoreScreen extends Fragment {
         }
         public void lang(View v) {
             openAlertDialog();
-
         }
 
         public void share(View v) {
@@ -112,6 +137,9 @@ public class MoreScreen extends Fragment {
 
         public void about(View v) {
             ((MainScreen) getActivity()).gotoAbout();
+        }
+        public void whats(View v) {
+            ((MainScreen) getActivity()).goToWhatsApp(whatsNum);
         }
     }
 

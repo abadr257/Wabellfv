@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -50,9 +51,9 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.MyView
         holder.numOfRate.setText(list.getItems().get(position).getRankCount()+"");
         holder.numOfViews.setText(list.getItems().get(position).getViewsCount()+"");
         holder.location.setText(list.getItems().get(position).getLocation());
-        holder.bio.setText(list.getItems().get(position).getBiography());
+        holder.bio.setText(list.getItems().get(position).getTagLine());
         if(LocaleManager.getLanguage(context).equals("en")){
-            holder.price.setText(list.getItems().get(position).getHourPrice()+"SAR/hr");
+            holder.price.setText(list.getItems().get(position).getHourPrice()+" SAR / Hr");
             Log.e(TAG, "onBindViewHolder: "+"here" );
             if(list.getItems().get(position).getEngTopics() != null){
                 Log.e(TAG, "onBindViewHolder: "+"here 1 " );
@@ -84,7 +85,7 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.MyView
                 holder.sub3.setVisibility(View.GONE);
             }
         }else {
-            holder.price.setText(list.getItems().get(position).getHourPrice()+"ريال/س");
+            holder.price.setText(list.getItems().get(position).getHourPrice()+" ريال / س ");
             if(list.getItems().get(position).getArTopics() != null){
                 int size = list.getItems().get(position).getArTopics().size() ;
                 if(size == 0 ){
@@ -121,6 +122,31 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.MyView
                 IntentUtilies.openActivityWithBundle(context, TutorProfileView.class , bun);
             }
         });
+
+        if(StaticMethods.userRegisterResponse != null){
+            if(StaticMethods.userRegisterResponse.Data.getType().equals("tutor")){
+                holder.status.setVisibility(View.GONE);
+            }else {
+                if(list.getItems().get(position).IsOnline){
+                    holder.status.setVisibility(View.VISIBLE);
+                }else {
+                    holder.status.setVisibility(View.VISIBLE);
+                    holder.status.setBackgroundResource(R.drawable.offline);
+                }
+
+            }
+        }else {
+            if(StaticMethods.userData.getUserType().equals("tutor")){
+                holder.status.setVisibility(View.GONE);
+            }else {
+                if(list.getItems().get(position).IsOnline){
+                    holder.status.setVisibility(View.VISIBLE);
+                }else {
+                    holder.status.setVisibility(View.VISIBLE);
+                    holder.status.setBackgroundResource(R.drawable.offline);
+                }
+            }
+        }
     }
 
     @Override
@@ -132,8 +158,10 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.MyView
         TextView name , price , sub1 , sub2 , sub3 ,location , bio , numOfRate , numOfViews ;
         RatingBar rate ;
         CircleImageView img ;
+        RelativeLayout status ;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            status = itemView.findViewById(R.id.rel_online);
             name = itemView.findViewById(R.id.txt_tutorName );
             price = itemView.findViewById(R.id.txt_price );
             sub1 = itemView.findViewById(R.id.txt_sub1 );

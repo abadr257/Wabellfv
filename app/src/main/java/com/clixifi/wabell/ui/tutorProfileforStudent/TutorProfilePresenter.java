@@ -114,7 +114,81 @@ public class TutorProfilePresenter {
                 @Override
                 public void onSuccess(ConnectionResponse<ResultBoolean> connectionResponse) {
                     if(connectionResponse.data != null){
-                        tutor.onDeleteFav(connectionResponse.data);
+                        tutor.onCall(connectionResponse.data);
+                    }else {
+                        tutor.onFail(true);
+                    }
+                }
+
+                @Override
+                public void onFail(Throwable throwable) {
+                    tutor.onFail(true);
+                    Log.e(TAG, "onFail: "+throwable.toString() );
+                }
+            });
+        }
+    }
+    public void addRequestLogMessage(Context context , String tutorId , String message ){
+        boolean net = StaticMethods.isConnectingToInternet(context);
+        if(!net){
+            tutor.onConnection(true);
+        }else {
+
+            if(StaticMethods.userRegisterResponse != null){
+                token ="Bearer "+ StaticMethods.userRegisterResponse.Data.getToken();
+                id = StaticMethods.userRegisterResponse.Data.getUserId();
+            }else {
+                token = "Bearer " +StaticMethods.userData.getToken();
+                id = StaticMethods.userData.getUserId();
+            }
+            RequestBody body = null ;
+            try{
+                body = MainApiBody.addRequestLog("Message" ,tutorId ,   id ,0 ,message);
+            }catch (Exception e){
+
+            }
+            MainApi.addRequestLog(token, body, new ConnectionListener<ResultBoolean>() {
+                @Override
+                public void onSuccess(ConnectionResponse<ResultBoolean> connectionResponse) {
+                    if(connectionResponse.data != null){
+                        tutor.onSendMessage(connectionResponse.data);
+                    }else {
+                        tutor.onFail(true);
+                    }
+                }
+
+                @Override
+                public void onFail(Throwable throwable) {
+                    tutor.onFail(true);
+                    Log.e(TAG, "onFail: "+throwable.toString() );
+                }
+            });
+        }
+    }
+    public void addRequestLogCall(Context context , String tutorId , String message ){
+        boolean net = StaticMethods.isConnectingToInternet(context);
+        if(!net){
+            tutor.onConnection(true);
+        }else {
+
+            if(StaticMethods.userRegisterResponse != null){
+                token ="Bearer "+ StaticMethods.userRegisterResponse.Data.getToken();
+                id = StaticMethods.userRegisterResponse.Data.getUserId();
+            }else {
+                token = "Bearer " +StaticMethods.userData.getToken();
+                id = StaticMethods.userData.getUserId();
+            }
+            RequestBody body = null ;
+            try{
+                body = MainApiBody.addRequestLog("Call" ,tutorId ,   id ,0 ,"");
+            }catch (Exception e){
+
+            }
+            MainApi.addRequestLog(token, body, new ConnectionListener<ResultBoolean>() {
+                @Override
+                public void onSuccess(ConnectionResponse<ResultBoolean> connectionResponse) {
+                    if(connectionResponse.data != null){
+                        tutor.onCall(connectionResponse.data);
                     }else {
                         tutor.onFail(true);
                     }

@@ -32,6 +32,7 @@ public class TutorSteps extends AppCompatActivity {
     int ProfileEdit = 0;
     TutorTopics tutorTopics;
     TutorWorkScreen tutorWorkScreen;
+    TutorMedia media ;
     String type = "";
     boolean edit = false;
 
@@ -112,6 +113,9 @@ public class TutorSteps extends AppCompatActivity {
         displayView(3, null);
         position = 3;
     }
+    public void step6() {
+        onBackPressed();
+    }
 
     public void step4() {
         displayView(4, null);
@@ -125,6 +129,10 @@ public class TutorSteps extends AppCompatActivity {
 
     public void openHomeStudent() {
         IntentUtilies.openActivity(TutorSteps.this, MainScreen.class);
+        finish();
+    }
+    public void openProfile(Bundle b){
+        IntentUtilies.openActivityWithBundle(TutorSteps.this, MainScreen.class , b);
         finish();
     }
 
@@ -156,13 +164,16 @@ public class TutorSteps extends AppCompatActivity {
             case 2:
                 if (edit) {
                     binding.backIcon.setVisibility(View.GONE);
+                    binding.btnNext.setVisibility(View.GONE);
                 }
                 binding.pageCount.setText("" + 2);
                 binding.prograssBar.setProgress(50);
                 binding.title.setText(R.string.media);
                 selectedPosition = 2;
+                media = new TutorMedia();
+                media.setArguments(bundle);
                 fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                fragmentTransaction.replace(R.id.fragment_parent, new TutorMedia());
+                fragmentTransaction.replace(R.id.fragment_parent, media);
                 break;
             case 3:
                 binding.pageCount.setText("" + 3);
@@ -203,7 +214,6 @@ public class TutorSteps extends AppCompatActivity {
             binding.pageCount.setText("" + 1);
             binding.prograssBar.setProgress(25);
             binding.title.setText(R.string.exp);
-
         }
 
         public void back(View v) {

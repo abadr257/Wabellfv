@@ -1,6 +1,7 @@
 package com.clixifi.wabell.ui.Adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.clixifi.wabell.R;
 import com.clixifi.wabell.data.Response.ImageUrl;
+import com.clixifi.wabell.ui.viewAllCertificates.AllCertificates;
+import com.clixifi.wabell.utils.IntentUtilies;
 import com.clixifi.wabell.utils.StaticMethods;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -41,13 +45,28 @@ public class CertificatesAdapter extends RecyclerView.Adapter<CertificatesAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         if(images != null){
-            StaticMethods.LoadImage(context , holder.img ,images.get(position).getFilePath() , null);
+            Picasso.with(context).load(images.get(position).getFilePath()).into(holder.img);
+            //StaticMethods.LoadImage(context , holder.img ,images.get(position).getFilePath() , null);
         }else  {
-            StaticMethods.LoadImage(context , holder.img ,imgs.get(position) , null);
-
+            Picasso.with(context).load(imgs.get(position)).into(holder.img);
+            //StaticMethods.LoadImage(context , holder.img ,imgs.get(position) , null);
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle b = new Bundle();
+                if(images != null){
+                    b.putString("imageClicked" ,images.get(position).getFilePath() );
+                    IntentUtilies.openActivityWithBundle(context , AllCertificates.class , b);
+                }else  {
+                    b.putString("imageClicked" ,imgs.get(position) );
+                    IntentUtilies.openActivityWithBundle(context , AllCertificates.class , b);
+                }
+
+            }
+        });
 
     }
 

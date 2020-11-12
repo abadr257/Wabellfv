@@ -105,9 +105,13 @@ public class TutorTopics extends Fragment implements TopicsCategoryInterface {
         public void onNext(View v ){
             if(edit){
                 if(type.equals("student")){
-                    ((TutorSteps)getActivity()).openHomeStudent();
+                    Bundle b = new Bundle();
+                    b.putBoolean("EditProfile" , true);
+                    ((TutorSteps)getActivity()).openProfile(b);
                 }else {
-                    ((TutorSteps)getActivity()).openHomeStudent();
+                    Bundle b = new Bundle();
+                    b.putBoolean("EditProfile" , true);
+                    ((TutorSteps)getActivity()).openProfile(b);
                 }
             }else {
                 if(type.equals("tutor")){

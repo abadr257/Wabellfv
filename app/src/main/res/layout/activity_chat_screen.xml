@@ -35,17 +35,16 @@
                     android:id="@+id/back_icon"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_margin="15sp"
+                    android:layout_margin="8sp"
                     android:onClick="@{handler::back}"
                     android:src="@drawable/arrow_back_24" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/tutor_img"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/profile_inactive" />
+                     />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -60,7 +59,7 @@
                         android:layout_marginStart="10dp"
                         android:text="Ahmed Badr"
                         android:textColor="#2D4379"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/txt_isOnline"
@@ -69,7 +68,7 @@
                         android:layout_marginStart="10dp"
                         android:text="Online"
                         android:textColor="#2D4379"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
@@ -96,6 +95,7 @@
                 android:background="@drawable/ed_chat_style"
                 android:hint="@string/hintChat"
                 android:inputType="text"
+                android:layout_toStartOf="@+id/sendMe"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layoutDirection="ltr"
@@ -109,6 +109,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
+                android:id="@+id/sendMe"
                 android:onClick="@{handler::sendMessage}"
                 android:src="@drawable/send_message" />
 

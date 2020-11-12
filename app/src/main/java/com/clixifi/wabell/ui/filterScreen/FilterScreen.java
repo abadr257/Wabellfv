@@ -102,6 +102,7 @@ public class FilterScreen extends AppCompatActivity implements StudentHomeInterf
         if (arrayType.equals("city")) {
             locationId = citiesList.get(position).getId();
             binding.edCity.setText(citiesList.get(position).getName());
+            binding.edNeighborhood.setText("");
         } else if (arrayType.equals("area")) {
             areaId = areasList.get(position).getId();
             binding.edNeighborhood.setText(areasList.get(position).getName());
@@ -222,7 +223,7 @@ public class FilterScreen extends AppCompatActivity implements StudentHomeInterf
                 price = true ;
             }
             try {
-                body = MainApiBody.filterBody(fromHour , toHour , rate , 1 , areaId ,price);
+                body = MainApiBody.filterBody(fromHour , toHour , rate , locationId , areaId ,price , "");
             }catch (Exception e){
                 Log.e("TAG", "onApply: "+e );
             }

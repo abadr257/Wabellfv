@@ -22,11 +22,25 @@
             android:layoutDirection="locale"
             android:orientation="horizontal">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/st_img"
+            <RelativeLayout
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/avatar" />
+                >
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/st_img"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/avatar" />
+                <RelativeLayout
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:visibility="gone"
+                    android:id="@+id/rel_online"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/online_dot"
+                    />
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -138,7 +152,8 @@
                         android:textSize="15sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/rateTxt"
+                        android:text=""
+                        android:id="@+id/rateTxt"
                         android:textColor="#279EFF" />
                 </LinearLayout>
             </LinearLayout>

@@ -2,7 +2,15 @@ package com.clixifi.wabell.utils.network;
 
 
 
+import com.clixifi.wabell.data.AddReviewObject;
+import com.clixifi.wabell.data.CallsArray;
+import com.clixifi.wabell.data.CurrentPackages;
+import com.clixifi.wabell.data.DeleteCertificates;
+import com.clixifi.wabell.data.GetCertificates;
+import com.clixifi.wabell.data.HistoryArray;
 import com.clixifi.wabell.data.MediaResponse;
+import com.clixifi.wabell.data.PackagesArray;
+import com.clixifi.wabell.data.PaymentResponse;
 import com.clixifi.wabell.data.Response.AddFav.AddFavorite;
 import com.clixifi.wabell.data.Response.AddReviews;
 import com.clixifi.wabell.data.Response.GetReviews.ReviewsData;
@@ -26,6 +34,7 @@ import com.clixifi.wabell.data.Response.featuredTutors.FeaturedArray;
 import com.clixifi.wabell.data.Response.requestTopic.RequestTopic;
 import com.clixifi.wabell.data.Response.topic.Topics;
 import com.clixifi.wabell.data.Response.topicChild.ChildResponse;
+import com.clixifi.wabell.data.WhatsAppResponse;
 
 import java.util.List;
 
@@ -216,9 +225,39 @@ public interface MainApiInterface {
 
 
     // get Student calls
-    @GET("/api/Student/RequestCalls")
-    Observable<AddFavorite> getStudentCalls(@Header("Authorization") String auth  );
+    @GET("/api/Tutor/RequestCalls")
+    Observable<RequestLogsArray> getStudentCalls(@Header("Authorization") String auth  );
 
 
+    @GET("/api/Tutor/RequestMessages")
+    Observable<CallsArray> getMessages(@Header("Authorization") String auth );
+
+    @POST("/api/Tutor/AddRequestLog")
+    Observable<ResultBoolean> addRequestLogs(@Header("Authorization") String auth , @Body RequestBody body);
+
+    @GET("/api/Tutor/Packages")
+    Observable<PackagesArray> getPackages(@Header("Authorization") String auth);
+
+
+
+    @GET("/api/Tutor/CurrentPackage")
+    Observable<ResultForProfile<CurrentPackages>> getCurrentPackages(@Header("Authorization") String auth);
+
+    @GET("/api/Tutor/UserPackages")
+    Observable<HistoryArray> getPackagesHistory(@Header("Authorization") String auth); //
+
+    @GET("/api/Tutor/GetTutorCertificates")
+    Observable<GetCertificates> getCertificates(@Header("Authorization") String auth); //
+
+
+    @GET("/api/Tutor/DeleteTutorCertificate")
+    Observable<DeleteCertificates> deleteCertificates(@Header("Authorization") String auth , @Query("fileId") int fileId);
+
+
+    @POST("/api/Tutor/PayRequest")
+    Observable<ResultForProfile<PaymentResponse>> payPackage(@Header("Authorization") String auth , @Body RequestBody body);
+
+    @GET("/api/account/GetWhatsAppNumber")
+    Observable<WhatsAppResponse> getWhatsApp(@Header("Authorization") String auth );
 
 }

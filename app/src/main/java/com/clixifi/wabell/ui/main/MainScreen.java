@@ -13,6 +13,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -57,12 +58,11 @@ public class MainScreen extends AppCompatActivity {
     public int selectedPosition = 0;
     private static final int STORAGE_PERMISSION_CODE = 123;
     FragmentManager fragmentManager;
-
+    Bundle extras = null;
+    boolean profile = false ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         FirebaseMessaging.getInstance().setAutoInitEnabled(true);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home_screen);
         handler = new MyHandler(this);
@@ -70,16 +70,27 @@ public class MainScreen extends AppCompatActivity {
         requestStoragePermission();
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding.setHandler(handler);
-        if (StaticMethods.userData != null) {
-            if (StaticMethods.userData.getUserType().equals("tutor")) {
-                displayView(1);
-            } else {
-                displayView(3);
+        extras = getIntent().getExtras();
+        if(extras != null){
+            profile = extras.getBoolean("EditProfile");
+            if(profile){
+                displayView(2);
+                extras = null;
+                profile = false ;
             }
-        } else /*if (StaticMethods.userRegisterResponse.Data.getType().equals("student"))*/ {
-            displayView(3);
+        }else {
+            if (StaticMethods.userData != null) {
+                if (StaticMethods.userData.getUserType().equals("tutor")) {
+                    displayView(1);
+                } else {
+                    displayView(3);
+                }
+            } else /*if (StaticMethods.userRegisterResponse.Data.getType().equals("student"))*/ {
+                displayView(3);
 
+            }
         }
+
         getFirebaseToken();
     }
     @Override
@@ -153,27 +164,38 @@ public class MainScreen extends AppCompatActivity {
         }
 
         public void more(View view) {
-            displayView(0);
+            if(binding.txtMore.getCurrentTextColor() == getResources().getColor(R.color.notActive) ){
+                displayView(0);
+            }
+
         }
 
         public void profile(View view) {
-            displayView(2);
-        }
-
-        public void home(View v) {
-            if (StaticMethods.userData != null) {
-                if (StaticMethods.userData.getUserType().equals("tutor")) {
-                    displayView(1);
-                } else {
-                    displayView(3);
-                }
-            } else {
-                displayView(3);
+            if(binding.txtProfile.getCurrentTextColor() == getResources().getColor(R.color.notActive) ){
+                displayView(2);
             }
         }
 
+        public void home(View v) {
+            if(binding.txtHome.getCurrentTextColor() == getResources().getColor(R.color.notActive)){
+                if (StaticMethods.userData != null) {
+                    if (StaticMethods.userData.getUserType().equals("tutor")) {
+                        displayView(1);
+                    } else {
+                        displayView(3);
+                    }
+                } else {
+                    displayView(3);
+                }
+            }
+
+        }
+
         public void request(View v) {
-            displayView(4);
+            if(binding.txtChat.getCurrentTextColor() == getResources().getColor(R.color.notActive)){
+                displayView(4);
+            }
+
         }
     }
 
@@ -278,9 +300,7 @@ public class MainScreen extends AppCompatActivity {
         PrefUtils.SignOut_User(MainScreen.this);
         mUserRef.child("online").setValue("false");
         FirebaseAuth.getInstance().signOut();
-        IntentUtilies.openActivity(MainScreen.this, LoginScreen.class);
-
-        finish();
+        IntentUtilies.openActivityInNewStack(MainScreen.this, SplashScreen.class);
 
     }
     public void onUpdate(){
@@ -288,7 +308,7 @@ public class MainScreen extends AppCompatActivity {
         finish();
     }
     public void onSub(){
-        IntentUtilies.openActivityInNewStack(MainScreen.this , SubscriptionScreen.class);
+        IntentUtilies.openActivity(MainScreen.this , SubscriptionScreen.class);
     }
     @Override
     protected void attachBaseContext(Context base) {
@@ -321,6 +341,12 @@ public class MainScreen extends AppCompatActivity {
 
     public void gotoAbout() {
         IntentUtilies.openActivity(MainScreen.this, AboutUs.class);
+    }
+    public void goToWhatsApp(String whats) {
+        String url = "https://api.whatsapp.com/send?phone="+whats;
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
     }
 
     public void goToFilter() {

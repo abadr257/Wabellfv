@@ -17,6 +17,8 @@ public class TutorItem {
     public boolean IsPending;
     @SerializedName("Biography")
     public String  Biography;
+    @SerializedName("TagLine")
+    public String  TagLine;
     @SerializedName("Id")
     public String  Id;
 
@@ -36,6 +38,14 @@ public class TutorItem {
     //Rank
     @SerializedName("Rank")
     public int  Rank;
+
+    public String getTagLine() {
+        return TagLine;
+    }
+
+    public void setTagLine(String tagLine) {
+        TagLine = tagLine;
+    }
 
     public String getId() {
         return Id;

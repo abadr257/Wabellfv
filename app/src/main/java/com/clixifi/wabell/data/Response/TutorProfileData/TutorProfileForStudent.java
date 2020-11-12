@@ -7,61 +7,90 @@ import java.util.ArrayList;
 
 public class TutorProfileForStudent {
     @SerializedName("Biography")
-    public String Biography ;
+    public String Biography;
     @SerializedName("HourPrice")
-    public double HourPrice ;
+    public double HourPrice;
     @SerializedName("ViewsCount")
-    public int ViewsCount ;
+    public int ViewsCount;
     @SerializedName("CallsCount")
-    public int CallsCount ;
+    public int CallsCount;
     @SerializedName("Name")
-    public String Name ;
+    public String Name;
     @SerializedName("Location")
-    public String Location ;
+    public String Location;
     @SerializedName("Rank")
-    public int Rank ;
+    public int Rank;
     @SerializedName("RankCount")
-    public int RankCount ;
+    public int RankCount;
     @SerializedName("ProfilePicture")
-    public String ProfilePicture ;
+    public String ProfilePicture;
 
+    @SerializedName("Tagline")
+    public String Tagline;
     @SerializedName("ArTopics")
-    public ArrayList<String> ArTopics ;
+    public ArrayList<String> ArTopics;
 
     @SerializedName("PhoneNumber")
-    public String PhoneNumber ;
+    public String PhoneNumber;
 
+
+    @SerializedName("UserFirebaseId")
+    public String UserFirebaseId;
 
     @SerializedName("EngTopics")
-    public ArrayList<String> EngTopics ;
+    public ArrayList<String> EngTopics;
 
     @SerializedName("Files")
-    public ArrayList<ImageUrl> Files ;
+    public ArrayList<ImageUrl> Files;
 
     @SerializedName("Experience")
-    public String Experience ;
+    public String Experience;
 
     @SerializedName("IsFavorite")
-    public boolean IsFavorite ;
+    public boolean IsFavorite;
 
-    @SerializedName("IsFeatured")
-    public boolean IsFeatured ;
+    @SerializedName("IsFeatured")  //IsOnline
+    public boolean IsFeatured;
+    @SerializedName("IsOnline")  //IsOnline
+    public boolean IsOnline;
 
-
-    @SerializedName("IsSubscribe")
-    public boolean IsSubscribe ;
+    @SerializedName("IsSubscribed")
+    public boolean IsSubscribe;
 
     @SerializedName("Education")
-    public String Education ;
+    public String Education;
 
 
     @SerializedName("AvailableDaysText")
-    public String AvailableDaysText ;
+    public String AvailableDaysText;
 
 
     @SerializedName("AvailableTimesText")
-    public String AvailableTimesText ;
+    public String AvailableTimesText;
 
+    public String getTagline() {
+        return Tagline;
+    }
+
+    public void setTagline(String tagline) {
+        Tagline = tagline;
+    }
+
+    public boolean isOnline() {
+        return IsOnline;
+    }
+
+    public void setOnline(boolean online) {
+        IsOnline = online;
+    }
+
+    public String getUserFirebaseId() {
+        return UserFirebaseId;
+    }
+
+    public void setUserFirebaseId(String userFirebaseId) {
+        UserFirebaseId = userFirebaseId;
+    }
 
     public String getPhoneNumber() {
         return PhoneNumber;
@@ -102,6 +131,7 @@ public class TutorProfileForStudent {
     public void setAvailableTimesText(String availableTimesText) {
         AvailableTimesText = availableTimesText;
     }
+
     public boolean isFavorite() {
         return IsFavorite;
     }
@@ -109,6 +139,7 @@ public class TutorProfileForStudent {
     public void setFavorite(boolean favorite) {
         IsFavorite = favorite;
     }
+
     public ArrayList<String> getArTopics() {
         return ArTopics;
     }

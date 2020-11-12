@@ -30,63 +30,13 @@
                     android:layoutDirection="locale"
                     android:layout_marginStart="10dp"
                     android:id="@+id/lin_subjects"
+                    android:visibility="visible"
                     >
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:id="@+id/lin_sub1"
-                        android:background="@drawable/subject_style"
-                        >
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:textColor="#279EFF"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="8dp"
-                            android:text="Aljebra"
-                            android:id="@+id/txt_sub1"
-                            />
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:id="@+id/lin_sub2"
-                        android:layout_marginStart="8dp"
-                        android:background="@drawable/subject_style"
-                        >
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:textColor="#279EFF"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="8dp"
-                            android:text="Dynamics"
-                            android:id="@+id/txt_sub2"
-                            />
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:id="@+id/lin_sub3"
-                        android:layout_marginStart="8dp"
-                        android:background="@drawable/subject_style"
-                        >
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:textColor="#279EFF"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="8dp"
-                            android:text="+2 Subjects"
-                            android:id="@+id/txt_subMany"
-                            />
-                    </RelativeLayout>
+                        android:id="@+id/recSubjects"
+                        />
                 </LinearLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -117,6 +67,7 @@
                         android:onClick="@{handler::ViewAll}"
                         android:textColor="@color/colorAccent"
                         android:textStyle="bold"
+                        android:visibility="gone"
                         android:id="@+id/txt_toMedia"
                         android:textSize="16sp"
                         />

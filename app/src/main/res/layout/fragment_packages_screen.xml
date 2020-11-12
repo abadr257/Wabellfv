@@ -1,14 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.packagesFragment.PackagesScreen">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+        <variable
+            name="handler"
+            type="com.clixifi.wabell.ui.packagesFragment.PackagesScreen.PackagesHandler" />
+
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="#FFFFFF"
+        tools:context=".ui.packagesFragment.PackagesScreen">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/subPackages"
+            android:textColor="#7C79A6"
+            android:layout_margin="15dp"
+            android:textSize="16sp"
+            android:id="@+id/txt_sub"
+            android:visibility="visible"
+            />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_margin="8dp"
+            app:cardBackgroundColor="#279EFF"
+            android:visibility="gone"
+            app:cardCornerRadius="16dp"
+            android:id="@+id/card_current"
+            android:layout_below="@id/txt_sub"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center"
+                    >
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/sub_activeicon"
+                        android:id="@+id/img_active"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/active"
+                        android:textColor="#FFFFFF"
+                        android:layout_margin="15dp"
+                        android:textSize="16sp"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_alignParentStart="true"
+                    android:gravity="start"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/active"
+                        android:id="@+id/txt_duration"
+                        android:textColor="#FFFFFF"
+                        android:layout_margin="5dp"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/active"
+                        android:id="@+id/txt_price"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:layout_margin="5dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/active"
+                        android:id="@+id/txt_type"
+                        android:textColor="#FFFFFF"
+                        android:layout_margin="5dp"
+                        android:textSize="16sp"
+                        />
+                </LinearLayout>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/until_sub"
+            android:textColor="#EA5455"
+            android:layout_margin="15dp"
+            android:textSize="16sp"
+            android:textDirection="locale"
+            android:id="@+id/txt_until"
+            android:layout_below="@id/card_current"
+            android:visibility="gone"
+            />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/txt_until"
+            android:layout_width="match_parent"
+            android:background="#D4D4EA"
+            android:visibility="gone"
+            android:id="@+id/lin_view"
+            android:layout_height="2dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lin_view"
+            android:layout_margin="10dp"
+            android:id="@+id/recPackages"
+            />
+    </RelativeLayout>
+</layout>

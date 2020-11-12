@@ -1,9 +1,13 @@
 package com.clixifi.wabell.ui.profile;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +15,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,20 +27,34 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.clixifi.wabell.R;
+import com.clixifi.wabell.data.DeleteCertificates;
+import com.clixifi.wabell.data.GetCertificates;
 import com.clixifi.wabell.data.MediaResponse;
+import com.clixifi.wabell.data.Response.User.RegisterData;
 import com.clixifi.wabell.data.Response.User.UserProfile;
 import com.clixifi.wabell.data.Response.User.UserResponse;
+import com.clixifi.wabell.data.Response.areas.AreasItem;
+import com.clixifi.wabell.data.Response.cities.CityItem;
 import com.clixifi.wabell.databinding.FragmentProfileScreenBinding;
 import com.clixifi.wabell.ui.Adapters.CertificatesAdapter;
 import com.clixifi.wabell.ui.login.LoginScreen;
 import com.clixifi.wabell.ui.main.MainScreen;
+import com.clixifi.wabell.ui.registerTutor.TutorInterface;
+import com.clixifi.wabell.ui.registerTutor.TutorPresenter;
+import com.clixifi.wabell.ui.tutorProfileforStudent.TutorProfileView;
 import com.clixifi.wabell.utils.CustomDialog;
 import com.clixifi.wabell.utils.IntentUtilies;
 import com.clixifi.wabell.utils.LocaleManager;
 import com.clixifi.wabell.utils.StaticMethods;
 import com.clixifi.wabell.utils.ToastUtil;
+import com.clixifi.wabell.utils.dialogs.DialogUtil;
+import com.clixifi.wabell.utils.dialogs.DialogUtilResponse;
 import com.facebook.login.Login;
 
 import org.json.JSONArray;
@@ -43,21 +63,34 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static android.content.ContentValues.TAG;
 import static com.clixifi.wabell.ui.tutorMedia.TutorMedia.getRealPathFromURI;
 
 
-public class ProfileScreen extends Fragment implements ProfileInteface {
+public class ProfileScreen extends Fragment implements ProfileInteface, DialogUtilResponse , TutorInterface {
 
     FragmentProfileScreenBinding binding;
-    View v;
+    View v ,dialogView;
     ProfileHandler profile;
     CustomDialog dialog;
     ProfilePresenter presenter;
     final int REQUEST_PICK_IMAGE_PROFILE = 1002;
     ArrayList<File> profileImage;
-    CertificatesAdapter adapter ;
-    String type ;
+    CertificatesAdapter adapter;
+    String type;
+    boolean editProfilePic = false;
+    AlertDialog.Builder dialogBuilder ;
+    ArrayList<CityItem> citiesList;
+    ArrayList<AreasItem> areasList;
+    DialogUtil dialogUtil;
+    TutorPresenter tutorPresenter;
+    int locationId = 1;
+    EditText edCity , edArea ;
+    UserResponse<UserProfile> data ;
+    AlertDialog alertDialog ;
+    LayoutInflater inflater ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,20 +100,23 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         profile = new ProfileHandler(getActivity());
         binding.setHandler(profile);
+        inflater = this.getLayoutInflater();
+        dialogBuilder = new AlertDialog.Builder(getActivity());
+        dialogView = inflater.inflate(R.layout.location_dialog, null);
+        dialogBuilder.setView(dialogView);
+        alertDialog = dialogBuilder.create();
+        edCity = dialogView.findViewById(R.id.ed_city);
+        edArea = dialogView.findViewById(R.id.ed_Neighborhood);
+        tutorPresenter = new TutorPresenter(this);
+        tutorPresenter.getCities(getActivity());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && isRTL(getActivity())) {
-
-            // Force a right-aligned text entry, otherwise latin character input,
-            // like "abc123", will jump to the left and may even disappear!
             binding.edPhone.setTextDirection(View.TEXT_DIRECTION_RTL);
-
-            // Make the "Enter password" hint display on the right hand side
             binding.edPhone.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         }
-
         dialog = new CustomDialog(getActivity());
         presenter = new ProfilePresenter(this);
-
         binding.setOnEdit(false);
+        dialogUtil = new DialogUtil(this);
         if (StaticMethods.userRegisterResponse != null) {
             if (StaticMethods.userRegisterResponse.Data.getType().equals("tutor")) {
                 binding.setOnStudent(true);
@@ -97,6 +133,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
         fillUserData();
         return v;
     }
+
     public static boolean isRTL(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             return context.getResources().getConfiguration().getLayoutDirection()
@@ -105,6 +142,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
             return false;
         }
     }
+
     private void fillUserData() {
         dialog.ShowDialog();
         presenter.getProfileData(getActivity());
@@ -120,7 +158,12 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
     }
 
     @Override
-    public void onSuccess(UserResponse<UserProfile> profile) {
+    public void onSuccessProfile(UserResponse<UserProfile> profile) {
+
+        this.data = profile ;
+        if(profile.DataProfile.getLocation() != null){
+            binding.edLocation.setText(profile.DataProfile.getLocation());
+        }
         if (profile.DataProfile.getBiography() != null) {
             binding.edBiography.setText(profile.DataProfile.getBiography());
         }
@@ -136,19 +179,44 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
         if (profile.DataProfile.getTopics() != null) {
             binding.edTopics.setText(profile.DataProfile.getTopics());
         }
-        if (profile.DataProfile.getAvailableDays() != null || profile.DataProfile.getAvailableTimes() != null) {
-            binding.edWorkDetails.setText(profile.DataProfile.getHourPrice() +" SAR/hr \n"+profile.DataProfile.getAvailableDays() + "\n" + profile.DataProfile.getAvailableTimes());
-        }
+
         if (profile.DataProfile.getProfilePicture() != null) {
             StaticMethods.LoadImage(getActivity(), binding.userImg, profile.DataProfile.getProfilePicture(), null);
         }
+        if(LocaleManager.getLanguage(getActivity()).equals("en")){
+            if (profile.DataProfile.getEngTopics() != null){
+                StringBuffer engTop = new StringBuffer();
+                for (int i = 0 ; i < profile.DataProfile.getEngTopics().size() ; i ++){
+                    engTop.append(profile.DataProfile.getEngTopics().get(i));
+                    engTop.append("\n");
+                }
+                binding.edTopics.setText(engTop);
+                if (profile.DataProfile.getAvailableDays() != null || profile.DataProfile.getAvailableTimes() != null) {
+                    binding.edWorkDetails.setText(profile.DataProfile.getHourPrice() + " SAR / Hr \n" + profile.DataProfile.getAvailableDays() + "\n" + profile.DataProfile.getAvailableTimes());
+                }
+            }
+
+        }else {
+            if (profile.DataProfile.getArTopics() != null){
+                StringBuffer arTop = new StringBuffer();
+                for (int i = 0 ; i < profile.DataProfile.getArTopics().size() ; i ++){
+                    arTop.append(profile.DataProfile.getArTopics().get(i));
+                    arTop.append("\n");
+                }
+                binding.edTopics.setText(arTop);
+                if (profile.DataProfile.getAvailableDays() != null || profile.DataProfile.getAvailableTimes() != null) {
+                    binding.edWorkDetails.setText(profile.DataProfile.getHourPrice() + " ريال / س \n" + profile.DataProfile.getArAvailableDaysText() + "\n" + profile.DataProfile.getArAvailableTimesText());
+                }
+            }
+        }
+
         binding.edEmail.setText(profile.DataProfile.getEmail());
         binding.edName.setText(profile.DataProfile.getName());
         binding.userName.setText(profile.DataProfile.getName());
         binding.edPhone.setText(profile.DataProfile.getPhoneNumber());
-        if(profile.DataProfile.getFiles() != null){
-            if(profile.DataProfile.getFiles().size() > 0 ){
-                adapter = new CertificatesAdapter(getActivity() , null ,profile.DataProfile.getFiles());
+        if (profile.DataProfile.getFiles() != null) {
+            if (profile.DataProfile.getFiles().size() > 0) {
+                adapter = new CertificatesAdapter(getActivity(), null, profile.DataProfile.getFiles());
                 LinearLayoutManager layoutManager
                         = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
                 binding.recCertificate.setLayoutManager(layoutManager);
@@ -175,17 +243,18 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
     public void onUpdate(boolean updated) {
         dialog.DismissDialog();
         ToastUtil.showSuccessToast(getActivity(), R.string.updatedSuccessfully);
-        if(StaticMethods.userData != null){
-            if(StaticMethods.userData.getUserType().equals("tutor")){
-                ((MainScreen)getActivity()).onUpdate();
+        if (StaticMethods.userData != null) {
+            if (StaticMethods.userData.getUserType().equals("tutor")) {
+                ((MainScreen) getActivity()).logout();
             }
-        }else {
-            if(StaticMethods.userRegisterResponse.Data.getType().equals("tutor")){
-                ((MainScreen)getActivity()).onUpdate();
+        } else {
+            if (StaticMethods.userRegisterResponse.Data.getType().equals("tutor")) {
+                ((MainScreen) getActivity()).logout();
             }
         }
         if (LocaleManager.getLanguage(getActivity()).equals("ar")) {
             if (binding.txtEditAll.getText().toString().equals("حفظ")) {
+
                 binding.setOnEdit(false);
                 binding.edName.setFocusableInTouchMode(false);
                 binding.edName.setFocusable(false);
@@ -264,6 +333,77 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
     public void onUpdateProfile(MediaResponse media) {
         dialog.DismissDialog();
         StaticMethods.LoadImage(getActivity(), binding.userImg, media.getImgFilePaths().get(0), null);
+        editProfilePic = true;
+    }
+
+    @Override
+    public void onGetCer(GetCertificates cer) {
+
+    }
+
+    @Override
+    public void onDelete(DeleteCertificates delete) {
+
+    }
+
+    @Override
+    public void selectedValueSingleChoice(int position) {
+
+    }
+
+    @Override
+    public void selectedValueSingleChoice(int position, String arrayType) {
+        if (arrayType.equals("city")) {
+            locationId = citiesList.get(position).getId();
+            edCity.setText(citiesList.get(position).getName());
+            edArea.setText("");
+        } else if (arrayType.equals("area")) {
+            locationId = areasList.get(position).getId();
+            edArea.setText(areasList.get(position).getName());
+            binding.edLocation.setText(edCity.getText().toString() +" , "+edArea.getText().toString());
+        }
+    }
+
+    @Override
+    public void selectedMultiChoicelang(ArrayList<String> choices, ArrayList<String> postions, String arrayType) {
+
+    }
+
+    @Override
+    public void onSuccess(UserResponse<RegisterData> data) {
+
+    }
+
+    @Override
+    public void onFail(boolean fail, String error) {
+
+    }
+
+    @Override
+    public void onNoConnection(boolean noConnection) {
+
+    }
+
+    @Override
+    public void onCity(ArrayList<CityItem> cityItems) {
+        citiesList = new ArrayList<>();
+        citiesList = cityItems;
+    }
+
+    @Override
+    public void onArea(ArrayList<AreasItem> areasItems) {
+        dialog.DismissDialog();
+        areasList = new ArrayList<>();
+        areasList = areasItems;
+        if (areasList != null) {
+            ArrayList<String> areasName = new ArrayList<>();
+            ArrayList<Integer> areasId = new ArrayList<>();
+            for (AreasItem item : areasList) {
+                areasName.add(item.getName());
+                areasId.add(item.getId());
+            }
+            dialogUtil.showSingleChooiceArrayList(getActivity(), R.string.city, R.string.ok, areasName, "area", areasId);
+        }
     }
 
     public class ProfileHandler {
@@ -271,6 +411,28 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
 
         public ProfileHandler(Context context) {
             this.context = context;
+        }
+
+        public void editLocation(View v){
+            if (LocaleManager.getLanguage(getActivity()).equals("ar")) {
+                 if (binding.txtEditAll.getText().toString().equals(getActivity().getResources().getString(R.string.save))) {
+                    binding.edLocation.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            openDialogChooseLocation();
+                        }
+                    });
+                }
+            } else {
+                  if (binding.txtEditAll.getText().toString().equals(getActivity().getResources().getString(R.string.save))) {
+                    binding.edLocation.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            openDialogChooseLocation();
+                        }
+                    });
+                }
+            }
         }
 
         public void uploadImg(View v) {
@@ -288,32 +450,36 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
 
             if (LocaleManager.getLanguage(getActivity()).equals("ar")) {
                 if (binding.txtEditAll.getText().toString().equals("حفظ")) {
-                    dialog.ShowDialog();
-                    Name = binding.edName.getText().toString();
-                    email = binding.edEmail.getText().toString();
-                    phone = binding.edPhone.getText().toString();
-                    onSaveEdit(null);
-                    binding.setOnEdit(false);
-                    binding.edName.setFocusableInTouchMode(false);
-                    binding.edName.setFocusable(false);
-                    binding.edPhone.setFocusableInTouchMode(false);
-                    binding.edPhone.setFocusable(false);
-                    binding.edEmail.setFocusableInTouchMode(false);
-                    binding.edEmail.setFocusable(false);
-                    binding.edEdu.setFocusableInTouchMode(false);
-                    binding.edEdu.setFocusable(false);
-                    binding.edExp.setFocusableInTouchMode(false);
-                    binding.edExp.setFocusable(false);
-                    binding.edTagLine.setFocusableInTouchMode(false);
-                    binding.edTagLine.setFocusable(false);
-                    binding.edBiography.setFocusableInTouchMode(false);
-                    binding.edBiography.setFocusable(false);
-                    binding.txtEditAll.setText(getActivity().getResources().getString(R.string.edit));
+                    if (editProfilePic) {
+
+                        editProfilePic = false;
+                        binding.setOnEdit(false);
+                        binding.edName.setFocusableInTouchMode(false);
+                        binding.edName.setFocusable(false);
+                        binding.edPhone.setFocusableInTouchMode(false);
+                        binding.edPhone.setFocusable(false);
+                        binding.edEmail.setFocusableInTouchMode(false);
+                        binding.edEmail.setFocusable(false);
+                        binding.edEdu.setFocusableInTouchMode(false);
+                        binding.edEdu.setFocusable(false);
+                        binding.edExp.setFocusableInTouchMode(false);
+                        binding.edExp.setFocusable(false);
+                        binding.edTagLine.setFocusableInTouchMode(false);
+                        binding.edTagLine.setFocusable(false);
+                        binding.edBiography.setFocusableInTouchMode(false);
+                        binding.edBiography.setFocusable(false);
+                        binding.txtEditAll.setText(getActivity().getResources().getString(R.string.edit));
+                    } else {
+                        dialog.ShowDialog();
+                        onSaveEdit(null);
+                    }
+
                 } else if (binding.txtEditAll.getText().toString().equals("تعديل")) {
+
                     binding.setOnEdit(true);
                     binding.edName.setFocusableInTouchMode(true);
                     binding.edName.setFocusable(true);
-                    onSaveEdit(null);
+
                     binding.edPhone.setFocusableInTouchMode(true);
                     binding.edPhone.setFocusable(true);
                     binding.edEmail.setFocusableInTouchMode(true);
@@ -327,35 +493,36 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
                     binding.edBiography.setFocusableInTouchMode(true);
                     binding.edBiography.setFocusable(true);
                     binding.txtEditAll.setText(getActivity().getResources().getString(R.string.save));
+
+
                 }
             } else {
                 if (binding.txtEditAll.getText().toString().equals("Save")) {
-                    binding.setOnEdit(false);
-                    dialog.ShowDialog();
-                    Name = binding.edName.getText().toString();
-                    email = binding.edEmail.getText().toString();
-                    phone = binding.edPhone.getText().toString();
-                    Experience = binding.edExp.getText().toString();
-                    Education = binding.edEdu.getText().toString();
-                    Tagline = binding.edTagLine.getText().toString();
-                    Biography = binding.edBiography.getText().toString();
-                    onSaveEdit(null);
-                    binding.edName.setFocusableInTouchMode(false);
-                    binding.edName.setFocusable(false);
-                    binding.edPhone.setFocusableInTouchMode(false);
-                    binding.edPhone.setFocusable(false);
-                    binding.edEmail.setFocusableInTouchMode(false);
-                    binding.edEmail.setFocusable(false);
-                    binding.edEdu.setFocusableInTouchMode(false);
-                    binding.edEdu.setFocusable(false);
-                    binding.edExp.setFocusableInTouchMode(false);
-                    binding.edExp.setFocusable(false);
-                    binding.edTagLine.setFocusableInTouchMode(false);
-                    binding.edTagLine.setFocusable(false);
-                    binding.edBiography.setFocusableInTouchMode(false);
-                    binding.edBiography.setFocusable(false);
-                    binding.txtEditAll.setText(getActivity().getResources().getString(R.string.edit));
+                    if (editProfilePic) {
+                        binding.setOnEdit(false);
+                        editProfilePic = false;
+                        binding.edName.setFocusableInTouchMode(false);
+                        binding.edName.setFocusable(false);
+                        binding.edPhone.setFocusableInTouchMode(false);
+                        binding.edPhone.setFocusable(false);
+                        binding.edEmail.setFocusableInTouchMode(false);
+                        binding.edEmail.setFocusable(false);
+                        binding.edEdu.setFocusableInTouchMode(false);
+                        binding.edEdu.setFocusable(false);
+                        binding.edExp.setFocusableInTouchMode(false);
+                        binding.edExp.setFocusable(false);
+                        binding.edTagLine.setFocusableInTouchMode(false);
+                        binding.edTagLine.setFocusable(false);
+                        binding.edBiography.setFocusableInTouchMode(false);
+                        binding.edBiography.setFocusable(false);
+                        binding.txtEditAll.setText(getActivity().getResources().getString(R.string.edit));
+                    } else {
+                        dialog.ShowDialog();
+                        onSaveEdit(null);
+                    }
+
                 } else if (binding.txtEditAll.getText().toString().equals("Edit")) {
+
                     binding.setOnEdit(true);
                     binding.edName.setFocusableInTouchMode(true);
                     binding.edName.setFocusable(true);
@@ -424,7 +591,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
                 if (StaticMethods.userRegisterResponse.Data.getType().equals("tutor")) {
                     String Name, email,
                             phone, Experience, Education, Tagline, Biography;
-                    int LocationId;
+
 
                     Name = binding.edName.getText().toString();
                     email = binding.edEmail.getText().toString();
@@ -434,18 +601,18 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
                     Tagline = binding.edTagLine.getText().toString();
                     Biography = binding.edBiography.getText().toString();
                     //onEditDo();
-                    presenter.updateTutorProfile(getActivity(), Name, email, phone, 2, Experience, Education, Tagline, Biography);
+                    presenter.updateTutorProfile(getActivity(), Name, email, phone, locationId, Experience, Education, Tagline, Biography);
                 } else {
                     String Name, email, phone;
                     Name = binding.edName.getText().toString();
                     email = binding.edEmail.getText().toString();
                     phone = binding.edPhone.getText().toString();
                     //onEditDo();
-                    presenter.updateStudentProfile(getActivity(), Name, email, phone, 2);
+                    presenter.updateStudentProfile(getActivity(), Name, email, phone, locationId);
                 }
             } else if (StaticMethods.userData != null) {
                 if (StaticMethods.userData.getUserType().equals("tutor")) {
-                    //onEditDo();
+                    onEditDo();
                     String Name, email,
                             phone, Experience, Education, Tagline, Biography;
                     Name = binding.edName.getText().toString();
@@ -455,26 +622,75 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
                     Education = binding.edEdu.getText().toString();
                     Tagline = binding.edTagLine.getText().toString();
                     Biography = binding.edBiography.getText().toString();
-                    presenter.updateTutorProfile(getActivity(), Name, email, phone, 2, Experience, Education, Tagline, Biography);
+                    presenter.updateTutorProfile(getActivity(), Name, email, phone, locationId, Experience, Education, Tagline, Biography);
                 } else {
-                    onEditDo();
+                    //onEditDo();
                     String Name, email, phone;
                     Name = binding.edName.getText().toString();
                     email = binding.edEmail.getText().toString();
                     phone = binding.edPhone.getText().toString();
-                    presenter.updateStudentProfile(getActivity(), Name, email, phone, 2);
+                    presenter.updateStudentProfile(getActivity(), Name, email, phone, locationId);
                 }
             }
 
         }
     }
 
+    private void openDialogChooseLocation() {
+
+
+
+        edCity.setText(data.DataProfile.getCity());
+        edArea.setText(data.DataProfile.getArea());
+        ImageView close = dialogView.findViewById(R.id.close);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        edCity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (citiesList != null) {
+                    ArrayList<String> citiesName = new ArrayList<>();
+                    ArrayList<Integer> citiesId = new ArrayList<>();
+                    for (CityItem item : citiesList) {
+                        citiesName.add(item.getName());
+                        citiesId.add(item.getId());
+                    }
+                    dialogUtil.showSingleChooiceArrayList(getActivity(), R.string.city, R.string.ok, citiesName, "city", citiesId);
+                }
+            }
+        });
+        edArea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.ShowDialog();
+                String city = "" ;
+                city = edCity.getText().toString();
+                if (!city.isEmpty()) {
+                    dialog.ShowDialog();
+                    tutorPresenter.getAres(getActivity(), locationId);
+                } else {
+                    dialog.DismissDialog();
+                    ToastUtil.showErrorToast(getActivity(), R.string.emptyCity);
+                }
+            }
+        });
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        alertDialog.show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.getProfileData(getActivity());
+        dialog.ShowDialog();
+    }
     private void onEditDo() {
-
         if (LocaleManager.getLanguage(getActivity()).equals("ar")) {
-            if (binding.txtEditAll.getText().toString().equals("حفظ")) {
-
-
+            if (binding.txtEditAll.getText().toString().equals(getActivity().getResources().getString(R.string.edit))) {
                 //presenter.updateTutorProfile(getActivity(), Name, email, phone, 2, Experience, Education, Tagline, Biography);
                 binding.setOnEdit(false);
                 binding.edName.setFocusableInTouchMode(false);
@@ -491,8 +707,8 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
                 binding.edTagLine.setFocusable(false);
                 binding.edBiography.setFocusableInTouchMode(false);
                 binding.edBiography.setFocusable(false);
-                binding.txtEditAll.setText(getActivity().getResources().getString(R.string.edit));
-            } else if (binding.txtEditAll.getText().toString().equals("تعديل")) {
+                binding.txtEditAll.setText(getActivity().getResources().getString(R.string.save));
+            } else if (binding.txtEditAll.getText().toString().equals(getActivity().getResources().getString(R.string.save))) {
                 binding.setOnEdit(true);
                 binding.edName.setFocusableInTouchMode(true);
                 binding.edName.setFocusable(true);
@@ -508,10 +724,10 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
                 binding.edTagLine.setFocusable(true);
                 binding.edBiography.setFocusableInTouchMode(true);
                 binding.edBiography.setFocusable(true);
-                binding.txtEditAll.setText(getActivity().getResources().getString(R.string.save));
+                binding.txtEditAll.setText(getActivity().getResources().getString(R.string.edit));
             }
         } else {
-            if (binding.txtEditAll.getText().toString().equals("Save")) {
+            if (binding.txtEditAll.getText().toString().equals(getActivity().getResources().getString(R.string.edit))) {
                 binding.setOnEdit(false);
 
                 //presenter.updateTutorProfile(getActivity(), Name, email, phone, 2, Experience, Education, Tagline, Biography);
@@ -529,8 +745,8 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
                 binding.edTagLine.setFocusable(false);
                 binding.edBiography.setFocusableInTouchMode(false);
                 binding.edBiography.setFocusable(false);
-                binding.txtEditAll.setText(getActivity().getResources().getString(R.string.edit));
-            } else if (binding.txtEditAll.getText().toString().equals("Edit")) {
+                binding.txtEditAll.setText(getActivity().getResources().getString(R.string.save));
+            } else if (binding.txtEditAll.getText().toString().equals(getActivity().getResources().getString(R.string.save))) {
                 binding.setOnEdit(true);
                 binding.edName.setFocusableInTouchMode(true);
                 binding.edName.setFocusable(true);
@@ -546,7 +762,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface {
                 binding.edTagLine.setFocusable(true);
                 binding.edBiography.setFocusableInTouchMode(true);
                 binding.edBiography.setFocusable(true);
-                binding.txtEditAll.setText(getActivity().getResources().getString(R.string.save));
+                binding.txtEditAll.setText(getActivity().getResources().getString(R.string.edit));
             }
         }
     }

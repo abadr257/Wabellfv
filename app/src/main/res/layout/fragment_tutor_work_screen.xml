@@ -49,7 +49,8 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/border_btn_blue"
-                    android:hint="30"
+                    android:hint="0.0"
+                    android:textDirection="locale"
                     android:inputType="numberDecimal"
                     android:layoutDirection="ltr"
                     android:padding="8dp"
@@ -109,7 +110,7 @@
                             <CheckBox
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/checkBoxSat"
+                                android:id="@+id/checkBoxSun"
                                 android:text="@string/sun"
                                 android:textColor="#7C79A6"
                                 android:textSize="17sp"
@@ -132,7 +133,7 @@
                             <CheckBox
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/checkBoxSun"
+                                android:id="@+id/checkBoxMon"
                                 android:text="@string/mon"
                                 android:textColor="#7C79A6"
                                 android:textSize="17sp"
@@ -147,7 +148,7 @@
                             <CheckBox
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/checkBoxMon"
+                                android:id="@+id/checkBoxTus"
                                 android:text="@string/tues"
                                 android:textColor="#7C79A6"
                                 android:textSize="17sp"
@@ -170,7 +171,7 @@
                             <CheckBox
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/checkBoxTus"
+                                android:id="@+id/checkBoxThu"
                                 android:text="@string/thu"
                                 android:textColor="#7C79A6"
                                 android:textSize="17sp"
@@ -185,7 +186,7 @@
                             <CheckBox
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/checkBoxThu"
+                                android:id="@+id/checkBoxWed"
                                 android:text="@string/wed"
                                 android:textColor="#7C79A6"
                                 android:textSize="17sp"
@@ -208,7 +209,7 @@
                             <CheckBox
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/checkBoxWed"
+                                android:id="@+id/checkBoxFri"
                                 android:text="@string/fri"
                                 android:textColor="#7C79A6"
                                 android:textSize="17sp"
@@ -223,7 +224,7 @@
                             <CheckBox
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/checkBoxFri"
+                                android:id="@+id/checkBoxSat"
                                 android:text="@string/sat"
                                 android:textColor="#7C79A6"
                                 android:textSize="17sp"

@@ -45,6 +45,9 @@ public class FavMastersItem {
     @SerializedName("TutorBiography")
     public String TutorBiography;
 
+    @SerializedName("TagLine")
+    public String TagLine;
+
     @SerializedName("TutorLocation")
     public String TutorLocation;
 
@@ -62,6 +65,25 @@ public class FavMastersItem {
 
     @SerializedName("HourPrice")
     public double HourPrice ;
+
+    @SerializedName("IsOnline")
+    public boolean IsOnline ;
+
+    public String getTagLine() {
+        return TagLine;
+    }
+
+    public void setTagLine(String tagLine) {
+        TagLine = tagLine;
+    }
+
+    public boolean isOnline() {
+        return IsOnline;
+    }
+
+    public void setOnline(boolean online) {
+        IsOnline = online;
+    }
 
     public double getHourPrice() {
         return HourPrice;

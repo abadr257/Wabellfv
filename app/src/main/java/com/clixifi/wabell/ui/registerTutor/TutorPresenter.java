@@ -30,14 +30,14 @@ public class TutorPresenter {
     }
 
     public void tutorRegister(final Context context, String email,
-                              String pass, String phone, String Name, int locationId, String UserType) {
+                              String pass, String phone, String Name, int locationId, String UserType , String UserFirebaseId) {
         boolean network = StaticMethods.isConnectingToInternet(context);
         if (!network) {
             tutorInterface.onNoConnection(true);
         } else {
             RequestBody body = null;
             try {
-                body = MainApiBody.registerBody(email, "+966"+phone, pass, Name, locationId, UserType);
+                body = MainApiBody.registerBody(email, "+966"+phone, pass, Name, locationId, UserType ,UserFirebaseId );
             } catch (Exception e) {
 
             }

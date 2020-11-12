@@ -36,10 +36,9 @@ public class ImageAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView imageView = new ImageView(mContext);
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        //imageView.setScaleType();
         Log.e(TAG, "LoadImageI11: " + images.get(position).getFilePath());
         StaticMethods.LoadImage(mContext ,imageView ,images.get(position).getFilePath() , null );
-        //imageView.setImageResource(/*images.get(position).getFilePath()*/);
         container.addView(imageView, 0);
         return imageView;
     }

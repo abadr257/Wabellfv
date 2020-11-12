@@ -30,13 +30,13 @@ import java.util.List;
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 public class TutorWorkScreen extends Fragment implements TutorWorkInterface {
-    FragmentTutorWorkScreenBinding binding ;
-    View v ;
-    MyHandler handler ;
-    TutorWorkPresenter presenter ;
-    List<Integer> days , times ;
-    CustomDialog dialog ;
-    boolean edit = false ;
+    FragmentTutorWorkScreenBinding binding;
+    View v;
+    MyHandler handler;
+    TutorWorkPresenter presenter;
+    List<Integer> days, times;
+    CustomDialog dialog;
+    boolean edit = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,8 +49,7 @@ public class TutorWorkScreen extends Fragment implements TutorWorkInterface {
         binding.setOnDays(false);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding.setOnTimes(false);
-        days = new ArrayList<>();
-        times = new ArrayList<>();
+
         dialog = new CustomDialog(getActivity());
         presenter = new TutorWorkPresenter(this);
         try {
@@ -58,7 +57,7 @@ public class TutorWorkScreen extends Fragment implements TutorWorkInterface {
         } catch (Exception e) {
 
         }
-        Log.e(TAG, "onCreateView: "+edit );
+        Log.e(TAG, "onCreateView: " + edit);
         checkData();
         return v;
     }
@@ -67,11 +66,11 @@ public class TutorWorkScreen extends Fragment implements TutorWorkInterface {
         binding.checkBoxAllDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(binding.checkBoxAllDay.isChecked()){
+                if (binding.checkBoxAllDay.isChecked()) {
                     binding.checkBoxafter.setChecked(true);
                     binding.checkBoxEve.setChecked(true);
                     binding.checkBoxMor.setChecked(true);
-                }else {
+                } else {
                     binding.checkBoxafter.setChecked(false);
                     binding.checkBoxEve.setChecked(false);
                     binding.checkBoxMor.setChecked(false);
@@ -81,7 +80,7 @@ public class TutorWorkScreen extends Fragment implements TutorWorkInterface {
         binding.checkBoxAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(binding.checkBoxAll.isChecked()){
+                if (binding.checkBoxAll.isChecked()) {
                     binding.checkBoxFri.setChecked(true);
                     binding.checkBoxThu.setChecked(true);
                     binding.checkBoxWed.setChecked(true);
@@ -90,7 +89,7 @@ public class TutorWorkScreen extends Fragment implements TutorWorkInterface {
                     binding.checkBoxSun.setChecked(true);
                     binding.checkBoxSat.setChecked(true);
                     binding.checkBoxAll.setChecked(true);
-                }else {
+                } else {
                     binding.checkBoxFri.setChecked(false);
                     binding.checkBoxThu.setChecked(false);
                     binding.checkBoxWed.setChecked(false);
@@ -107,10 +106,12 @@ public class TutorWorkScreen extends Fragment implements TutorWorkInterface {
     @Override
     public void onAddedSuccess(boolean success) {
         dialog.DismissDialog();
-        if(edit){
-            ((TutorSteps)getActivity()).goToMain();
-        }else {
-            ((TutorSteps)getActivity()).openSplash();
+        if (edit) {
+            days = null;
+            times = null;
+            ((TutorSteps) getActivity()).step6();
+        } else {
+            ((TutorSteps) getActivity()).openSplash();
         }
 
     }
@@ -118,91 +119,93 @@ public class TutorWorkScreen extends Fragment implements TutorWorkInterface {
     @Override
     public void onAddedFail(boolean fail) {
         dialog.DismissDialog();
-        ToastUtil.showErrorToast(getActivity() , R.string.error);
+        ToastUtil.showErrorToast(getActivity(), R.string.error);
     }
 
     @Override
     public void onNoConnection(boolean isConnected) {
         dialog.DismissDialog();
-        ToastUtil.showErrorToast(getActivity() , R.string.noInternet);
+        ToastUtil.showErrorToast(getActivity(), R.string.noInternet);
     }
 
     @Override
     public void onEmptyFields(boolean empty) {
         dialog.DismissDialog();
-        ToastUtil.showErrorToast(getActivity() , R.string.empty);
+        ToastUtil.showErrorToast(getActivity(), R.string.empty);
     }
 
-    public class MyHandler{
-        Context context ;
+    public class MyHandler {
+        Context context;
 
         public MyHandler(Context context) {
             this.context = context;
         }
-        public void avaDays(View v){
-            if(binding.getOnDays()){
+
+        public void avaDays(View v) {
+            if (binding.getOnDays()) {
                 binding.setOnDays(false);
-            }else {
+            } else {
                 binding.setOnDays(true);
             }
         }
-        public void avaTimes(View v){
-            if(binding.getOnTimes()){
+
+        public void avaTimes(View v) {
+            if (binding.getOnTimes()) {
                 binding.setOnTimes(false);
-            }else {
+            } else {
                 binding.setOnTimes(true);
             }
         }
-        public void save(View v){
+
+        public void save(View v) {
             dialog.ShowDialog();
-            if(binding.checkBoxSat.isChecked()){
+            days = new ArrayList<>();
+            times = new ArrayList<>();
+            if (binding.checkBoxSat.isChecked()) {
                 days.add(5);
             }
-            if(binding.checkBoxSun.isChecked()){
+            if (binding.checkBoxSun.isChecked()) {
                 days.add(6);
             }
-            if(binding.checkBoxMon.isChecked()){
+            if (binding.checkBoxMon.isChecked()) {
                 days.add(13);
             }
-            if(binding.checkBoxTus.isChecked()){
+            if (binding.checkBoxTus.isChecked()) {
                 days.add(14);
             }
-            if(binding.checkBoxWed.isChecked()){
+            if (binding.checkBoxWed.isChecked()) {
                 days.add(15);
             }
-            if(binding.checkBoxThu.isChecked()){
+            if (binding.checkBoxThu.isChecked()) {
                 days.add(16);
             }
-            if(binding.checkBoxFri.isChecked()){
+            if (binding.checkBoxFri.isChecked()) {
                 days.add(17);
             }
 
-            if(binding.checkBoxafter.isChecked()){
+            if (binding.checkBoxafter.isChecked()) {
                 times.add(20);
             }
-            if(binding.checkBoxEve.isChecked()){
+            if (binding.checkBoxEve.isChecked()) {
                 times.add(10);
             }
-            if(binding.checkBoxMor.isChecked()){
+            if (binding.checkBoxMor.isChecked()) {
                 times.add(9);
             }
-            if(days.size() == 0 || times.size() == 0 || binding.edPrice.getText().toString().isEmpty()){
-                dialog.DismissDialog();
-                if (edit){
-                    ((TutorSteps)getActivity()).goToMain();
-                }else {
-                    ((TutorSteps)getActivity()).openSplash();
-                }
 
-            }else {
-                Log.e(TAG, "save: "+ days );
-                Log.e(TAG, "save: "+times );
-                double price = Double.valueOf(binding.edPrice.getText().toString());
-                JSONArray day = new JSONArray(days);
-                JSONArray time = new JSONArray(times);
-                presenter.uploadData(getActivity() ,price ,day , time );
+
+            double price = 0.0;
+            if (!binding.edPrice.getText().toString().isEmpty()) {
+                price = Double.valueOf(binding.edPrice.getText().toString());
             }
+
+            JSONArray day = new JSONArray(days);
+            JSONArray time = new JSONArray(times);
+            presenter.uploadData(getActivity(), price, day, time);
+
 
         }
     }
+
+
 }

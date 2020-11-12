@@ -63,6 +63,7 @@ public class RegisterStudent extends Fragment implements DialogUtilResponse, Tut
     String UserType = "student";
     boolean inputTypeChanged = false;
     private DatabaseReference mDatabase;
+    String email , phone , UserName , pass ;
 
     private FirebaseAuth mAuth;
 
@@ -246,10 +247,10 @@ public class RegisterStudent extends Fragment implements DialogUtilResponse, Tut
         public void registerView(View v) {
             dialog.ShowDialog();
             if (binding.checkTerms.isChecked()) {
-                String email = binding.edEmail.getText().toString();
-                String pass = binding.edPassword.getText().toString();
-                String phone = binding.edPhone.getText().toString();
-                String UserName = binding.edName.getText().toString();
+                 email = binding.edEmail.getText().toString();
+                 pass = binding.edPassword.getText().toString();
+                 phone = binding.edPhone.getText().toString();
+                 UserName = binding.edName.getText().toString();
                 if (email.isEmpty() || pass.isEmpty() || phone.isEmpty() || UserName.isEmpty()) {
                     dialog.DismissDialog();
                     ToastUtil.showErrorToast(getActivity(), R.string.empty);
@@ -259,7 +260,7 @@ public class RegisterStudent extends Fragment implements DialogUtilResponse, Tut
                 } else if (isEmailValid(email)) {
                     Log.e(TAG, "registerView: " + locationId);
                     registerWithFirebase(email, pass);
-                    tutorPresenter.tutorRegister(getActivity(), email, pass, phone, UserName, locationId, UserType);
+
                 } else {
                     dialog.DismissDialog();
                     ToastUtil.showErrorToast(getActivity(), R.string.emailValid);
@@ -323,9 +324,9 @@ public class RegisterStudent extends Fragment implements DialogUtilResponse, Tut
         }
     }
 
-    public void registerWithFirebase(String email, String pass) {
+    public void registerWithFirebase( String emailF,  String passF) {
         mAuth = FirebaseAuth.getInstance();
-        mAuth.createUserWithEmailAndPassword(email, pass)
+        mAuth.createUserWithEmailAndPassword(emailF, passF)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -339,7 +340,8 @@ public class RegisterStudent extends Fragment implements DialogUtilResponse, Tut
                             userMap.put("image", "default");
                             userMap.put("thumb_image", "default");
                             userMap.put("device_token", device_token);
-                            userMap.put("user_type", "tutor");
+                            userMap.put("user_type", "student");
+                            tutorPresenter.tutorRegister(getActivity(), email, pass, phone, UserName, locationId, UserType , uid);
                             mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {

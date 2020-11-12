@@ -65,6 +65,7 @@
                     android:textColor="#7C79A6"
                     android:layout_weight="1"
                     android:textSize="16sp"
+                    android:textDirection="locale"
                     android:id="@+id/rad_offline"
                     />
                 <TextView

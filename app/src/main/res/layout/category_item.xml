@@ -34,9 +34,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="0"
+            android:text="1"
             android:textSize="15sp"
             android:textColor="#FFFFFF"
+            android:padding="5dp"
             android:id="@+id/numOfSelections"
             />
     </RelativeLayout>

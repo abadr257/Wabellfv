@@ -33,8 +33,8 @@ public class TutorWorkPresenter {
         String id ;
         if(!network){
             tutorWorkInterface.onNoConnection(true);
-        }else if(price == 0  || DayIds.length() == 0 || TimeIds.length() == 0){
-            tutorWorkInterface.onEmptyFields(true);
+            Log.e(TAG, "save: " + DayIds);
+            Log.e(TAG, "save: " + TimeIds);
         }else {
             RequestBody body = null ;
             try{

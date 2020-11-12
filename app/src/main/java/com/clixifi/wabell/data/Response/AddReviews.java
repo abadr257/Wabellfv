@@ -3,14 +3,14 @@ package com.clixifi.wabell.data.Response;
 import com.google.gson.annotations.SerializedName;
 
 public class AddReviews {
-    @SerializedName("Id")
-    public int id ;
+    @SerializedName("message")
+    public String message ;
 
-    public int getId() {
-        return id;
+    public String getMessage() {
+        return message;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

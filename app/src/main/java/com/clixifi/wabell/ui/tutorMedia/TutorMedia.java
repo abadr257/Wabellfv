@@ -23,6 +23,8 @@ import android.widget.LinearLayout;
 
 import com.bumptech.glide.gifdecoder.GifHeaderParser;
 import com.clixifi.wabell.R;
+import com.clixifi.wabell.data.DeleteCertificates;
+import com.clixifi.wabell.data.GetCertificates;
 import com.clixifi.wabell.data.MediaResponse;
 import com.clixifi.wabell.data.Response.User.UserProfile;
 import com.clixifi.wabell.data.Response.User.UserResponse;
@@ -69,17 +71,18 @@ public class TutorMedia extends Fragment implements onRemoveImage, ProfileIntefa
         binding.setHandler(handlers);
         dialog = new CustomDialog(getActivity());
         profilePresenter = new ProfilePresenter(this);
+        profilePresenter.getTutorCertificates(getActivity());
         initialArrayList();
         try {
             edit = getArguments().getBoolean("edit");
+            if(edit){
+                binding.btnNext.setText("Finish");
+            }
         } catch (Exception e) {
 
         }
-        adapter = new UploadCertificateAdapter(getActivity(), certificate, this, certificatePaths);
-        LinearLayoutManager layoutManager
-                = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        binding.recCertificate.setLayoutManager(layoutManager);
-        binding.recCertificate.setAdapter(adapter);
+
+
         return v;
     }
 
@@ -93,16 +96,16 @@ public class TutorMedia extends Fragment implements onRemoveImage, ProfileIntefa
     @Override
     public void onRemoveImage(ArrayList<Bitmap> bitmaps, ArrayList<File> files, int position) {
         // certificate.remove(position);
-        certificatePaths.remove(position);
+        /*certificatePaths.remove(position);
         adapter.notifyItemRemoved(position);
         adapter.notifyItemRangeChanged(position, certificatePaths.size());
-        adapter.notifyItemRangeChanged(position, certificate.size());
+        adapter.notifyItemRangeChanged(position, certificate.size());*/
         /*this.certificate = bitmaps;
         this.certificatePaths = files;*/
     }
 
     @Override
-    public void onSuccess(UserResponse<UserProfile> profile) {
+    public void onSuccessProfile(UserResponse<UserProfile> profile) {
 
     }
 
@@ -134,6 +137,20 @@ public class TutorMedia extends Fragment implements onRemoveImage, ProfileIntefa
 
     }
 
+    @Override
+    public void onGetCer(GetCertificates cer) {
+        adapter = new UploadCertificateAdapter(getActivity(), certificate, this, certificatePaths ,cer);
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        binding.recCertificate.setLayoutManager(layoutManager);
+        binding.recCertificate.setAdapter(adapter);
+    }
+
+    @Override
+    public void onDelete(DeleteCertificates delete) {
+
+    }
+
     public class MyHandlers {
         Context context;
 
@@ -143,13 +160,31 @@ public class TutorMedia extends Fragment implements onRemoveImage, ProfileIntefa
 
         public void nextStep(View v) {
             if (certificatePaths != null) {
-                if (certificatePaths.size() > 0) {
-                    dialog.ShowDialog();
-                    Log.e(TAG, "nextStep: " + certificatePaths.size());
-                    profilePresenter.uploadImageProfileCertificates(getActivity(), certificatePaths);
+                if (edit) {
+                    if (certificatePaths.size() > 0) {
+                        dialog.ShowDialog();
+                        profilePresenter.uploadImageProfileCertificates(getActivity(), certificatePaths);
+                    }else {
+                        Log.e(TAG, "nextStep: in edit " + certificatePaths.size());
+                        Bundle b = new Bundle();
+                        b.putBoolean("EditProfile" , true);
+                        ((TutorSteps)getActivity()).openProfile(b);
+                    }
                 }else {
-                    ((TutorSteps) getActivity()).step3();
+                    if (certificatePaths.size() > 0) {
+                        dialog.ShowDialog();
+                        profilePresenter.uploadImageProfileCertificates(getActivity(), certificatePaths);
+                    }else {
+                        Log.e(TAG, "nextStep: in register " + certificatePaths.size());
+                        ((TutorSteps) getActivity()).step3();
+                    }
                 }
+
+            }else {
+                Log.e(TAG, "nextStep: 2" + certificatePaths.size());
+                Bundle b = new Bundle();
+                b.putBoolean("EditProfile" , true);
+                ((TutorSteps)getActivity()).openProfile(b);
             }
         }
 

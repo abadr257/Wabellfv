@@ -1,14 +1,20 @@
 package com.clixifi.wabell.ui.tutorProfileforStudent;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +31,7 @@ import com.clixifi.wabell.data.Response.TutorProfileData.TutorProfileForStudent;
 import com.clixifi.wabell.databinding.ActivityTutorProfileViewBinding;
 import com.clixifi.wabell.ui.Adapters.PagerAdapter;
 import com.clixifi.wabell.ui.Adapters.ProfilePagerAdapter;
+import com.clixifi.wabell.ui.chat.ChatScreen;
 import com.clixifi.wabell.ui.register.RegisterScreen;
 import com.clixifi.wabell.ui.viewAllCertificates.AllCertificates;
 import com.clixifi.wabell.utils.CustomDialog;
@@ -32,8 +39,15 @@ import com.clixifi.wabell.utils.IntentUtilies;
 import com.clixifi.wabell.utils.LocaleManager;
 import com.clixifi.wabell.utils.StaticMethods;
 import com.clixifi.wabell.utils.ToastUtil;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -48,6 +62,8 @@ public class TutorProfileView extends AppCompatActivity implements TutorProfileI
     TutorProfileForStudent data;
     String id;
     boolean favorite = false;
+    private String mCurrentUserId;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +74,8 @@ public class TutorProfileView extends AppCompatActivity implements TutorProfileI
         presenter = new TutorProfilePresenter(this);
         dialog = new CustomDialog(this);
         configTabs();
-
+        mAuth = FirebaseAuth.getInstance();
+        mCurrentUserId = mAuth.getCurrentUser().getUid();
         getID();
         dialog.ShowDialog();
     }
@@ -89,20 +106,45 @@ public class TutorProfileView extends AppCompatActivity implements TutorProfileI
     @Override
     public void onSuccess(TutorProfileForStudent tutor) {
         this.data = tutor;
+        if(StaticMethods.userRegisterResponse != null){
+            if(StaticMethods.userRegisterResponse.Data.getType().equals("tutor")){
+                binding.relOnline.setVisibility(View.GONE);
+            }else {
+                if(tutor.IsOnline){
+                    binding.relOnline.setVisibility(View.VISIBLE);
+                }else {
+                    binding.relOnline.setVisibility(View.VISIBLE);
+                    binding.relOnline.setBackgroundResource(R.drawable.offline);
+                }
+
+            }
+        }else {
+            if(StaticMethods.userData.getUserType().equals("tutor")){
+                binding.relOnline.setVisibility(View.GONE);
+            }else {
+                if(tutor.IsOnline){
+                    binding.relOnline.setVisibility(View.VISIBLE);
+                }else {
+                    binding.relOnline.setVisibility(View.VISIBLE);
+                    binding.relOnline.setBackgroundResource(R.drawable.offline);
+                }
+            }
+        }
         if (LocaleManager.getLanguage(TutorProfileView.this).equals("ar")) {
-            binding.txtPrice.setText(tutor.getHourPrice() + "ريال / للساعة");
+            binding.txtPrice.setText(tutor.getHourPrice() + " ريال / س ");
             binding.callsCountTxt.setText(tutor.getCallsCount() + "مكالمة");
             binding.viewCountTxt.setText(tutor.getViewsCount() + " مشاهدة");
         } else {
-            binding.txtPrice.setText(tutor.getHourPrice() + "SAR/hr");
+            binding.txtPrice.setText(tutor.getHourPrice() + " SAR / Hr ");
             binding.callsCountTxt.setText(tutor.getCallsCount() + " Calls");
             Log.e("TAG", "onSuccess: from profile" + tutor.getViewsCount());
             binding.viewCountTxt.setText(tutor.getViewsCount() + " Views");
         }
         StaticMethods.LoadImage(TutorProfileView.this, binding.tutorImg, tutor.getProfilePicture(), null);
+
         binding.txtTutorName.setText(tutor.getName());
         binding.txtNumOfRate.setText("(" + tutor.getRankCount() + ")");
-        binding.txtDisc.setText(tutor.getBiography());
+        binding.txtDisc.setText(tutor.getTagline());
         binding.txtTutorLocation.setText(tutor.getLocation());
         binding.ratingBar.setRating(tutor.getRank());
         if (tutor.IsFavorite) {
@@ -116,6 +158,9 @@ public class TutorProfileView extends AppCompatActivity implements TutorProfileI
             } else {
                 binding.call.setText("Request");
             }
+        }
+        if(!tutor.IsOnline){
+            binding.call.setVisibility(View.GONE);
         }
         if (tutor.IsFeatured) {
             binding.isFea.setVisibility(View.VISIBLE);
@@ -145,6 +190,24 @@ public class TutorProfileView extends AppCompatActivity implements TutorProfileI
     public void onDeleteFav(ResultBoolean result) {
         dialog.DismissDialog();
         ToastUtil.showSuccessToast(TutorProfileView.this, R.string.saved);
+    }
+
+    @Override
+    public void onSendMessage(ResultBoolean resultBoolean) {
+        if(resultBoolean.result){
+            Intent intent = new Intent(TutorProfileView.this , ChatScreen.class);
+            intent.putExtra("user_id",data.getUserFirebaseId());
+            intent.putExtra("user_name",data.getName());
+            intent.putExtra("user_image",data.getProfilePicture());
+            startActivity(intent);
+        }else {
+
+        }
+    }
+
+    @Override
+    public void onCall(ResultBoolean resultBoolean) {
+        dialog.DismissDialog();
     }
 
     public class TutorProfile {
@@ -190,7 +253,6 @@ public class TutorProfileView extends AppCompatActivity implements TutorProfileI
 
         }
 
-
     }
 
     private void openCallDialog() {
@@ -214,8 +276,16 @@ public class TutorProfileView extends AppCompatActivity implements TutorProfileI
         call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                presenter.addRequestLogCall(TutorProfileView.this , id ,"" );
                 Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + data.getPhoneNumber()));
-                startActivity(intent);
+
+                if (ContextCompat.checkSelfPermission(TutorProfileView.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(TutorProfileView.this, new String[]{Manifest.permission.CALL_PHONE},2);
+                }
+                else
+                {
+                    startActivity(intent);
+                }
             }
         });
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -256,9 +326,12 @@ public class TutorProfileView extends AppCompatActivity implements TutorProfileI
         final View dialogView = inflater.inflate(R.layout.send_message_dialoge, null);
         dialogBuilder.setView(dialogView);
         CircleImageView tutor_img = dialogView.findViewById(R.id.tutor_img);
+        TextView name = dialogView.findViewById(R.id.txt_tutorName);
         StaticMethods.LoadImage(TutorProfileView.this, tutor_img, data.getProfilePicture(), null);
+        name.setText(data.getName());
         final AlertDialog alertDialog = dialogBuilder.create();
         Button send = dialogView.findViewById(R.id.btn_submit);
+
         ImageView close = dialogView.findViewById(R.id.close);
         final EditText message = dialogView.findViewById(R.id.ed_review);
         close.setOnClickListener(new View.OnClickListener() {
@@ -274,6 +347,9 @@ public class TutorProfileView extends AppCompatActivity implements TutorProfileI
                 if (messages.isEmpty()) {
                     ToastUtil.showErrorToast(TutorProfileView.this, R.string.empty);
                 } else {
+                    presenter.addRequestLogMessage(TutorProfileView.this , id ,messages );
+                   // dialog.ShowDialog();
+                    sendMessageToChat(messages , data.getUserFirebaseId());
                     alertDialog.dismiss();
                 }
 
@@ -281,5 +357,55 @@ public class TutorProfileView extends AppCompatActivity implements TutorProfileI
         });
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         alertDialog.show();
+    }
+    public void sendMessageToChat(String message , String userFireId) {
+        DatabaseReference mRootRef;
+        mRootRef = FirebaseDatabase.getInstance().getReference();
+
+        if(!TextUtils.isEmpty(message)){
+
+            String current_user_ref = "messages/" + mCurrentUserId + "/" + userFireId;
+            String chat_user_ref = "messages/" + userFireId + "/" + mCurrentUserId;
+
+            DatabaseReference user_message_push = mRootRef.child("messages")
+                    .child(mCurrentUserId).child(userFireId).push();
+
+            String push_id = user_message_push.getKey();
+
+            Map messageMap = new HashMap();
+            messageMap.put("message", message);
+            messageMap.put("seen", false);
+            messageMap.put("type", "text");
+            messageMap.put("time", ServerValue.TIMESTAMP);
+            messageMap.put("from", mCurrentUserId);
+            messageMap.put("RecUser", id);
+
+            Map messageUserMap = new HashMap();
+            messageUserMap.put(current_user_ref + "/" + push_id, messageMap);
+            messageUserMap.put(chat_user_ref + "/" + push_id, messageMap);
+
+            //binding.edMessage.setText("");
+
+            mRootRef.child("Chat").child(mCurrentUserId).child(userFireId).child("seen").setValue(true);
+            mRootRef.child("Chat").child(mCurrentUserId).child(userFireId).child("timestamp").setValue(ServerValue.TIMESTAMP);
+
+            mRootRef.child("Chat").child(userFireId).child(mCurrentUserId).child("seen").setValue(false);
+            mRootRef.child("Chat").child(userFireId).child(mCurrentUserId).child("timestamp").setValue(ServerValue.TIMESTAMP);
+
+            mRootRef.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+
+                    if(databaseError != null){
+
+                        Log.d("CHAT_LOG", databaseError.getMessage().toString());
+
+                    }
+
+                }
+            });
+
+        }
+
     }
 }

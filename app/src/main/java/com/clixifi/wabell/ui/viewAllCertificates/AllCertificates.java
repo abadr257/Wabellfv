@@ -15,6 +15,7 @@ import com.clixifi.wabell.R;
 import com.clixifi.wabell.databinding.ActivityAllCertificatesBinding;
 import com.clixifi.wabell.ui.Adapters.ImageAdapter;
 import com.clixifi.wabell.utils.StaticMethods;
+import com.squareup.picasso.Picasso;
 
 public class AllCertificates extends AppCompatActivity {
 
@@ -30,15 +31,9 @@ public class AllCertificates extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this ,R.layout.activity_all_certificates);
         han = new MyHandler( this);
         binding.setHan(han);
-        Log.e("TAG", "onCreate: "+StaticMethods.images.size() );
-        if (StaticMethods.images != null){
-            addBottomDots(0);
-            binding.txtNumOfFiles.setText(""+StaticMethods.images.size());
-            adapter = new ImageAdapter(this , StaticMethods.images );
-            binding.viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
-            binding.viewPager.setAdapter(adapter);
-        }
-
+        Bundle extras = getIntent().getExtras();
+        String img = extras.getString("imageClicked");
+        Picasso.with(AllCertificates.this).load(img).into(binding.imgReview);
     }
     private void addBottomDots(int i) {
         int size = StaticMethods.images.size() ;

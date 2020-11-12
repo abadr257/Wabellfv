@@ -138,6 +138,7 @@
                             android:layout_margin="5dp"
                             android:layout_weight="1"
                             android:text="@string/teTerms"
+                            android:onClick="@{handlers::terms}"
                             android:textAlignment="textStart"
                             android:textColor="@color/colorAccent" />
 
@@ -156,6 +157,7 @@
                             android:layout_margin="5dp"
                             android:layout_weight="1"
                             android:text="@string/tePrivacy"
+                            android:onClick="@{handlers::pri}"
                             android:textAlignment="textEnd"
                             android:textColor="@color/colorAccent" />
                     </LinearLayout>

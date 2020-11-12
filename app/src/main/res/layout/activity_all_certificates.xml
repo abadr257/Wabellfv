@@ -32,6 +32,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginBottom="5dp"
             android:id="@+id/lin_Top"
+            android:visibility="gone"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15sp"
             >
@@ -61,26 +62,38 @@
                 android:text="15"
                 />
         </LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/close"
+            android:id="@+id/img_review"
+            android:layout_centerInParent="true"
+            android:layout_above="@id/layoutDots"
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_marginBottom="10dp"
             android:layout_centerInParent="true"
             android:id="@+id/view"
+            android:visibility="gone"
+            android:layout_marginTop="15dp"
+            android:layout_below="@id/lin_Top"
             android:layoutDirection="rtl">
             <androidx.viewpager.widget.ViewPager
                 android:layout_width="match_parent"
                 android:id="@+id/view_pager"
                 android:layout_gravity="center"
-                android:layout_height="400dp" />
+                android:visibility="gone"
+                android:layout_height="500dp" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/layoutDots"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layoutDirection="locale"
-            android:layout_marginBottom="25dp"
+            android:layout_alignParentBottom="true"
             android:layout_below="@id/view"
             android:gravity="center"
             android:orientation="horizontal"/>

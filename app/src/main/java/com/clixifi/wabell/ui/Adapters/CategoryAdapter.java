@@ -50,12 +50,25 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
                 holder.name.setText(list.getCategory().get(position).getTitleEn());
                 holder.name.setTextColor(context.getResources().getColor(R.color.colorWhite));
                 holder.categ.setBackground(context.getResources().getDrawable(R.drawable.category_selected));
-                holder.num.setText(list.getCategory().get(position).getChildsCount()+"");
+                if(list.getCategory().get(position).getChildsCount() == 0){
+                    holder.num.setText("");
+                }else {
+                    holder.num.setText(list.getCategory().get(position).getChildsCount()+"");
+                    holder.num.setBackground(context.getDrawable(R.drawable.topics_num));
+                    holder.num.setTextColor(context.getResources().getColor(R.color.splashBackground));
+                }
             }else {
                 holder.name.setText(list.getCategory().get(position).getTitleAr());
                 holder.name.setTextColor(context.getResources().getColor(R.color.colorWhite));
                 holder.categ.setBackground(context.getResources().getDrawable(R.drawable.category_selected));
-                holder.num.setText(list.getCategory().get(position).getChildsCount()+"");
+                if(list.getCategory().get(position).getChildsCount() == 0){
+                    holder.num.setText("");
+                }else {
+                    holder.num.setText(list.getCategory().get(position).getChildsCount()+"");
+                    holder.num.setBackground(context.getDrawable(R.drawable.topics_num));
+                    holder.num.setTextColor(context.getResources().getColor(R.color.splashBackground));
+                }
+
             }
         }else {
             if(LocaleManager.getLanguage(context).equals("en")){

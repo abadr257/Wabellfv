@@ -14,6 +14,8 @@ import com.clixifi.wabell.ui.Adapters.PagerAdapter;
 import com.clixifi.wabell.ui.aboutUs.AboutUs;
 import com.clixifi.wabell.ui.code.VerificationCodeScreen;
 import com.clixifi.wabell.ui.login.LoginScreen;
+import com.clixifi.wabell.ui.privecy.PrivecyScreen;
+import com.clixifi.wabell.ui.terms.TermsScreen;
 import com.clixifi.wabell.utils.IntentUtilies;
 import com.clixifi.wabell.utils.LocaleManager;
 import com.google.android.material.tabs.TabLayout;
@@ -45,13 +47,11 @@ public class RegisterScreen extends AppCompatActivity {
     }
 
     public void terms() {
-        IntentUtilies.openActivity(RegisterScreen.this, AboutUs.class);
-
+        IntentUtilies.openActivity(RegisterScreen.this, TermsScreen.class);
     }
 
     public void privacy() {
-        IntentUtilies.openActivity(RegisterScreen.this, AboutUs.class);
-
+        IntentUtilies.openActivity(RegisterScreen.this, PrivecyScreen.class);
     }
 
     public void openVerificationScreen(Bundle bundle) {

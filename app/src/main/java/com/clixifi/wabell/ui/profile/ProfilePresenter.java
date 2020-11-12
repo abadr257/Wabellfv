@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.clixifi.wabell.data.GetCertificates;
 import com.clixifi.wabell.data.MediaResponse;
 import com.clixifi.wabell.data.Response.ResultBoolean;
 import com.clixifi.wabell.data.Response.User.ResultForProfile;
@@ -131,7 +132,7 @@ public class ProfilePresenter {
                 public void onSuccess(ConnectionResponse<ResultForProfile<UserResponse<UserProfile>>> connectionResponse) {
                     if (connectionResponse.data != null) {
                         Log.e(TAG, "onSuccess: " + connectionResponse.data.result.DataProfile.getEmail());
-                        profileInteface.onSuccess(connectionResponse.data.result);
+                        profileInteface.onSuccessProfile(connectionResponse.data.result);
                     } else {
                         profileInteface.onFail(true);
                     }
@@ -268,5 +269,38 @@ public class ProfilePresenter {
             profileInteface.onConnection(true);
         }
     }
+
+
+    public void getTutorCertificates(Context context){
+        if (StaticMethods.isConnectingToInternet(context)) {
+            if (StaticMethods.userRegisterResponse != null) {
+                token = "Bearer " + StaticMethods.userRegisterResponse.Data.getToken();
+            } else if (StaticMethods.userData != null) {
+                token = "Bearer " + StaticMethods.userData.getToken();
+            }
+            Log.e(TAG, "getProfileData: " + token);
+            MainApi.getCer(token, new ConnectionListener<GetCertificates>() {
+                @Override
+                public void onSuccess(ConnectionResponse<GetCertificates> connectionResponse) {
+                    if (connectionResponse.data != null) {
+
+                        profileInteface.onGetCer(connectionResponse.data);
+                    } else {
+                        profileInteface.onFail(true);
+                    }
+                }
+
+                @Override
+                public void onFail(Throwable throwable) {
+                    profileInteface.onFail(true);
+                    Log.e(TAG, "onFail: " + throwable.toString());
+                }
+            });
+        } else {
+            profileInteface.onConnection(true);
+        }
+    }
+
+
 
 }

@@ -2,13 +2,17 @@
 <resources>
     <string name="app_name">Wabell</string>
     <string name="splash_text_lang">أختر لغة للأستمرار</string>
-    <string name="splash_text_ar">اللغة العربية</string>
+    <string name="splash_text_ar">العربية</string>
     <string name="splash_text_en">English</string>
     <string name="login">تسجيل الدخول</string>
     <string name="next">التالى</string>
     <string name="mProfile">بيانات المعلم</string>
     <string name="apply">تنفيذ</string>
     <string name="from_hp">من</string>
+    <string name="mExp">الشهر</string>
+    <string name="last">الشهر السابق</string>
+    <string name="thanks">شكرا لشرائك الباقة</string>
+    <string name="yExp">السنة</string>
     <string name="requestSub">طلب موضوع (مواضيع)</string>
     <string name="to_hp">الى</string>
     <string name="sendRequest">إرسال طلب</string>
@@ -22,14 +26,14 @@
     <string name="budget">الميزانية</string>
     <string name="rateings">التقييم</string>
     <string name="dis">المسافة</string>
-    <string name="rateTxt">تقيم الطالب</string>
+    <string name="rateTxt">تقييم الطالب</string>
     <string name="sortBy">التصنيف حسب</string>
     <string name="mas_filters">تصفية المعلمين</string>
     <string name="finish">انهاء</string>
     <string name="featured">المدرسين المميزون</string>
     <string name="noThing">يرجى اختيار التخصص اولا</string>
     <string name="exp">الخبرة والتعليم</string>
-    <string name="media">اختيار شهادات الخبرة</string>
+    <string name="media">اختيار الوسائط</string>
     <string name="workDetails">تفاصيل العمل</string>
     <string name="register">تسجيل حساب جديد</string>
     <string name="registeras">تسجيل كـ</string>
@@ -69,8 +73,11 @@
     <string name="reMessages">الرسائل</string>
     <string name="reCalls">المكالمات</string>
     <string name="Experience">الخبرة</string>
+    <string name="active">نشط</string>
+    <string name="until_sub"> سوف تنتهى الباقة فى تاريخ20 / 10 / 2020</string>
     <string name="example1"></string>
     <string name="reCall">مكالمة</string>
+    <string name="subPackages">أنت لم تشترك في أي خطة. اشترك ليظهر حسابك للعملاء</string>
     <string name="Education">المراحل التعليمية</string>
     <string name="example2"></string>
     <string name="teLocation">الموقع</string>
@@ -103,9 +110,11 @@
     <string name="searchTitle">نتائج البحث</string>
     <string name="validPhone">يرجى ادخال رقم هاتف صحيح</string>
     <string name="sub">الاشتراك</string>
+    <string name="searchButton">بحث</string>
     <string name="showing">إظهار</string>
     <string name="resultFor">نتائج لـ</string>
     <string name="about">عن التطبيق</string>
+    <string name="noHistory">لا يوجد باقات سابقة قم بالاشتراك الأن</string>
     <string name="share">نشر التطبيق</string>
     <string name="lang">اللغة</string>
     <string name="studentFav">المفضلة</string>
@@ -115,10 +124,19 @@
     <string name="packages">الباقات</string>
     <string name="history">سجل</string>
     <string name="reqTopic">طلب تخصص</string>
-
+    <string name="payMent">الدفع</string>
     <string name="save">حفظ</string>
-
+    <string name="paymentHint">لقد قمت باختيار هذه الباقة</string>
     <string name="viewCer">إظهار الكل</string>
+
+    <string name="comPayment">تأكيد الدفع</string>
+    <string name="cname">اسم صاحب الفيزا</string>
+    <string name="hname">الاسم</string>
+    <string name="cnum">رقم الفيزا</string>
+    <string name="expir">تاريخ الانتهاء</string>
+    <string name="cvv">CCV</string>
+
+
     <string name="edit">تعديل</string>
     <string name="reset">اخلاء الخانات</string>
     <string name="Availability">اوقات العمل</string>
@@ -138,6 +156,13 @@
     <string name="await">فى انتظار الموافقة</string>
     <string name="emailValid">يرجى ادخال بريد الكترونى صحيح</string>
     <string name="online">نشط</string>
+    <string name="offlines">غير نشط</string>
+
+    <string name="noCalls">لايوجد مكالمات</string>
+    <string name="noMessages">لا يوجد رسائل</string>
+    <string name="hintInlogs">يرجى التواصل مع المعلمين  \n لدى Wabell لبدء محادثات جديدة</string>
+    <string name="find_masters">البحث عن معلمين</string>
+
     <string name="viewProfile">الصفحة الشخصية</string>
     <string name="certificates">رفع الشهادات وصور تعريف الشخصية</string>
     <string name="info">الحد الأقصى لحجم الصورة هو 5 ميجا بايت الملفات المسموح بها هى : png , jpg</string>

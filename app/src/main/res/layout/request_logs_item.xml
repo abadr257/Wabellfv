@@ -78,7 +78,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="3dp"
-            android:src="@drawable/calls_icon" />
+            android:src="@drawable/calls_icon_blue" />
 
         <TextView
             android:id="@+id/txt_date"

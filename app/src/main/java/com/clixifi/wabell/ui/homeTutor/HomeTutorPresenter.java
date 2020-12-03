@@ -79,7 +79,11 @@ public class HomeTutorPresenter {
                 @Override
                 public void onSuccess(ConnectionResponse<ResultBoolean> connectionResponse) {
                     if (connectionResponse.data != null) {
-                        counters.onUpdate(connectionResponse.data);
+                        if(connectionResponse.data.isResult()){
+                            counters.onUpdate(connectionResponse.data);
+                        }else {
+                            counters.onFail(true);
+                        }
                     } else {
                         counters.onFail(true);
                     }

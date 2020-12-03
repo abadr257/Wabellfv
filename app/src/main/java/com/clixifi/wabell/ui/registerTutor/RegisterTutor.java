@@ -326,7 +326,7 @@ public class RegisterTutor extends Fragment implements DialogUtilResponse, Tutor
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
-                            String uid = current_user.getUid();
+                            final String uid = current_user.getUid();
                             mDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
                             String device_token = FirebaseInstanceId.getInstance().getToken();
                             HashMap<String, String> userMap = new HashMap<>();
@@ -335,17 +335,19 @@ public class RegisterTutor extends Fragment implements DialogUtilResponse, Tutor
                             userMap.put("thumb_image", "default");
                             userMap.put("device_token", device_token);
                             userMap.put("user_type", "tutor");
-                            tutorPresenter.tutorRegister(getActivity(), email, pass, phone, UserName, locationId, UserType , uid);
+
                             mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
                                         Log.e(TAG, "onComplete: " + "Success");
+                                        tutorPresenter.tutorRegister(getActivity(), email, pass, phone, UserName, locationId, UserType , uid);
                                     }
                                 }
                             });
                         }else {
-
+                            dialog.DismissDialog();
+                            ToastUtil.showErrorToast(getActivity(),R.string.already);
                         }
                     }
                 });

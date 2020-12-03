@@ -32,6 +32,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.gifdecoder.GifHeaderParser;
 import com.clixifi.wabell.R;
 import com.clixifi.wabell.data.DeleteCertificates;
 import com.clixifi.wabell.data.GetCertificates;
@@ -56,12 +57,21 @@ import com.clixifi.wabell.utils.ToastUtil;
 import com.clixifi.wabell.utils.dialogs.DialogUtil;
 import com.clixifi.wabell.utils.dialogs.DialogUtilResponse;
 import com.facebook.login.Login;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -69,10 +79,10 @@ import static android.content.ContentValues.TAG;
 import static com.clixifi.wabell.ui.tutorMedia.TutorMedia.getRealPathFromURI;
 
 
-public class ProfileScreen extends Fragment implements ProfileInteface, DialogUtilResponse , TutorInterface {
+public class ProfileScreen extends Fragment implements ProfileInteface, DialogUtilResponse, TutorInterface {
 
     FragmentProfileScreenBinding binding;
-    View v ,dialogView;
+    View v, dialogView;
     ProfileHandler profile;
     CustomDialog dialog;
     ProfilePresenter presenter;
@@ -81,22 +91,30 @@ public class ProfileScreen extends Fragment implements ProfileInteface, DialogUt
     CertificatesAdapter adapter;
     String type;
     boolean editProfilePic = false;
-    AlertDialog.Builder dialogBuilder ;
+    AlertDialog.Builder dialogBuilder;
     ArrayList<CityItem> citiesList;
     ArrayList<AreasItem> areasList;
     DialogUtil dialogUtil;
     TutorPresenter tutorPresenter;
-    int locationId = 1;
-    EditText edCity , edArea ;
-    UserResponse<UserProfile> data ;
-    AlertDialog alertDialog ;
-    LayoutInflater inflater ;
+    int locationId = 0;
+    EditText edCity, edArea;
+    UserResponse<UserProfile> data;
+    AlertDialog alertDialog;
+    LayoutInflater inflater;
+    private DatabaseReference mDatabase;
+    FirebaseAuth mAuth;
+    HashMap<String, String> userMap;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_screen, container, false);
         v = binding.getRoot();
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = current_user.getUid();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+        userMap = new HashMap<>();
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         profile = new ProfileHandler(getActivity());
         binding.setHandler(profile);
@@ -146,7 +164,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface, DialogUt
     private void fillUserData() {
         dialog.ShowDialog();
         presenter.getProfileData(getActivity());
-        if (binding.txtEditAll.getText().toString().equals("Save")) {
+        if (binding.txtEditAll.getText().toString().equals(getActivity().getResources().getString(R.string.save))) {
             binding.edName.setFocusable(true);
             binding.edPhone.setFocusable(true);
             binding.edEmail.setFocusable(true);
@@ -160,8 +178,11 @@ public class ProfileScreen extends Fragment implements ProfileInteface, DialogUt
     @Override
     public void onSuccessProfile(UserResponse<UserProfile> profile) {
 
-        this.data = profile ;
-        if(profile.DataProfile.getLocation() != null){
+        this.data = profile;
+
+        locationId = profile.DataProfile.getDistrictId();
+
+        if (profile.DataProfile.getLocation() != null) {
             binding.edLocation.setText(profile.DataProfile.getLocation());
         }
         if (profile.DataProfile.getBiography() != null) {
@@ -181,12 +202,13 @@ public class ProfileScreen extends Fragment implements ProfileInteface, DialogUt
         }
 
         if (profile.DataProfile.getProfilePicture() != null) {
-            StaticMethods.LoadImage(getActivity(), binding.userImg, profile.DataProfile.getProfilePicture(), null);
+            Picasso.with(getActivity()).load(profile.DataProfile.getProfilePicture()).into(binding.userImg);
+            //StaticMethods.LoadImage(getActivity(), binding.userImg, profile.DataProfile.getProfilePicture(), null);
         }
-        if(LocaleManager.getLanguage(getActivity()).equals("en")){
-            if (profile.DataProfile.getEngTopics() != null){
+        if (LocaleManager.getLanguage(getActivity()).equals("en")) {
+            if (profile.DataProfile.getEngTopics() != null) {
                 StringBuffer engTop = new StringBuffer();
-                for (int i = 0 ; i < profile.DataProfile.getEngTopics().size() ; i ++){
+                for (int i = 0; i < profile.DataProfile.getEngTopics().size(); i++) {
                     engTop.append(profile.DataProfile.getEngTopics().get(i));
                     engTop.append("\n");
                 }
@@ -196,10 +218,10 @@ public class ProfileScreen extends Fragment implements ProfileInteface, DialogUt
                 }
             }
 
-        }else {
-            if (profile.DataProfile.getArTopics() != null){
+        } else {
+            if (profile.DataProfile.getArTopics() != null) {
                 StringBuffer arTop = new StringBuffer();
-                for (int i = 0 ; i < profile.DataProfile.getArTopics().size() ; i ++){
+                for (int i = 0; i < profile.DataProfile.getArTopics().size(); i++) {
                     arTop.append(profile.DataProfile.getArTopics().get(i));
                     arTop.append("\n");
                 }
@@ -215,7 +237,9 @@ public class ProfileScreen extends Fragment implements ProfileInteface, DialogUt
         binding.userName.setText(profile.DataProfile.getName());
         binding.edPhone.setText(profile.DataProfile.getPhoneNumber());
         if (profile.DataProfile.getFiles() != null) {
-            if (profile.DataProfile.getFiles().size() > 0) {
+            if (profile.DataProfile.getFiles().size() == 0) {
+                binding.txtNoCer.setVisibility(View.VISIBLE);
+            } else if (profile.DataProfile.getFiles().size() > 0) {
                 adapter = new CertificatesAdapter(getActivity(), null, profile.DataProfile.getFiles());
                 LinearLayoutManager layoutManager
                         = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
@@ -253,8 +277,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface, DialogUt
             }
         }
         if (LocaleManager.getLanguage(getActivity()).equals("ar")) {
-            if (binding.txtEditAll.getText().toString().equals("حفظ")) {
-
+            if (binding.txtEditAll.getText().toString().equals(getActivity().getResources().getString(R.string.save))) {
                 binding.setOnEdit(false);
                 binding.edName.setFocusableInTouchMode(false);
                 binding.edName.setFocusable(false);
@@ -271,7 +294,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface, DialogUt
                 binding.edBiography.setFocusableInTouchMode(false);
                 binding.edBiography.setFocusable(false);
                 binding.txtEditAll.setText(getActivity().getResources().getString(R.string.edit));
-            } else if (binding.txtEditAll.getText().toString().equals("تعديل")) {
+            } else if (binding.txtEditAll.getText().toString().equals(getActivity().getResources().getString(R.string.edit))) {
                 binding.setOnEdit(true);
                 binding.edName.setFocusableInTouchMode(true);
                 binding.edName.setFocusable(true);
@@ -290,7 +313,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface, DialogUt
                 binding.txtEditAll.setText(getActivity().getResources().getString(R.string.save));
             }
         } else {
-            if (binding.txtEditAll.getText().toString().equals("Save")) {
+            if (binding.txtEditAll.getText().toString().equals(getActivity().getResources().getString(R.string.save))) {
                 binding.setOnEdit(false);
                 binding.edName.setFocusableInTouchMode(false);
                 binding.edName.setFocusable(false);
@@ -308,7 +331,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface, DialogUt
                 binding.edBiography.setFocusable(false);
                 binding.txtEditAll.setText(getActivity().getResources().getString(R.string.edit));
 
-            } else if (binding.txtEditAll.getText().toString().equals("Edit")) {
+            } else if (binding.txtEditAll.getText().toString().equals(getActivity().getResources().getString(R.string.edit))) {
                 binding.setOnEdit(true);
                 binding.edName.setFocusableInTouchMode(true);
                 binding.edName.setFocusable(true);
@@ -332,7 +355,35 @@ public class ProfileScreen extends Fragment implements ProfileInteface, DialogUt
     @Override
     public void onUpdateProfile(MediaResponse media) {
         dialog.DismissDialog();
-        StaticMethods.LoadImage(getActivity(), binding.userImg, media.getImgFilePaths().get(0), null);
+        String device_token = FirebaseInstanceId.getInstance().getToken();
+        userMap.put("image", media.getImgFilePaths().get(0));
+        userMap.put("name", binding.edName.getText().toString());
+        userMap.put("thumb_image", "default");
+        userMap.put("device_token", device_token);
+        if (StaticMethods.userRegisterResponse != null) {
+            if (StaticMethods.userRegisterResponse.Data.getType().equals("tutor")) {
+                userMap.put("user_type", "tutor");
+            } else {
+                userMap.put("user_type", "student");
+            }
+        } else {
+            if (StaticMethods.userData.getUserType().equals("tutor")) {
+                userMap.put("user_type", "tutor");
+            } else {
+                userMap.put("user_type", "student");
+            }
+        }
+
+        mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Log.e(GifHeaderParser.TAG, "fireBaseUpdate Image: " + "updated");
+                }
+            }
+        });
+        Picasso.with(getActivity()).load(media.getImgFilePaths().get(0)).into(binding.userImg);
+        //StaticMethods.LoadImage(getActivity(), binding.userImg, media.getImgFilePaths().get(0), null);
         editProfilePic = true;
     }
 
@@ -360,7 +411,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface, DialogUt
         } else if (arrayType.equals("area")) {
             locationId = areasList.get(position).getId();
             edArea.setText(areasList.get(position).getName());
-            binding.edLocation.setText(edCity.getText().toString() +" , "+edArea.getText().toString());
+            binding.edLocation.setText(edCity.getText().toString() + " , " + edArea.getText().toString());
         }
     }
 
@@ -413,9 +464,9 @@ public class ProfileScreen extends Fragment implements ProfileInteface, DialogUt
             this.context = context;
         }
 
-        public void editLocation(View v){
+        public void editLocation(View v) {
             if (LocaleManager.getLanguage(getActivity()).equals("ar")) {
-                 if (binding.txtEditAll.getText().toString().equals(getActivity().getResources().getString(R.string.save))) {
+                if (binding.txtEditAll.getText().toString().equals(getActivity().getResources().getString(R.string.save))) {
                     binding.edLocation.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -424,7 +475,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface, DialogUt
                     });
                 }
             } else {
-                  if (binding.txtEditAll.getText().toString().equals(getActivity().getResources().getString(R.string.save))) {
+                if (binding.txtEditAll.getText().toString().equals(getActivity().getResources().getString(R.string.save))) {
                     binding.edLocation.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -442,16 +493,9 @@ public class ProfileScreen extends Fragment implements ProfileInteface, DialogUt
         }
 
         public void onEditAll(View v) {
-
-            String Name, email,
-                    phone, Experience, Education, Tagline, Biography;
-            int LocationId;
-
-
             if (LocaleManager.getLanguage(getActivity()).equals("ar")) {
-                if (binding.txtEditAll.getText().toString().equals("حفظ")) {
+                if (binding.txtEditAll.getText().toString().equals(getActivity().getResources().getString(R.string.save))) {
                     if (editProfilePic) {
-
                         editProfilePic = false;
                         binding.setOnEdit(false);
                         binding.edName.setFocusableInTouchMode(false);
@@ -474,7 +518,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface, DialogUt
                         onSaveEdit(null);
                     }
 
-                } else if (binding.txtEditAll.getText().toString().equals("تعديل")) {
+                } else if (binding.txtEditAll.getText().toString().equals(getActivity().getResources().getString(R.string.edit))) {
 
                     binding.setOnEdit(true);
                     binding.edName.setFocusableInTouchMode(true);
@@ -494,10 +538,9 @@ public class ProfileScreen extends Fragment implements ProfileInteface, DialogUt
                     binding.edBiography.setFocusable(true);
                     binding.txtEditAll.setText(getActivity().getResources().getString(R.string.save));
 
-
                 }
             } else {
-                if (binding.txtEditAll.getText().toString().equals("Save")) {
+                if (binding.txtEditAll.getText().toString().equals(getActivity().getResources().getString(R.string.save))) {
                     if (editProfilePic) {
                         binding.setOnEdit(false);
                         editProfilePic = false;
@@ -521,7 +564,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface, DialogUt
                         onSaveEdit(null);
                     }
 
-                } else if (binding.txtEditAll.getText().toString().equals("Edit")) {
+                } else if (binding.txtEditAll.getText().toString().equals(getActivity().getResources().getString(R.string.edit))) {
 
                     binding.setOnEdit(true);
                     binding.edName.setFocusableInTouchMode(true);
@@ -586,7 +629,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface, DialogUt
         }
 
         public void onSaveEdit(View v) {
-            dialog.ShowDialog();
+
             if (StaticMethods.userRegisterResponse != null) {
                 if (StaticMethods.userRegisterResponse.Data.getType().equals("tutor")) {
                     String Name, email,
@@ -639,7 +682,6 @@ public class ProfileScreen extends Fragment implements ProfileInteface, DialogUt
     private void openDialogChooseLocation() {
 
 
-
         edCity.setText(data.DataProfile.getCity());
         edArea.setText(data.DataProfile.getArea());
         ImageView close = dialogView.findViewById(R.id.close);
@@ -667,7 +709,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface, DialogUt
             @Override
             public void onClick(View v) {
                 dialog.ShowDialog();
-                String city = "" ;
+                String city = "";
                 city = edCity.getText().toString();
                 if (!city.isEmpty()) {
                     dialog.ShowDialog();
@@ -688,6 +730,7 @@ public class ProfileScreen extends Fragment implements ProfileInteface, DialogUt
         presenter.getProfileData(getActivity());
         dialog.ShowDialog();
     }
+
     private void onEditDo() {
         if (LocaleManager.getLanguage(getActivity()).equals("ar")) {
             if (binding.txtEditAll.getText().toString().equals(getActivity().getResources().getString(R.string.edit))) {

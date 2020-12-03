@@ -4,4 +4,5 @@ public interface PaymentInterface {
     void onPayment(String response);
     void onConnection(boolean isConnected);
     void onFail(boolean isConnected);
+    void onPaymentSuccess(boolean success);
 }

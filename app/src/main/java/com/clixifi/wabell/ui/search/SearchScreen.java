@@ -15,6 +15,7 @@ import com.clixifi.wabell.ui.filterScreen.FilterScreen;
 import com.clixifi.wabell.ui.main.MainScreen;
 import com.clixifi.wabell.ui.searchByWord.SearchByWord;
 import com.clixifi.wabell.utils.IntentUtilies;
+import com.clixifi.wabell.utils.LocaleManager;
 import com.clixifi.wabell.utils.StaticMethods;
 
 import static com.clixifi.wabell.utils.StaticMethods.searchWord;
@@ -38,7 +39,10 @@ public class SearchScreen extends AppCompatActivity {
         }
         binding.arrayList.setText(""+StaticMethods.tutors.getResult().size());
         listAdapter = new TutorListAdapter(SearchScreen.this, StaticMethods.tutors);
-        binding.recResult.setLayoutManager(new LinearLayoutManager(SearchScreen.this));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(SearchScreen.this);
+        /*linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);*/
+        binding.recResult.setLayoutManager(linearLayoutManager);
         binding.recResult.setAdapter(listAdapter);
     }
 
@@ -51,9 +55,11 @@ public class SearchScreen extends AppCompatActivity {
 
         public void onFilter(View v) {
             IntentUtilies.openActivity(SearchScreen.this, FilterScreen.class);
+            SearchScreen.this.finish();
         }
         public void onSearch(View v) {
             IntentUtilies.openActivity(SearchScreen.this, SearchByWord.class);
+            SearchScreen.this.finish();
         }
 
         public void back(View v) {
@@ -61,5 +67,9 @@ public class SearchScreen extends AppCompatActivity {
             StaticMethods.tutors = null ;
             searchWord = "";
         }
+    }
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleManager.onAttach(base));
     }
 }

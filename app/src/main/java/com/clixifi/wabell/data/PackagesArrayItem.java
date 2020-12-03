@@ -8,10 +8,41 @@ public class PackagesArrayItem {
     public int Id ;
     @SerializedName("PackageDuration")
     public String PackageDuration ;
+    @SerializedName("PackageDurationAr")
+    public String PackageDurationAr ;
     @SerializedName("Price")
-    public double  Price;
+    public String  Price;
     @SerializedName("TagLine")
     public String TagLine ;
+    @SerializedName("Title")
+    public String Title ;  //TitleAr
+
+    @SerializedName("TitleAr")
+    public String TitleAr ;
+
+    public String getTitleAr() {
+        return TitleAr;
+    }
+
+    public String getPackageDurationAr() {
+        return PackageDurationAr;
+    }
+
+    public void setPackageDurationAr(String packageDurationAr) {
+        PackageDurationAr = packageDurationAr;
+    }
+
+    public void setTitleAr(String titleAr) {
+        TitleAr = titleAr;
+    }
+
+    public String getTitle() {
+        return Title;
+    }
+
+    public void setTitle(String title) {
+        Title = title;
+    }
 
     public int getId() {
         return Id;
@@ -29,11 +60,11 @@ public class PackagesArrayItem {
         PackageDuration = packageDuration;
     }
 
-    public double getPrice() {
+    public String  getPrice() {
         return Price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         Price = price;
     }
 

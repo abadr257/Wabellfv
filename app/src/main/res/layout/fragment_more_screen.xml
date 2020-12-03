@@ -357,7 +357,7 @@
                             android:text="@string/splash_text_en"
                             android:textSize="15sp"
                             android:id="@+id/lang_txt"
-                            android:textColor="@color/title"
+                            android:textColor="#279EFF"
                             android:layout_marginEnd="3dp"
                             />
                         <ImageView

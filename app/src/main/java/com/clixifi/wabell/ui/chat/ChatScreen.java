@@ -30,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,7 +74,8 @@ public class ChatScreen extends AppCompatActivity implements TutorProfileInterfa
         }
         Log.e("TAG", "onCreate: "+userServerId );
         //user_image //
-        StaticMethods.LoadImage(ChatScreen.this , binding.tutorImg , userImage , null);
+        Picasso.with(ChatScreen.this).load(userImage).into(binding.tutorImg);
+        //StaticMethods.LoadImage(ChatScreen.this , binding.tutorImg , userImage , null);
         binding.txtRecName.setText(userName);
         mAdapter = new MessageAdapter(messagesList , mCurrentUserId , ChatScreen.this);
         mLinearLayout = new LinearLayoutManager(this);
@@ -291,6 +293,11 @@ public class ChatScreen extends AppCompatActivity implements TutorProfileInterfa
 
     @Override
     public void onDeleteFav(ResultBoolean result) {
+
+    }
+
+    @Override
+    public void onRequest(ResultBoolean resultBoolean) {
 
     }
 

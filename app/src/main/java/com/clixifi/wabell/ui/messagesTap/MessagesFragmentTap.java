@@ -33,6 +33,7 @@ import com.clixifi.wabell.databinding.FragmentMessagesTapBinding;
 
 import com.clixifi.wabell.ui.Adapters.FirebaseMessagesAdapter;
 import com.clixifi.wabell.ui.chat.ChatScreen;
+import com.clixifi.wabell.ui.main.MainScreen;
 import com.clixifi.wabell.utils.IntentUtilies;
 import com.clixifi.wabell.utils.StaticMethods;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -63,13 +64,6 @@ public class MessagesFragmentTap extends Fragment implements MessagesInterFace {
     FragmentMessagesTapBinding binding;
     View v;
     MyRooms handler;
-    private DatabaseReference mConvDatabase;
-    private DatabaseReference mMessageDatabase;
-    private DatabaseReference mUsersDatabase;
-    String userServerId = "";
-    private FirebaseAuth mAuth;
-
-    private String mCurrent_user_id;
     MessagesPresenter presenter ;
     FirebaseMessagesAdapter adapter ;
 
@@ -96,23 +90,8 @@ public class MessagesFragmentTap extends Fragment implements MessagesInterFace {
             }
         }
         binding.setHandler(handler);
-        configFirebaseDatabase();
-        mAuth = FirebaseAuth.getInstance();
 
-        mCurrent_user_id = mAuth.getCurrentUser().getUid();
 
-        mConvDatabase = FirebaseDatabase.getInstance().getReference().child("Chat").child(mCurrent_user_id);
-
-        mConvDatabase.keepSynced(true);
-        mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
-        mMessageDatabase = FirebaseDatabase.getInstance().getReference().child("messages").child(mCurrent_user_id);
-        mUsersDatabase.keepSynced(true);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setReverseLayout(true);
-        linearLayoutManager.setStackFromEnd(true);
-
-        binding.recRooms.setLayoutManager(linearLayoutManager);
 
 
         return v;
@@ -123,9 +102,7 @@ public class MessagesFragmentTap extends Fragment implements MessagesInterFace {
 
 
 
-    private void configFirebaseDatabase() {
 
-    }
 
 
     @Override
@@ -253,17 +230,17 @@ public class MessagesFragmentTap extends Fragment implements MessagesInterFace {
 
     @Override
     public void onMessages(CallsArray array) {
-        if(array.getResult().size() == 0){
-            binding.setButton(true);
-            binding.setOnNoData(true);
-        }else {
+        if(array.getResult().size() > 0){
             binding.setOnNoData(false);
             binding.setButton(false);
+            adapter = new FirebaseMessagesAdapter(getActivity() , array);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+            binding.recRooms.setLayoutManager(linearLayoutManager);
+            binding.recRooms.setAdapter(adapter);
+        }else {
+            binding.setOnNoData(true);
         }
-        adapter = new FirebaseMessagesAdapter(getActivity() , array);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        binding.recRooms.setLayoutManager(linearLayoutManager);
-        binding.recRooms.setAdapter(adapter);
+
     }
 
     @Override
@@ -282,23 +259,11 @@ public class MessagesFragmentTap extends Fragment implements MessagesInterFace {
         public MyRooms(Context context) {
             this.context = context;
         }
-    }
-
-
-    public static class ChatsViewHolder extends RecyclerView.ViewHolder {
-        CircleImageView profileImage;
-        TextView userName;
-        RelativeLayout icon ;
-        RelativeLayout userOnlineStatus;
-        LinearLayout linView ;
-
-        public ChatsViewHolder(@NonNull View itemView) {
-            super(itemView);
-            linView = itemView.findViewById(R.id.lin_OpenMessage);
-            profileImage = itemView.findViewById(R.id.st_img);
-            icon = itemView.findViewById(R.id.rel_isSeen);
-            userName = itemView.findViewById(R.id.txt_stName);
-            userOnlineStatus = itemView.findViewById(R.id.rel_online);
+        public void findMasters(View v){
+            ((MainScreen)getActivity()).displayView(3);
         }
     }
+
+
+
 }

@@ -32,6 +32,6 @@
         <item>@color/dot_dark_screen2</item>
         <item>@color/dot_dark_screen3</item>
     </array>
-
+    <color name="checkout_color_accent">#29b6f6</color>
 
 </resources>

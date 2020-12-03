@@ -16,6 +16,7 @@ import com.clixifi.wabell.data.CallsArray;
 import com.clixifi.wabell.data.Response.RequestLogs.RequestLogsArray;
 import com.clixifi.wabell.databinding.FragmentCallsTapBinding;
 import com.clixifi.wabell.ui.Adapters.RequestLogsAdapter;
+import com.clixifi.wabell.ui.main.MainScreen;
 import com.clixifi.wabell.utils.CustomDialog;
 import com.clixifi.wabell.utils.StaticMethods;
 import com.clixifi.wabell.utils.ToastUtil;
@@ -91,6 +92,9 @@ public class CallsFragmentTap extends Fragment implements CallsInterface {
 
         public MyHandler(Context context) {
             this.context = context;
+        }
+        public void findMasters(View v){
+            ((MainScreen)getActivity()).displayView(3);
         }
     }
 }

@@ -6,6 +6,8 @@ import com.clixifi.wabell.data.CallsArray;
 import com.clixifi.wabell.data.CurrentPackages;
 import com.clixifi.wabell.data.DeleteCertificates;
 import com.clixifi.wabell.data.GetCertificates;
+import com.clixifi.wabell.data.GetResult;
+import com.clixifi.wabell.data.GetResultString;
 import com.clixifi.wabell.data.HistoryArray;
 import com.clixifi.wabell.data.MediaResponse;
 import com.clixifi.wabell.data.PackagesArray;
@@ -334,10 +336,10 @@ public class MainApi {
                     }
                 });
     }
-    public static void getCurrentPackagesApi(String token, final ConnectionListener<ResultForProfile<CurrentPackages>> connectionListener) {
+    public static void getCurrentPackagesApi(String token, final ConnectionListener<GetResult<CurrentPackages>> connectionListener) {
         getApi().getCurrentPackages(token).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ResultForProfile<CurrentPackages>>() {
+                .subscribe(new Observer<GetResult<CurrentPackages>>() {
                     @Override
                     public void onError(Throwable e) {
                         connectionListener.onFail(e);
@@ -352,17 +354,17 @@ public class MainApi {
                     }
 
                     @Override
-                    public void onNext(ResultForProfile<CurrentPackages> userResponse) {
-                        ConnectionResponse<ResultForProfile<CurrentPackages>> response = new ConnectionResponse<>();
+                    public void onNext(GetResult<CurrentPackages> userResponse) {
+                        ConnectionResponse<GetResult<CurrentPackages>> response = new ConnectionResponse<>();
                         response.data = userResponse;
                         connectionListener.onSuccess(response);
                     }
                 });
     }
-    public static void payPackage(String token,RequestBody body, final ConnectionListener<ResultForProfile<PaymentResponse>> connectionListener) {
+    public static void payPackage(String token,int  body, final ConnectionListener<PaymentResponse> connectionListener) {
         getApi().payPackage(token , body).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ResultForProfile<PaymentResponse>>() {
+                .subscribe(new Observer<PaymentResponse>() {
                     @Override
                     public void onError(Throwable e) {
                         connectionListener.onFail(e);
@@ -377,13 +379,41 @@ public class MainApi {
                     }
 
                     @Override
-                    public void onNext(ResultForProfile<PaymentResponse> userResponse) {
-                        ConnectionResponse<ResultForProfile<PaymentResponse>> response = new ConnectionResponse<>();
+                    public void onNext(PaymentResponse userResponse) {
+                        ConnectionResponse<PaymentResponse> response = new ConnectionResponse<>();
                         response.data = userResponse;
                         connectionListener.onSuccess(response);
                     }
                 });
     }
+
+    public static void requestStatus(String token,int  body,String checkout, final ConnectionListener<GetResultString> connectionListener) {
+        getApi().requestStatus(token , checkout ,body ).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<GetResultString>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        connectionListener.onFail(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(GetResultString userResponse) {
+                        ConnectionResponse<GetResultString> response = new ConnectionResponse<>();
+                        response.data = userResponse;
+                        connectionListener.onSuccess(response);
+                    }
+                });
+    }
+
+
     public static void getRequestCalls(String token, final ConnectionListener<RequestLogsArray> connectionListener) {
         getApi().getStudentCalls(token).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -1027,6 +1057,31 @@ public class MainApi {
                     @Override
                     public void onNext(FavMastersStudent userResponse) {
                         ConnectionResponse<FavMastersStudent> response = new ConnectionResponse<>();
+                        response.data = userResponse;
+                        connectionListener.onSuccess(response);
+                    }
+                });
+    }
+    public static void requestTutor(String token,RequestBody body , final ConnectionListener<ResultBoolean> connectionListener) {
+        getApi().requestTutor(token, body).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResultBoolean>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        connectionListener.onFail(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(ResultBoolean userResponse) {
+                        ConnectionResponse<ResultBoolean> response = new ConnectionResponse<>();
                         response.data = userResponse;
                         connectionListener.onSuccess(response);
                     }

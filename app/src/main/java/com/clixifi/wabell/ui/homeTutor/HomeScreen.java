@@ -49,10 +49,13 @@ public class HomeScreen extends Fragment implements HomeTutorInterface, DialougU
     RequestLogsAdapter adapter;
     boolean isOnline = true;
     DialogUtil dailogDate;
-    String date ,dateToView;
+    String date ,dateToView = "";
     LayoutInflater inflater;
     AlertDialog alertDialog;
     TextView txtUntil;
+    View dialogView ;
+    RadioButton online  , offline ;
+    AlertDialog.Builder dialogBuilder;
     UserTutorCounters userTutorCounters;
 
     @Override
@@ -99,6 +102,50 @@ public class HomeScreen extends Fragment implements HomeTutorInterface, DialougU
         binding.favTxt.setText(userTutorCounters.getFavoritedCount() + "");
         binding.requTxt.setText(userTutorCounters.getCallsCount() + "");
         binding.viewsTxt.setText(userTutorCounters.getViewsCount() + "");
+        if (LocaleManager.getLanguage(getActivity()).equals("ar")){
+            if(userTutorCounters.getSimilarMastersCount() > 2){
+                binding.txtSim.setText(getActivity().getResources().getString(R.string.similar));
+            }else if(userTutorCounters.getSimilarMastersCount() == 2 || userTutorCounters.getSimilarMastersCount() == 1){
+                binding.txtSim.setText("مدرس مماثل");
+            }
+            if(userTutorCounters.getViewsCount() > 2){
+                binding.txtViews.setText("مشاهدات");
+            }else if(userTutorCounters.getViewsCount() == 2 || userTutorCounters.getViewsCount() == 1){
+                binding.txtViews.setText("مشاهدة");
+            }
+            if(userTutorCounters.getCallsCount() > 2){
+                binding.txtReq.setText("طلبات");
+            }else if(userTutorCounters.getCallsCount() == 2 || userTutorCounters.getCallsCount() == 1){
+                binding.txtReq.setText("طلب");
+            }
+            if(userTutorCounters.getFavoritedCount() > 2){
+                binding.txtFav.setText("مفضلون");
+            }else if(userTutorCounters.getFavoritedCount() == 2 || userTutorCounters.getFavoritedCount() == 1){
+                binding.txtFav.setText("مفضل");
+            }
+        }else {
+            if(userTutorCounters.getSimilarMastersCount() > 1){
+                binding.txtSim.setText(getActivity().getResources().getString(R.string.similar));
+            }else if(userTutorCounters.getSimilarMastersCount() == 1){
+                binding.txtSim.setText("Similar Master");
+            }
+            if(userTutorCounters.getViewsCount() > 1){
+                binding.txtViews.setText("Views");
+            }else if(userTutorCounters.getViewsCount() == 1){
+                binding.txtViews.setText("View");
+            }
+            if(userTutorCounters.getCallsCount() > 1){
+                binding.txtReq.setText("Requests");
+            }else if(userTutorCounters.getCallsCount() == 1){
+                binding.txtReq.setText("Request");
+            }
+            if(userTutorCounters.getFavoritedCount() > 1){
+                binding.txtFav.setText("Favorites");
+            }else if(userTutorCounters.getFavoritedCount() == 1){
+                binding.txtFav.setText("Favorite");
+            }
+        }
+
     }
 
     @Override
@@ -117,6 +164,24 @@ public class HomeScreen extends Fragment implements HomeTutorInterface, DialougU
     public void onUpdate(ResultBoolean resultBoolean) {
         dialog.DismissDialog();
         ToastUtil.showSuccessToast(getActivity(), R.string.saved);
+        if (offline.isChecked()) {
+            if (LocaleManager.getLanguage(getActivity()).equals("en")) {
+                binding.avilabilty.setText("Offline");
+                binding.avilabilty.setTextColor(getResources().getColor(R.color.colorRed));
+            } else {
+                binding.avilabilty.setText("غير متاح");
+                binding.avilabilty.setTextColor(getResources().getColor(R.color.colorRed));
+            }
+
+        } else if (online.isChecked()) {
+            if (LocaleManager.getLanguage(getActivity()).equals("en")) {
+                binding.avilabilty.setText("Online");
+                binding.avilabilty.setTextColor(getResources().getColor(R.color.online));
+            } else {
+                binding.avilabilty.setText("نشط");
+                binding.avilabilty.setTextColor(getResources().getColor(R.color.online));
+            }
+        }
     }
 
     @Override
@@ -142,8 +207,8 @@ public class HomeScreen extends Fragment implements HomeTutorInterface, DialougU
         int day = myCalendar.get(Calendar.DAY_OF_MONTH);
         int month = myCalendar.get(Calendar.MONTH);
         int year = myCalendar.get(Calendar.YEAR);
-        date = month + "/" + day + "/" + year;
-        dateToView = day + "/" + month + "/" + year ;
+        date = (month+1) + "/" + day + "/" + year;
+        dateToView = day + "/" + (month+1) + "/" + year ;
         txtUntil.setText(dateToView);
         //StaticMethods.date = date ;
     }
@@ -161,18 +226,23 @@ public class HomeScreen extends Fragment implements HomeTutorInterface, DialougU
     }
 
     public void openAlertDialog() {
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        dialogBuilder = new AlertDialog.Builder(getActivity());
         inflater = getActivity().getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.isonline_change, null);
+        dialogView = inflater.inflate(R.layout.isonline_change, null);
+        online = dialogView.findViewById(R.id.rad_online);
+        offline = dialogView.findViewById(R.id.rad_offline);
         dialogBuilder.setView(dialogView);
         alertDialog = dialogBuilder.create();
         Button update = dialogView.findViewById(R.id.btn_update);
         ImageView close = dialogView.findViewById(R.id.close);
-        final RadioButton online = dialogView.findViewById(R.id.rad_online);
-        final RadioButton offline = dialogView.findViewById(R.id.rad_offline);
-
         txtUntil = dialogView.findViewById(R.id.txt_untill);
         txtUntil.setText(userTutorCounters.getOfflineUntil() + "");
+        if (dateToView.length() > 0){
+            txtUntil.setText(dateToView);
+        }
+
+
+
 
         if(binding.avilabilty.getText().equals(getResources().getString(R.string.online))){
             online.setChecked(true);
@@ -196,7 +266,6 @@ public class HomeScreen extends Fragment implements HomeTutorInterface, DialougU
                     isOnline = false;
                     online.setChecked(false);
                     dailogDate.showDialogDatePicker(getActivity());
-
                     Log.e(TAG, "openAlertDialog: " + isOnline);
                 }
             }
@@ -216,24 +285,6 @@ public class HomeScreen extends Fragment implements HomeTutorInterface, DialougU
                 Log.e(TAG, "onClick: " + date);
 
                 pre.updateAva(getActivity(), isOnline, date);
-                if (offline.isChecked()) {
-                    if (LocaleManager.getLanguage(getActivity()).equals("en")) {
-                        binding.avilabilty.setText("Offline");
-                        binding.avilabilty.setTextColor(getResources().getColor(R.color.colorRed));
-                    } else {
-                        binding.avilabilty.setText("غير متاح");
-                        binding.avilabilty.setTextColor(getResources().getColor(R.color.colorRed));
-                    }
-
-                } else if (online.isChecked()) {
-                    if (LocaleManager.getLanguage(getActivity()).equals("en")) {
-                        binding.avilabilty.setText("Online");
-                        binding.avilabilty.setTextColor(getResources().getColor(R.color.online));
-                    } else {
-                        binding.avilabilty.setText("نشط");
-                        binding.avilabilty.setTextColor(getResources().getColor(R.color.online));
-                    }
-                }
 
                 alertDialog.dismiss();
             }

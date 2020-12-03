@@ -29,6 +29,7 @@ import com.clixifi.wabell.data.MediaResponse;
 import com.clixifi.wabell.data.Response.User.UserProfile;
 import com.clixifi.wabell.data.Response.User.UserResponse;
 import com.clixifi.wabell.databinding.FragmentTutorMediaBinding;
+import com.clixifi.wabell.ui.Adapters.GetOldMediaAdapter;
 import com.clixifi.wabell.ui.Adapters.UploadCertificateAdapter;
 import com.clixifi.wabell.ui.Adapters.onRemoveImage;
 import com.clixifi.wabell.ui.profile.ProfileInteface;
@@ -57,6 +58,7 @@ public class TutorMedia extends Fragment implements onRemoveImage, ProfileIntefa
     final int REQUEST_PICK_IMAGE_CER = 1002, REQUEST_PICK_IMAGE_IDS = 1001;
     UploadCertificateAdapter adapter;
     ProfilePresenter profilePresenter;
+    GetOldMediaAdapter oldMediaAdapter ;
     CustomDialog dialog;
     boolean edit = false;
 
@@ -81,8 +83,11 @@ public class TutorMedia extends Fragment implements onRemoveImage, ProfileIntefa
         } catch (Exception e) {
 
         }
-
-
+        adapter = new UploadCertificateAdapter(getActivity() ,certificate , this , certificatePaths );
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        binding.recCertificate.setLayoutManager(layoutManager);
+        binding.recCertificate.setAdapter(adapter);
         return v;
     }
 
@@ -139,11 +144,11 @@ public class TutorMedia extends Fragment implements onRemoveImage, ProfileIntefa
 
     @Override
     public void onGetCer(GetCertificates cer) {
-        adapter = new UploadCertificateAdapter(getActivity(), certificate, this, certificatePaths ,cer);
+        oldMediaAdapter = new GetOldMediaAdapter(getActivity(), cer );
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        binding.recCertificate.setLayoutManager(layoutManager);
-        binding.recCertificate.setAdapter(adapter);
+        binding.recOldMedia.setLayoutManager(layoutManager);
+        binding.recOldMedia.setAdapter(oldMediaAdapter);
     }
 
     @Override

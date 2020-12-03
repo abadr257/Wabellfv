@@ -23,7 +23,7 @@ public class TutorItem {
     public String  Id;
 
     @SerializedName("HourPrice")
-    public double HourPrice;
+    public String HourPrice;
     @SerializedName("ViewsCount")
     public int ViewsCount;
     @SerializedName("Name")
@@ -34,10 +34,19 @@ public class TutorItem {
     public int RankCount;
     @SerializedName("Location")
     public String  Location;
-
+    @SerializedName("FromUserFirebaseId")
+    public String  FromUserFirebaseId;
     //Rank
     @SerializedName("Rank")
     public int  Rank;
+
+    public String getFromUserFirebaseId() {
+        return FromUserFirebaseId;
+    }
+
+    public void setFromUserFirebaseId(String fromUserFirebaseId) {
+        FromUserFirebaseId = fromUserFirebaseId;
+    }
 
     public String getTagLine() {
         return TagLine;
@@ -103,11 +112,11 @@ public class TutorItem {
         Biography = biography;
     }
 
-    public double getHourPrice() {
+    public String  getHourPrice() {
         return HourPrice;
     }
 
-    public void setHourPrice(double hourPrice) {
+    public void setHourPrice(String hourPrice) {
         HourPrice = hourPrice;
     }
 

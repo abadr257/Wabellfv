@@ -84,6 +84,16 @@
                     android:layout_marginBottom="5dp"
                     android:paddingEnd="8dp"
                     >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/noCer"
+                        android:textAlignment="center"
+                        android:id="@+id/txt_noCer"
+                        android:visibility="gone"
+                        android:textColor="@color/title"
+                        android:layout_gravity="center"
+                        />
                     <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -147,50 +157,6 @@
                     android:layout_height="38dp"
                     android:background="#FFFFFF"
                     android:layout_marginTop="8dp"
-                    android:id="@+id/lin5_txt"
-                    android:layoutDirection="locale"
-                    >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:text="@string/Education"
-                        android:textColor="@color/title"
-                        android:layout_gravity="center_vertical"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:paddingStart="8dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:paddingEnd="8dp"
-                    >
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="start|center"
-                        android:paddingStart="5dp"
-                        android:textSize="15sp"
-                        android:id="@+id/ed_edu"
-                        android:textDirection="locale"
-                        android:focusable="false"
-                        android:paddingEnd="5dp"
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="38dp"
-                    android:background="#FFFFFF"
-                    android:layout_marginTop="8dp"
                     android:layoutDirection="locale"
                     android:id="@+id/lin6_txt"
                     >
@@ -230,6 +196,51 @@
                         android:paddingEnd="5dp"
                         />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:background="#FFFFFF"
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/lin5_txt"
+                    android:layoutDirection="locale"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="@string/Education"
+                        android:textColor="@color/title"
+                        android:layout_gravity="center_vertical"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:layoutDirection="ltr"
+                    android:paddingStart="8dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:paddingEnd="8dp"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start|center"
+                        android:paddingStart="5dp"
+                        android:textSize="15sp"
+                        android:id="@+id/ed_edu"
+                        android:textDirection="locale"
+                        android:focusable="false"
+                        android:paddingEnd="5dp"
+                        />
+                </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="38dp"

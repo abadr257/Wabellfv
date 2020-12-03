@@ -20,6 +20,7 @@ import com.clixifi.wabell.ui.homeStudent.StudentHomePresenter;
 import com.clixifi.wabell.ui.search.SearchScreen;
 import com.clixifi.wabell.utils.CustomDialog;
 import com.clixifi.wabell.utils.IntentUtilies;
+import com.clixifi.wabell.utils.LocaleManager;
 import com.clixifi.wabell.utils.StaticMethods;
 import com.clixifi.wabell.utils.ToastUtil;
 import com.clixifi.wabell.utils.network.MainApiBody;
@@ -29,22 +30,22 @@ import okhttp3.RequestBody;
 import static com.clixifi.wabell.utils.StaticMethods.searchWord;
 
 public class SearchByWord extends AppCompatActivity implements StudentHomeInterface {
-    ActivitySearchByWordBinding binding ;
-    MyHandler handler ;
-    StudentHomePresenter presenter ;
-    RequestBody body = null ;
-    CustomDialog dialog ;
+    ActivitySearchByWordBinding binding;
+    MyHandler handler;
+    StudentHomePresenter presenter;
+    RequestBody body = null;
+    CustomDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this , R.layout.activity_search_by_word);
-        handler = new MyHandler(this );
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_search_by_word);
+        handler = new MyHandler(this);
         presenter = new StudentHomePresenter(this);
 
-        dialog =new CustomDialog(this);
+        dialog = new CustomDialog(this);
         binding.setHandler(handler);
     }
-
 
 
     @Override
@@ -59,7 +60,8 @@ public class SearchByWord extends AppCompatActivity implements StudentHomeInterf
 
     @Override
     public void onConnection(boolean isConnected) {
-
+        dialog.DismissDialog();
+        ToastUtil.showErrorToast(SearchByWord.this, R.string.noInternet);
     }
 
     @Override
@@ -69,43 +71,52 @@ public class SearchByWord extends AppCompatActivity implements StudentHomeInterf
 
     @Override
     public void onFailLogs(boolean failLogs) {
+        dialog.DismissDialog();
+        ToastUtil.showErrorToast(SearchByWord.this, R.string.error);
 
     }
 
     @Override
     public void onFilter(TutorListArray array) {
-        StaticMethods.tutors = array ;
+        StaticMethods.tutors = array;
         dialog.DismissDialog();
-        IntentUtilies.openActivity(SearchByWord.this , SearchScreen.class);
+        IntentUtilies.openActivity(SearchByWord.this, SearchScreen.class);
         searchWord = binding.edSearch.getText().toString();
     }
 
-    public class MyHandler{
-        Context context ;
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleManager.onAttach(base));
+    }
+
+    public class MyHandler {
+        Context context;
 
         public MyHandler(Context context) {
             this.context = context;
         }
-        public void onCancel(View v ){
+
+        public void onCancel(View v) {
             onBackPressed();
         }
-        public void onSearch(View v ){
-            dialog.ShowDialog();
-            String  fromHour= "" , toHour = "" ;
-            boolean price = false ;
-            String searchWord = binding.edSearch.getText().toString();
-            if(searchWord.isEmpty()){
-                ToastUtil.showErrorToast(SearchByWord.this , R.string.empty);
-            }else {
-                try {
-                    body = MainApiBody.filterBody(fromHour , toHour , 0 , 0 , 0 ,price , searchWord);
-                }catch (Exception e){
-                    Log.e("TAG", "onApply: "+e );
-                }
-                StaticMethods.printJson("Body : ->" ,body);
-                presenter.getTutorList(SearchByWord.this ,body);
-            }
 
+        public void onSearch(View v) {
+            dialog.ShowDialog();
+            String fromHour = "", toHour = "";
+            boolean price = false;
+            String searchWord = binding.edSearch.getText().toString();
+            if (searchWord.isEmpty()) {
+                dialog.DismissDialog();
+                ToastUtil.showErrorToast(SearchByWord.this, R.string.empty);
+            } else {
+                try {
+                    body = MainApiBody.filterBody(fromHour, toHour, 0, 0, 0, price, searchWord, false);
+                } catch (Exception e) {
+                    Log.e("TAG", "onApply: " + e);
+                }
+                StaticMethods.printJson("Body : ->", body);
+                presenter.getTutorList(SearchByWord.this, body);
+            }
 
         }
     }

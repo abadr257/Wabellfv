@@ -40,6 +40,7 @@ import com.clixifi.wabell.utils.ToastUtil;
 import com.clixifi.wabell.utils.network.ConnectionListener;
 import com.clixifi.wabell.utils.network.ConnectionResponse;
 import com.clixifi.wabell.utils.network.MainApi;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -70,14 +71,14 @@ public class RequestLogsAdapter extends RecyclerView.Adapter<RequestLogsAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         holder.stName.setText(array.getResult().get(position).getFromUserName());
-        StaticMethods.LoadImage(context , holder.st_img,array.getResult().get(position).getFromUserImage() ,null);
+        Picasso.with(context).load(array.getResult().get(position).getFromUserImage()).into(holder.st_img);
         if (array.getResult().get(position).getType().equals("CallLog")) {
             if (LocaleManager.getLanguage(context).equals("ar")) {
                 holder.txt_call.setText("مكالمة");
-                holder.img.setImageResource(R.drawable.calls_icon);
+                holder.img.setImageResource(R.drawable.calls_icon_blue);
             } else {
                 holder.txt_call.setText("Call");
-                holder.img.setImageResource(R.drawable.calls_icon);
+                holder.img.setImageResource(R.drawable.calls_icon_blue);
             }
             holder.linCall.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -118,8 +119,38 @@ public class RequestLogsAdapter extends RecyclerView.Adapter<RequestLogsAdapter.
                         , array.getResult().get(position).getFromUserImage());
             }
         });
+        String time = array.getResult().get(position).getTime().substring(0 , 2);
+        String min = array.getResult().get(position).getTime().substring(3 , 5);
+        int intTime = Integer.parseInt(time);
+        int finalTime = 0 ;
+        if(StaticMethods.timeEqu.equals("+")){
+            finalTime = intTime + StaticMethods.timeZone;
+            if(finalTime > 11){
+                if(finalTime > 12) {
+                    int timeFinal = finalTime - 12;
+                    holder.date.setText(timeFinal +" : "+min+" Pm ");
+                }else {
+                    holder.date.setText(finalTime +" : "+min+" Pm ");
+                }
+            }else {
+                holder.date.setText(finalTime +" : "+min+" Am ");
+            }
+        }else if(StaticMethods.timeEqu.equals("-")){
+            finalTime = intTime - StaticMethods.timeZone;
+            if(finalTime > 11){
+                if(finalTime > 12) {
+                    int timeFinal = finalTime - 12;
+                    holder.date.setText(timeFinal +" : "+min+" Pm ");
+                }else {
+                    holder.date.setText(finalTime +" : "+min+" Pm ");
+                }
+            }else {
+                holder.date.setText(finalTime +" : "+min+" Am ");
+            }
+        }
+        Log.e(TAG, "onBindViewHolder RequestLogs: "+time );
         holder.stBio.setText(array.getResult().get(position).getDate());
-        holder.date.setText(array.getResult().get(position).getTime());
+        //holder.date.setText(array.getResult().get(position).getTime());
         if(StaticMethods.userRegisterResponse != null){
             if(StaticMethods.userRegisterResponse.Data.getType().equals("tutor")){
                 if(LocaleManager.getLanguage(context).equals("ar")){
@@ -210,10 +241,24 @@ public class RequestLogsAdapter extends RecyclerView.Adapter<RequestLogsAdapter.
         dialogBuilder.setView(dialogView);
         final AlertDialog alertDialog = dialogBuilder.create();
         CircleImageView image = dialogView.findViewById(R.id.tutor_img);
-        StaticMethods.LoadImage(context , image,userImage ,null);
+        Picasso.with(context).load(userImage).into(image);
         final Button send = dialogView.findViewById(R.id.btn_submit);
         ImageView close = dialogView.findViewById(R.id.close);
         final EditText review = dialogView.findViewById(R.id.ed_review);
+        if(StaticMethods.userRegisterResponse != null){
+            if(StaticMethods.userRegisterResponse.Data.getType().equals("tutor")){
+                review.setHint(context.getResources().getString(R.string.reViewHintStudent));
+            }else {
+                review.setHint(context.getResources().getString(R.string.reViewHint));
+            }
+        }else {
+            if(StaticMethods.userData.getUserType().equals("tutor")){
+                review.setHint(context.getResources().getString(R.string.reViewHintStudent));
+            }else {
+                review.setHint(context.getResources().getString(R.string.reViewHint));
+            }
+        }
+
         final RatingBar rate = dialogView.findViewById(R.id.ratingBar);
         TextView nameS = dialogView.findViewById(R.id.txt_tutorName);
         nameS.setText(name);

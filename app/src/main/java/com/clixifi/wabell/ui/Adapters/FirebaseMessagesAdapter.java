@@ -68,7 +68,7 @@ public class FirebaseMessagesAdapter extends RecyclerView.Adapter<FirebaseMessag
         this.array = array;
         dialog = new CustomDialog(context);
         this.mInflater = LayoutInflater.from(context);
-        mAuth = FirebaseAuth.getInstance();
+        /*mAuth = FirebaseAuth.getInstance();
 
         mCurrent_user_id = mAuth.getCurrentUser().getUid();
 
@@ -77,7 +77,7 @@ public class FirebaseMessagesAdapter extends RecyclerView.Adapter<FirebaseMessag
         mConvDatabase.keepSynced(true);
         mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
         mMessageDatabase = FirebaseDatabase.getInstance().getReference().child("messages").child(mCurrent_user_id);
-        mUsersDatabase.keepSynced(true);
+        mUsersDatabase.keepSynced(true);*/
 
     }
 
@@ -112,6 +112,7 @@ public class FirebaseMessagesAdapter extends RecyclerView.Adapter<FirebaseMessag
                 if(array.getResult().get(position).IsOnline){
                     holder.rel_online.setVisibility(View.VISIBLE);
                 }else {
+                    holder.rel_online.setVisibility(View.VISIBLE);
                     holder.rel_online.setBackgroundResource(R.drawable.offline);
                 }
 
@@ -135,13 +136,43 @@ public class FirebaseMessagesAdapter extends RecyclerView.Adapter<FirebaseMessag
                 if(array.getResult().get(position).IsOnline){
                     holder.rel_online.setVisibility(View.VISIBLE);
                 }else {
+                    holder.rel_online.setVisibility(View.VISIBLE);
                     holder.rel_online.setBackgroundResource(R.drawable.offline);
                 }
             }
         }
         holder.name.setText(array.getResult().get(position).getFromUserName());
         holder.date.setText(array.getResult().get(position).getDate());
-        holder.time.setText(array.getResult().get(position).getTime());
+        String time = array.getResult().get(position).getTime().substring(0 , 2);
+        String min = array.getResult().get(position).getTime().substring(3 , 5);
+        int intTime = Integer.parseInt(time);
+        int finalTime = 0 ;
+        if(StaticMethods.timeEqu.equals("+")){
+            finalTime = intTime + StaticMethods.timeZone;
+            if(finalTime > 11){
+                if(finalTime > 12){
+                    int timeFinal =  finalTime - 12 ;
+                    holder.time.setText(timeFinal +" : "+min+" Pm ");
+                }else {
+                    holder.time.setText(finalTime +" : "+min+" Pm ");
+                }
+            }else {
+                holder.time.setText(finalTime +" : "+min+" Am ");
+            }
+        }else if(StaticMethods.timeEqu.equals("-")){
+            finalTime = intTime - StaticMethods.timeZone;
+            if(finalTime > 11){
+                if(finalTime > 12){
+                    int timeFinal = finalTime - 12 ;
+                    holder.time.setText(timeFinal +" : "+min+" Pm ");
+                }else {
+                    holder.time.setText(finalTime +" : "+min+" Pm ");
+                }
+            }else {
+                holder.time.setText(finalTime +" : "+min+" Am ");
+            }
+        }
+        //holder.time.setText(array.getResult().get(position).getTime());
         Picasso.with(context).load( array.getResult().get(position).getFromUserImage()).into(holder.imgUser);
 
         holder.lin_rateSt.setOnClickListener(new View.OnClickListener() {
@@ -158,6 +189,7 @@ public class FirebaseMessagesAdapter extends RecyclerView.Adapter<FirebaseMessag
                 chatIntent.putExtra("user_id", array.getResult().get(position).getFromUserFirebaseId());
                 chatIntent.putExtra("user_name", array.getResult().get(position).getFromUserName());
                 chatIntent.putExtra("user_image", array.getResult().get(position).getFromUserImage());
+                chatIntent.putExtra("userServerId", array.getResult().get(position).getFromUserId());
                 context.startActivity(chatIntent);
             }
         });
@@ -293,10 +325,24 @@ public class FirebaseMessagesAdapter extends RecyclerView.Adapter<FirebaseMessag
         dialogBuilder.setView(dialogView);
         final AlertDialog alertDialog = dialogBuilder.create();
         CircleImageView image = dialogView.findViewById(R.id.tutor_img);
-        StaticMethods.LoadImage(context , image,userImage ,null);
+        Picasso.with(context).load(userImage).into(image);
+
         final Button send = dialogView.findViewById(R.id.btn_submit);
         ImageView close = dialogView.findViewById(R.id.close);
         final EditText review = dialogView.findViewById(R.id.ed_review);
+        if(StaticMethods.userRegisterResponse != null){
+            if(StaticMethods.userRegisterResponse.Data.getType().equals("tutor")){
+                review.setHint(context.getResources().getString(R.string.reViewHintStudent));
+            }else {
+                review.setHint(context.getResources().getString(R.string.reViewHint));
+            }
+        }else {
+            if(StaticMethods.userData.getUserType().equals("tutor")){
+                review.setHint(context.getResources().getString(R.string.reViewHintStudent));
+            }else {
+                review.setHint(context.getResources().getString(R.string.reViewHint));
+            }
+        }
         final RatingBar rate = dialogView.findViewById(R.id.ratingBar);
         TextView nameS = dialogView.findViewById(R.id.txt_tutorName);
         nameS.setText(name);

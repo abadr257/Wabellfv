@@ -55,7 +55,7 @@
                     android:layout_height="24dp"
                     android:onClick="@{handler::onSearch}"
                     android:layout_marginEnd="15dp"
-                    android:src="@drawable/search_24" />
+                    android:src="@drawable/ic_search" />
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"

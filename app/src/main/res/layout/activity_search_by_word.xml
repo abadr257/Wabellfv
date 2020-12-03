@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#F5F8FF"
+        android:layoutDirection="locale"
         tools:context=".ui.searchByWord.SearchByWord">
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,6 +22,8 @@
             android:orientation="horizontal"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
+            android:textDirection="locale"
+            android:layoutDirection="locale"
             android:weightSum="2"
             >
             <EditText
@@ -32,9 +35,8 @@
                 android:background="@drawable/border_btn_blue"
                 android:drawableStart="@drawable/search_24"
                 android:drawablePadding="5dp"
-                android:hint="@string/search_hint"
-                android:inputType="textAutoComplete"
-                android:layoutDirection="locale"
+                android:hint="@string/search_word"
+                android:inputType="text"
                 android:paddingStart="10dp"
                 android:paddingEnd="8dp"
                 android:textDirection="locale"
@@ -63,6 +65,7 @@
             android:onClick="@{handler::onSearch}"
             android:background="@drawable/blue_btn_style"
             android:text="@string/searchButton"
+            android:textAllCaps="false"
             android:textColor="@color/colorWhite"
              />
     </RelativeLayout>

@@ -11,4 +11,8 @@ public class UserResponse<T> {
     public T Data;
     @SerializedName("DataProfile")
     public T DataProfile;
+    @SerializedName("Errors")
+    public T Errors;
+
+
 }

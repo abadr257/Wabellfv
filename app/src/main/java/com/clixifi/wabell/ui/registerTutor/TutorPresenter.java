@@ -41,13 +41,14 @@ public class TutorPresenter {
             } catch (Exception e) {
 
             }
+            Log.e(TAG, "tutorRegister: "+UserFirebaseId );
             MainApi.RegisterApi(body, new ConnectionListener<UserResponse<RegisterData>>() {
                 @Override
                 public void onSuccess(ConnectionResponse<UserResponse<RegisterData>> connectionResponse) {
                     if (connectionResponse.data.Data != null) {
-                        if (!connectionResponse.data.Status.equals("Failed")) {
+                        if (connectionResponse.data.Status.equals("Success")) {
                             tutorInterface.onSuccess(connectionResponse.data);
-                        } else {
+                        } else if(connectionResponse.data.Status.equals("Failed")) {
                             tutorInterface.onFail(true , connectionResponse.data.Message);
                             Log.e(TAG, "onSuccess: Error"+"Here1" );
                         }

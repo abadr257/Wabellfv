@@ -53,7 +53,7 @@ public class StaticMethods {
     /*private static Retrofit retrofit = null;*/
     public final static int REQUEST_CAMERA = 0, SELECT_FILE = 1, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 14, MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 15, PICK_FROM_GALLERY = 102, CALLL_PERMISION = 2, MY_PERMISSIONS_REQUEST_CAMERA = 100, REQUEST_PICK_IMAGE = 1002;
     public static final int REQUEST_CAMERASTATIC = 90;
-    public static final String BASE_URL = "https://api-test.wabell.net";//http://api.wabell.net/ //https://api-test.wabell.net/
+    public static final String BASE_URL = "https://api.wabell.net";//http://api.wabell.net/ //https://api-test.wabell.net/
     public static final String CONTENT = "application/json";
 
 
@@ -235,6 +235,8 @@ public class StaticMethods {
     public static boolean selected = false;
     public static int selectedPostion = 0;
     public static String typeS = "";
+    public static int timeZone = 0;
+    public static String timeEqu = "";
     public static String searchWord = "";
     public static void ClearChash() {
         StaticMethods.userData = null;

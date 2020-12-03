@@ -202,4 +202,43 @@ public class TutorProfilePresenter {
             });
         }
     }
+    public void requestTutor(Context context , String tutorId ){
+        boolean net = StaticMethods.isConnectingToInternet(context);
+        if(!net){
+            tutor.onConnection(true);
+        }else {
+
+            if(StaticMethods.userRegisterResponse != null){
+                token ="Bearer "+ StaticMethods.userRegisterResponse.Data.getToken();
+
+            }else {
+                token = "Bearer " +StaticMethods.userData.getToken();
+
+            }
+            RequestBody body = null ;
+            try{
+                body = MainApiBody.getReviews(  tutorId );
+            }catch (Exception e){
+
+            }
+            MainApi.requestTutor(token, body, new ConnectionListener<ResultBoolean>() {
+                @Override
+                public void onSuccess(ConnectionResponse<ResultBoolean> connectionResponse) {
+                    if(connectionResponse.data != null){
+                        if(connectionResponse.data.isResult()){
+                            tutor.onRequest(connectionResponse.data);
+                        }
+                    }else {
+                        tutor.onFail(true);
+                    }
+                }
+
+                @Override
+                public void onFail(Throwable throwable) {
+                    tutor.onFail(true);
+                    Log.e(TAG, "onFail: "+throwable.toString() );
+                }
+            });
+        }
+    }
 }

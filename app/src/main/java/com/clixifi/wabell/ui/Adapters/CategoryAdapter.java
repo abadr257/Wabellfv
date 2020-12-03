@@ -54,7 +54,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
                     holder.num.setText("");
                 }else {
                     holder.num.setText(list.getCategory().get(position).getChildsCount()+"");
-                    holder.num.setBackground(context.getDrawable(R.drawable.topics_num));
+                    holder.num.setBackground(context.getDrawable(R.drawable.num_back));
                     holder.num.setTextColor(context.getResources().getColor(R.color.splashBackground));
                 }
             }else {
@@ -65,7 +65,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
                     holder.num.setText("");
                 }else {
                     holder.num.setText(list.getCategory().get(position).getChildsCount()+"");
-                    holder.num.setBackground(context.getDrawable(R.drawable.topics_num));
+                    holder.num.setBackground(context.getDrawable(R.drawable.num_back));
                     holder.num.setTextColor(context.getResources().getColor(R.color.splashBackground));
                 }
 

@@ -39,18 +39,17 @@ public class UploadCertificateAdapter extends RecyclerView.Adapter<UploadCertifi
     ArrayList<Bitmap> certificate;
     ArrayList<File> ImagesFile;
     Context context;
+
     private LayoutInflater mInflater;
     onRemoveImage remove;
-    GetCertificates certificates;
     String token;
 
-    public UploadCertificateAdapter(Context context, ArrayList<Bitmap> certificate, onRemoveImage remove, ArrayList<File> ImagesFile, GetCertificates certificates) {
+    public UploadCertificateAdapter(Context context, ArrayList<Bitmap> certificate, onRemoveImage remove, ArrayList<File> ImagesFile) {
         this.context = context;
         this.certificate = certificate;
         this.ImagesFile = ImagesFile;
         this.remove = remove;
         this.mInflater = LayoutInflater.from(context);
-        this.certificates = certificates;
     }
 
     @NonNull
@@ -62,69 +61,30 @@ public class UploadCertificateAdapter extends RecyclerView.Adapter<UploadCertifi
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
-        if (certificates.getMedia().size() > 0) {
-            Picasso.with(context).load(certificates.getMedia().get(position).getFilePath()).into(holder.image);
-        }
-        if(certificate.size() > 0){
+
+        if (certificate.size() > 0) {
             holder.image.setImageBitmap(certificate.get(position));
         }
 
         holder.closeI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(certificates != null){
-                    deleteFromDatabase(certificates.getMedia().get(position).getId());
-                }
 
                 remove.onRemoveImage(certificate, ImagesFile, position);
-                if(certificate.size() > 0){
+
                     certificate.remove(position);
                     ImagesFile.remove(position);
                     notifyItemRemoved(position);
                     notifyItemRangeChanged(position, certificate.size());
                     notifyItemRangeChanged(position, ImagesFile.size());
                     notifyDataSetChanged();
-                }
-                if(certificates.getMedia().size() > 0){
-                    certificates.getMedia().remove(position);
-                    //ImagesFile.remove(position);
-                    notifyItemRemoved(position);
-                    notifyItemRangeChanged(position, certificates.getMedia().size());
-                    //notifyItemRangeChanged(position, ImagesFile.size());
-                    notifyDataSetChanged();
-                }
+
 
             }
         });
     }
 
-    private void deleteFromDatabase(int id) {
-        if (StaticMethods.isConnectingToInternet(context)) {
-            if (StaticMethods.userRegisterResponse != null) {
-                token = "Bearer " + StaticMethods.userRegisterResponse.Data.getToken();
-            } else if (StaticMethods.userData != null) {
-                token = "Bearer " + StaticMethods.userData.getToken();
-            }
-            MainApi.deleteCer(token,id, new ConnectionListener<DeleteCertificates>() {
-                @Override
-                public void onSuccess(ConnectionResponse<DeleteCertificates> connectionResponse) {
-                    if (connectionResponse.data != null) {
-                        if(connectionResponse.data.isDeleted()){
-                            ToastUtil.showSuccessToast(context , R.string.delete);
-                        }
-                    }
-                }
 
-                @Override
-                public void onFail(Throwable throwable) {
-
-                    Log.e(TAG, "onFail: " + throwable.toString());
-                }
-            });
-        } else {
-            ToastUtil.showErrorToast(context , R.string.noInternet);
-        }
-    }
 
     public ArrayList<File> addToList(Bitmap image, Uri uri) {
         if (certificate != null && ImagesFile != null) {
@@ -145,12 +105,7 @@ public class UploadCertificateAdapter extends RecyclerView.Adapter<UploadCertifi
 
     @Override
     public int getItemCount() {
-         if (certificates != null) {
-            return (certificates.getMedia().size()+certificate.size());
-        } else {
-            return 0;
-        }
-
+        return certificate.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

@@ -22,7 +22,7 @@ public class FeaturedItem {
     @SerializedName("Biography")
     public String Biography ;
     @SerializedName("HourPrice")
-    public double HourPrice ;
+    public String HourPrice ;
     @SerializedName("Name")
     public String Name ;
     @SerializedName("ProfilePicture")
@@ -107,11 +107,11 @@ public class FeaturedItem {
         Biography = biography;
     }
 
-    public double getHourPrice() {
+    public String getHourPrice() {
         return HourPrice;
     }
 
-    public void setHourPrice(double hourPrice) {
+    public void setHourPrice(String hourPrice) {
         HourPrice = hourPrice;
     }
 

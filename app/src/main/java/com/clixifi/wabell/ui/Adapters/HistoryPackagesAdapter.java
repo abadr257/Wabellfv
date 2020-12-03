@@ -17,7 +17,7 @@ import com.clixifi.wabell.utils.LocaleManager;
 public class HistoryPackagesAdapter extends RecyclerView.Adapter<HistoryPackagesAdapter.MyViewHolder> {
     Context context;
     private LayoutInflater mInflater;
-    HistoryArray array ;
+    HistoryArray array;
 
     public HistoryPackagesAdapter(Context context, HistoryArray array) {
         this.context = context;
@@ -34,32 +34,35 @@ public class HistoryPackagesAdapter extends RecyclerView.Adapter<HistoryPackages
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        if(LocaleManager.getLanguage(context).equals("en")){
-            holder.until.setText(array.getResult().get(position).getStartDate() +" To " +array.getResult().get(position).getExpirationDate());
-            if (array.getResult().get(position).getPackageDuration().equals("Monthly")){
-                holder.duration.setText("Monthly Subscription");
-                holder.type.setText("Paid Monthly");
-                holder.price.setText(array.getResult().get(position).getPrice() + " SAR / Month ");
-            }else {
-                holder.type.setText("Paid Yearly");
-                holder.price.setText(array.getResult().get(position).getPrice() + " SAR / Month ");
-                holder.duration.setText("Yearly Subscription");
+        if (LocaleManager.getLanguage(context).equals("en")) {
+            holder.until.setText(array.getResult().get(position).getStartDate() + " To " + array.getResult().get(position).getExpirationDate());
+            holder.duration.setText(array.getResult().get(position).getTitle());
+            holder.type.setText(array.getResult().get(position).getPackageDuration());
+            holder.price.setText(array.getResult().get(position).getPrice() + " SAR / Month ");
+        } else {
+            holder.until.setText(array.getResult().get(position).getStartDate() + " إلى " + array.getResult().get(position).getExpirationDate());
+            holder.duration.setText(array.getResult().get(position).getTitleAr());
+            holder.price.setText(array.getResult().get(position).getPrice() + " ريال / شهر ");
+            holder.type.setText(array.getResult().get(position).getPackageDurationAr());
+        }
+        if (array.getResult().get(position).getTagLine().equals("Active")) {
+            holder.active.setText(context.getResources().getString(R.string.active));
+            if (LocaleManager.getLanguage(context).equals("ar")) {
+
+                holder.linSave.setBackground(context.getDrawable(R.drawable.rtl_history2));
+            } else {
+
+                holder.linSave.setBackground(context.getDrawable(R.drawable.history_shape2));
             }
-        }else {
-            holder.until.setText(array.getResult().get(position).getStartDate() +" إلى " +array.getResult().get(position).getExpirationDate());
-            if (array.getResult().get(position).getPackageDuration().equals("Monthly")){
-                holder.duration.setText("باقة شهرية");
+        } else {
+            holder.active.setText(context.getResources().getString(R.string.expir));
+            if (LocaleManager.getLanguage(context).equals("ar")) {
                 holder.linSave.setBackground(context.getDrawable(R.drawable.rtl_history));
-                holder.price.setText(array.getResult().get(position).getPrice() + " ريال / شهر ");
-                holder.type.setText("الدفع شهرى");
-            }else {
-                holder.duration.setText("باقة سنوية");
-                holder.linSave.setBackground(context.getDrawable(R.drawable.rtl_history));
-                holder.price.setText(array.getResult().get(position).getPrice() + " ريال / شهر ");
-                holder.type.setText("الدفع سنوي");
+            } else {
+                holder.linSave.setBackground(context.getDrawable(R.drawable.history_shape));
             }
         }
-        holder.active.setText(array.getResult().get(position).getTagLine());
+
 
     }
 
@@ -69,8 +72,9 @@ public class HistoryPackagesAdapter extends RecyclerView.Adapter<HistoryPackages
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView duration, price, type , until , active;
-        LinearLayout linSave  ;
+        TextView duration, price, type, until, active;
+        LinearLayout linSave;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             linSave = itemView.findViewById(R.id.lin_save);

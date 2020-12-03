@@ -55,7 +55,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_margin="15sp"
-                        android:text="@string/profile"
+                        android:text="@string/profilePersonal"
                         android:textColor="@color/title"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -133,7 +133,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
                             android:text="@string/personal"
-                            android:textColor="@color/title"
+                            android:textColor="#7C79A6"
                             android:textSize="16sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -181,44 +181,6 @@
                                 android:paddingEnd="5dp"
                                 android:textSize="15sp" />
                         </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="#FFFFFF"
-                            android:gravity="center"
-                            android:layoutDirection="locale"
-                            android:orientation="horizontal"
-                            android:paddingStart="8dp"
-                            android:paddingEnd="8dp"
-                            android:weightSum="2">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginStart="10dp"
-                                android:layout_weight="0.5"
-                                android:text="@string/tePhoneNum"
-                                android:textColor="#7C79A6"
-                                android:textSize="17sp" />
-
-                            <EditText
-                                android:id="@+id/ed_phone"
-                                android:layout_width="0dp"
-                                android:layout_height="50dp"
-                                android:layout_weight="1.5"
-                                android:backgroundTint="#FFFFFF"
-                                android:focusable="false"
-                                android:textDirection="locale"
-                                android:gravity="start|center"
-                                android:hint="@string/tePhoneNum"
-                                android:inputType="phone"
-                                android:paddingStart="5dp"
-                                android:paddingEnd="5dp"
-                                android:textSize="15sp" />
-                        </LinearLayout>
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
@@ -272,6 +234,44 @@
                                 android:layout_gravity="center"
                                 android:layout_marginStart="10dp"
                                 android:layout_weight="0.5"
+                                android:text="@string/tePhoneNum"
+                                android:textColor="#7C79A6"
+                                android:textSize="17sp" />
+
+                            <EditText
+                                android:id="@+id/ed_phone"
+                                android:layout_width="0dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1.5"
+                                android:backgroundTint="#FFFFFF"
+                                android:focusable="false"
+                                android:textDirection="locale"
+                                android:gravity="start|center"
+                                android:hint="@string/tePhoneNum"
+                                android:inputType="phone"
+                                android:paddingStart="5dp"
+                                android:paddingEnd="5dp"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="#FFFFFF"
+                            android:gravity="center"
+                            android:layoutDirection="locale"
+                            android:orientation="horizontal"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="0.5"
                                 android:text="@string/teLocation"
                                 android:textColor="#7C79A6"
                                 android:textSize="17sp" />
@@ -308,7 +308,7 @@
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="10dp"
                                 android:text="@string/spec"
-                                android:textColor="@color/title"
+                                android:textColor="#7C79A6"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
@@ -368,7 +368,7 @@
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="10dp"
                                 android:text="@string/certifi"
-                                android:textColor="@color/title"
+                                android:textColor="#7C79A6"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
@@ -389,7 +389,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
+                            android:orientation="vertical"
                             android:background="#FFFFFF"
                             android:gravity="center"
                             android:layoutDirection="ltr"
@@ -398,6 +398,16 @@
                             android:layout_marginBottom="5dp"
                             android:paddingEnd="8dp"
                             >
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/noCer"
+                                android:textAlignment="center"
+                                android:id="@+id/txt_noCer"
+                                android:visibility="gone"
+                                android:textColor="@color/title"
+                                android:layout_gravity="center"
+                                />
                             <androidx.recyclerview.widget.RecyclerView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -428,7 +438,7 @@
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="10dp"
                                 android:text="@string/workPre"
-                                android:textColor="@color/title"
+                                android:textColor="#7C79A6"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
@@ -490,7 +500,7 @@
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="10dp"
                                 android:text="@string/Education"
-                                android:textColor="@color/title"
+                                android:textColor="#7C79A6"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -538,7 +548,7 @@
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="10dp"
                                 android:text="@string/Experience"
-                                android:textColor="@color/title"
+                                android:textColor="#7C79A6"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -559,7 +569,7 @@
                             <EditText
                                 android:id="@+id/ed_exp"
                                 android:layout_width="match_parent"
-                                android:layout_height="80dp"
+                                android:layout_height="60dp"
                                 android:backgroundTint="#FFFFFF"
                                 android:focusable="false"
                                 android:gravity="start|top"
@@ -586,7 +596,7 @@
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="10dp"
                                 android:text="@string/tagLin"
-                                android:textColor="@color/title"
+                                android:textColor="#7C79A6"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
                         </RelativeLayout>
@@ -632,7 +642,7 @@
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="10dp"
                                 android:text="@string/Biography"
-                                android:textColor="@color/title"
+                                android:textColor="#7C79A6"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -653,7 +663,7 @@
                             <EditText
                                 android:id="@+id/ed_biography"
                                 android:layout_width="match_parent"
-                                android:layout_height="80dp"
+                                android:layout_height="60dp"
                                 android:backgroundTint="#FFFFFF"
                                 android:focusable="false"
                                 android:textDirection="locale"

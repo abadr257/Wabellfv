@@ -23,6 +23,7 @@ import com.clixifi.wabell.ui.registerTutor.TutorPresenter;
 import com.clixifi.wabell.ui.search.SearchScreen;
 import com.clixifi.wabell.utils.CustomDialog;
 import com.clixifi.wabell.utils.IntentUtilies;
+import com.clixifi.wabell.utils.LocaleManager;
 import com.clixifi.wabell.utils.StaticMethods;
 import com.clixifi.wabell.utils.ToastUtil;
 import com.clixifi.wabell.utils.dialogs.DialogUtil;
@@ -42,7 +43,7 @@ public class FilterScreen extends AppCompatActivity implements StudentHomeInterf
     TutorPresenter tutorPresenter;
     ArrayList<CityItem> citiesList;
     ArrayList<AreasItem> areasList;
-    int locationId = 1 , areaId = 0;
+    int locationId = 0 , areaId = 0;
     CustomDialog dialog ;
 
     @Override
@@ -56,7 +57,23 @@ public class FilterScreen extends AppCompatActivity implements StudentHomeInterf
         tutorPresenter.getCities(this);
         dialogUtil = new DialogUtil(this);
         dialog =new CustomDialog(this);
+        binding.checkPrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(binding.checkLowest.isChecked()){
+                    binding.checkLowest.setChecked(false);
+                }
 
+            }
+        });
+        binding.checkLowest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(binding.checkPrice.isChecked()){
+                    binding.checkPrice.setChecked(false);
+                }
+            }
+        });
     }
 
     @Override
@@ -90,6 +107,7 @@ public class FilterScreen extends AppCompatActivity implements StudentHomeInterf
         StaticMethods.tutors = array ;
         dialog.DismissDialog();
         IntentUtilies.openActivity(FilterScreen.this , SearchScreen.class);
+        this.finish();
     }
 
     @Override
@@ -169,8 +187,10 @@ public class FilterScreen extends AppCompatActivity implements StudentHomeInterf
         public void onSortBy(View v) {
             if (binding.relSortSub.getVisibility() == View.VISIBLE) {
                 binding.relSortSub.setVisibility(View.GONE);
+                binding.relSortSub2.setVisibility(View.GONE);
             } else {
                 binding.relSortSub.setVisibility(View.VISIBLE);
+                binding.relSortSub2.setVisibility(View.VISIBLE);
             }
         }
 
@@ -211,6 +231,8 @@ public class FilterScreen extends AppCompatActivity implements StudentHomeInterf
             dialog.ShowDialog();
             String  fromHour= "" , toHour = "" ;
             boolean price = false ;
+            boolean priceLo = false;
+            int rate = 0 ;
             if(!binding.edFromhp.getText().toString().isEmpty()){
                  fromHour = binding.edFromhp.getText().toString();
                  toHour = binding.edTohp.getText().toString();
@@ -218,12 +240,16 @@ public class FilterScreen extends AppCompatActivity implements StudentHomeInterf
 
             }
 
-            int rate = (int) binding.rateBar.getRating();
+            rate = (int) binding.rateBar.getRating();
             if(binding.checkPrice.isChecked()){
                 price = true ;
+                binding.checkLowest.setChecked(false);
+            }else if(binding.checkLowest.isChecked()) {
+                binding.checkPrice.setChecked(false);
+                priceLo = true ;
             }
             try {
-                body = MainApiBody.filterBody(fromHour , toHour , rate , locationId , areaId ,price , "");
+                body = MainApiBody.filterBody(fromHour , toHour , rate , locationId , areaId ,price , "" ,priceLo );
             }catch (Exception e){
                 Log.e("TAG", "onApply: "+e );
             }
@@ -239,11 +265,16 @@ public class FilterScreen extends AppCompatActivity implements StudentHomeInterf
             binding.edTohp.setText("");
             if(binding.checkPrice.isChecked()){
                 binding.checkPrice.setChecked(false);
+                binding.checkLowest.setChecked(false);
             }
         }
 
         public void onBack(View v){
             onBackPressed();
         }
+    }
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleManager.onAttach(base));
     }
 }

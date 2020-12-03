@@ -1,12 +1,13 @@
 package com.clixifi.wabell.utils.network;
 
 
-
 import com.clixifi.wabell.data.AddReviewObject;
+import com.clixifi.wabell.data.GetResult;
 import com.clixifi.wabell.data.CallsArray;
 import com.clixifi.wabell.data.CurrentPackages;
 import com.clixifi.wabell.data.DeleteCertificates;
 import com.clixifi.wabell.data.GetCertificates;
+import com.clixifi.wabell.data.GetResultString;
 import com.clixifi.wabell.data.HistoryArray;
 import com.clixifi.wabell.data.MediaResponse;
 import com.clixifi.wabell.data.PackagesArray;
@@ -54,26 +55,32 @@ public interface MainApiInterface {
     //Auth
     @POST("/api/account/Login")
     Observable<UserResponse<LoginData>> login(@Body RequestBody requestBody);
+
     @POST("/api/account/Register")
     Observable<UserResponse<RegisterData>> register(@Body RequestBody requestBody);
 
 
     @GET("/api/Lookup/GetLocationByParentId")
     Observable<Cities> cities(@Query("ParentId") int ParentId);
+
     @GET("/api/Lookup/GetLocationByParentId")
     Observable<Areas> areas(@Query("ParentId") int ParentId);
+
     @GET("/api/account/GetOTPVerification")
     Observable<OTPResponse> getverificationCode(@Header("Authorization") String auth /*, @Query("userName") String userName , @Query("OTP") String OTP*/);
+
     @GET("/api/account/VerifyOTPVerification")
-    Observable<UserId> sendVerificationCode( @Query("userName") String userName , @Query("OTP") String OTP);
+    Observable<UserId> sendVerificationCode(@Query("userName") String userName, @Query("OTP") String OTP);
+
     @POST("/api/account/AddTutorEducationAndExperience")
-    Observable<ResultBoolean> tutorExp(@Header("Authorization") String auth , @Body RequestBody requestBody);
+    Observable<ResultBoolean> tutorExp(@Header("Authorization") String auth, @Body RequestBody requestBody);
+
     @POST("/api/account/AddTutorBiography")
-    Observable<ResultBoolean> tutorBio(@Header("Authorization") String auth , @Body RequestBody requestBody);
+    Observable<ResultBoolean> tutorBio(@Header("Authorization") String auth, @Body RequestBody requestBody);
 
 
     @POST("/api/account/AddAndEditTutorWorkDetails")
-    Observable<ResultBoolean> tutorWorkDetails(@Header("Authorization") String auth , @Body RequestBody requestBody);
+    Observable<ResultBoolean> tutorWorkDetails(@Header("Authorization") String auth, @Body RequestBody requestBody);
 
 
     //Topics
@@ -82,13 +89,12 @@ public interface MainApiInterface {
 
     //GetChild
     @POST("/api/Topic/GetSelectedSecondLevel")
-    Observable<ChildResponse> getChildOfTopics(@Header("Authorization") String auth ,@Body RequestBody body);
-
+    Observable<ChildResponse> getChildOfTopics(@Header("Authorization") String auth, @Body RequestBody body);
 
 
     //add the fourth topic
     @POST("/api/account/AddUserTopic")
-    Observable<ResultBoolean> addTopics(@Header("Authorization") String auth ,@Body RequestBody body);
+    Observable<ResultBoolean> addTopics(@Header("Authorization") String auth, @Body RequestBody body);
 
 
     //forgetPassword
@@ -102,146 +108,139 @@ public interface MainApiInterface {
 
     //getTutorCounters
     @GET("/api/Tutor/TutorCounters")
-    Observable<UserTutorCounters> getTutorCounters(@Header("Authorization") String auth ,@Query("days") int days);
-
+    Observable<UserTutorCounters> getTutorCounters(@Header("Authorization") String auth, @Query("days") int days);
 
 
     //requestTopics
     @POST("/api/Topic/RequestTopic")
-    Observable<RequestTopic> requestTopic(@Header("Authorization") String auth , @Body RequestBody body);
+    Observable<RequestTopic> requestTopic(@Header("Authorization") String auth, @Body RequestBody body);
 
 
     //favMastersFor Student
     @GET("/api/Student/GetFavoriteTutors")
-    Observable<FavMastersStudent> getFavMasters(@Header("Authorization") String auth );
+    Observable<FavMastersStudent> getFavMasters(@Header("Authorization") String auth);
 
 
     //Featured Masters for Student
     @GET("/api/Student/FeaturedTutors")
-    Observable<FeaturedArray> getFeaturedMasters(@Header("Authorization") String auth );
+    Observable<FeaturedArray> getFeaturedMasters(@Header("Authorization") String auth);
 
     //get User Profile
     @GET("/api/account/GetProfile")
-    Observable<ResultForProfile<UserResponse<UserProfile>>> getUserProfile(@Header("Authorization") String auth );
+    Observable<ResultForProfile<UserResponse<UserProfile>>> getUserProfile(@Header("Authorization") String auth);
 
 
     // on Cancel a topic
     @POST("/api/account/CancelUserTopic")
-    Observable<ResultBoolean> cancelTopic(@Header("Authorization") String auth , @Body RequestBody body );
+    Observable<ResultBoolean> cancelTopic(@Header("Authorization") String auth, @Body RequestBody body);
 
     //get selected fourth level
     @POST("/api/Topic/GetSelectedFourthLevel")
-    Observable<ChildResponse> selectedFourth(@Header("Authorization") String auth , @Body RequestBody body );
+    Observable<ChildResponse> selectedFourth(@Header("Authorization") String auth, @Body RequestBody body);
 
 
     //post tutor profile data
     @POST("/api/account/EditTutorBaseData")
-    Observable<ResultBoolean> updateTutorProfile(@Header("Authorization") String auth , @Body RequestBody body );
+    Observable<ResultBoolean> updateTutorProfile(@Header("Authorization") String auth, @Body RequestBody body);
 
     //update student profile
     @POST("/api/account/EditStudentBaseData")
-    Observable<ResultBoolean> updateStudentProfile(@Header("Authorization") String auth , @Body RequestBody body );
+    Observable<ResultBoolean> updateStudentProfile(@Header("Authorization") String auth, @Body RequestBody body);
 
 
     //get Summary Data
     @POST("/api/Topic/GetTopicsSummary")
-    Observable<ChildResponse> getSummary(@Header("Authorization") String auth ,@Body RequestBody body);
+    Observable<ChildResponse> getSummary(@Header("Authorization") String auth, @Body RequestBody body);
 
     //to cancel all topic
     @POST("/api/account/CancelUserAllTopics")
-    Observable<ResultBoolean> cancelAllTopic(@Header("Authorization") String auth ,@Body RequestBody body);
+    Observable<ResultBoolean> cancelAllTopic(@Header("Authorization") String auth, @Body RequestBody body);
 
 
     //get tutor list with filter
     @POST("/api/Student/TutorsList")
-    Observable<TutorListArray> getTutorList(@Header("Authorization") String auth , @Body RequestBody body);
+    Observable<TutorListArray> getTutorList(@Header("Authorization") String auth, @Body RequestBody body);
 
 
     //get all tutors
     @POST("/api/Student/TutorsList")
-    Observable<TutorListArray> getTutorList(@Header("Authorization") String auth );
+    Observable<TutorListArray> getTutorList(@Header("Authorization") String auth);
 
 
     //get Request Logs
     @GET("/api/Tutor/RequestLogs")
-    Observable<RequestLogsArray> getRequestLogs(@Header("Authorization") String auth );
+    Observable<RequestLogsArray> getRequestLogs(@Header("Authorization") String auth);
 
     //Add Review for Tutor
     @GET("/api/Tutor/AddRank")
-    Observable<AddReviews> addReviews(@Header("Authorization") String auth , @Query("studentId") String studentId , @Query("rank") int rate , @Query("comment") String comment   );
+    Observable<AddReviews> addReviews(@Header("Authorization") String auth, @Query("studentId") String studentId, @Query("rank") int rate, @Query("comment") String comment);
 
 
     //to change if online or offline
     @GET("/api/Tutor/SetChatAvailability")
-    Observable<ResultBoolean> setOnline(@Header("Authorization") String auth ,@Query("isOnline") boolean isOnline ,@Query("offlineUntil") String  date );
+    Observable<ResultBoolean> setOnline(@Header("Authorization") String auth, @Query("isOnline") boolean isOnline, @Query("offlineUntil") String date);
 
     //get Tutor Profile for Student
     @POST("/api/Student/GetTutor")
-    Observable<TutorProfileForStudent> getTutorProfile(@Header("Authorization") String auth ,@Body RequestBody body );
+    Observable<TutorProfileForStudent> getTutorProfile(@Header("Authorization") String auth, @Body RequestBody body);
 
 
     ///api/Student/AddFavorite
     @GET("/api/Student/AddFavorite")
-    Observable<AddFavorite> addToFavorite(@Header("Authorization") String auth , @Query("tutorId") String tutorId );
+    Observable<AddFavorite> addToFavorite(@Header("Authorization") String auth, @Query("tutorId") String tutorId);
 
 
     //api/Student/AddFavorite
     @POST("/api/Student/DeleteFavorite")
-    Observable<ResultBoolean> deleteFav(@Header("Authorization") String auth , @Body RequestBody body );
+    Observable<ResultBoolean> deleteFav(@Header("Authorization") String auth, @Body RequestBody body);
 
     //get Reviews of this tutor
     @POST("/api/Tutor/GetRanks")
-    Observable<ReviewsArray> getReviews(@Header("Authorization") String auth , @Body RequestBody body );
-
-
-
+    Observable<ReviewsArray> getReviews(@Header("Authorization") String auth, @Body RequestBody body);
 
 
     // upload images
 
 
-
     @Multipart
     @POST("/api/account/UploadFile")
-    Observable<MediaResponse> uploadMedia(@Query("AccountId") String AccountId ,
+    Observable<MediaResponse> uploadMedia(@Query("AccountId") String AccountId,
                                           @Query("Category") String Category, @Query("fromUi") boolean fromUi,
-                                          @Part List<MultipartBody.Part> body );
+                                          @Part List<MultipartBody.Part> body);
 
 
     // get Tutor calls
     @GET("/api/Tutor/RequestCalls")
-    Observable<AddFavorite> getTutorCalls(@Header("Authorization") String auth );
+    Observable<AddFavorite> getTutorCalls(@Header("Authorization") String auth);
 
 
-   // get tutor messages
-   @GET("/api/Tutor/RequestMessages")
-   Observable<AddFavorite> getTutorMessages(@Header("Authorization") String auth  );
-
+    // get tutor messages
+    @GET("/api/Tutor/RequestMessages")
+    Observable<AddFavorite> getTutorMessages(@Header("Authorization") String auth);
 
 
     // get student messages
     @GET("/api/Student/RequestMessages")
-    Observable<AddFavorite> getStudentMessages(@Header("Authorization") String auth  );
+    Observable<AddFavorite> getStudentMessages(@Header("Authorization") String auth);
 
 
     // get Student calls
     @GET("/api/Tutor/RequestCalls")
-    Observable<RequestLogsArray> getStudentCalls(@Header("Authorization") String auth  );
+    Observable<RequestLogsArray> getStudentCalls(@Header("Authorization") String auth);
 
 
     @GET("/api/Tutor/RequestMessages")
-    Observable<CallsArray> getMessages(@Header("Authorization") String auth );
+    Observable<CallsArray> getMessages(@Header("Authorization") String auth);
 
     @POST("/api/Tutor/AddRequestLog")
-    Observable<ResultBoolean> addRequestLogs(@Header("Authorization") String auth , @Body RequestBody body);
+    Observable<ResultBoolean> addRequestLogs(@Header("Authorization") String auth, @Body RequestBody body);
 
     @GET("/api/Tutor/Packages")
     Observable<PackagesArray> getPackages(@Header("Authorization") String auth);
 
 
-
     @GET("/api/Tutor/CurrentPackage")
-    Observable<ResultForProfile<CurrentPackages>> getCurrentPackages(@Header("Authorization") String auth);
+    Observable<GetResult<CurrentPackages>> getCurrentPackages(@Header("Authorization") String auth);
 
     @GET("/api/Tutor/UserPackages")
     Observable<HistoryArray> getPackagesHistory(@Header("Authorization") String auth); //
@@ -251,13 +250,22 @@ public interface MainApiInterface {
 
 
     @GET("/api/Tutor/DeleteTutorCertificate")
-    Observable<DeleteCertificates> deleteCertificates(@Header("Authorization") String auth , @Query("fileId") int fileId);
+    Observable<DeleteCertificates> deleteCertificates(@Header("Authorization") String auth, @Query("fileId") int fileId);
 
 
-    @POST("/api/Tutor/PayRequest")
-    Observable<ResultForProfile<PaymentResponse>> payPackage(@Header("Authorization") String auth , @Body RequestBody body);
+    @GET("/api/Tutor/PayRequest")
+    Observable<PaymentResponse> payPackage(@Header("Authorization") String auth, @Query("PackageId") int packageId);
 
     @GET("/api/account/GetWhatsAppNumber")
-    Observable<WhatsAppResponse> getWhatsApp(@Header("Authorization") String auth );
+    Observable<WhatsAppResponse> getWhatsApp(@Header("Authorization") String auth);
+
+
+    // to request tutor
+    @POST("/api/Tutor/RequestTutor")
+    Observable<ResultBoolean> requestTutor(@Header("Authorization") String auth, @Body RequestBody body);
+
+    @GET("/api/Tutor/RequestStatus")
+    Observable<GetResultString> requestStatus(@Header("Authorization") String auth, @Query("checkOutId") String checkOut, @Query("packageId") int packageId );
+
 
 }

@@ -65,16 +65,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/txt_tutorName"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:text="Ahmed Badr"
-                        android:drawablePadding="5dp"
-                        android:textColor="#2D4379"
-                        android:textSize="18sp" />
+                        android:orientation="horizontal"
+                        >
+                        <TextView
+                            android:id="@+id/txt_tutorName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:text=""
+                            android:drawablePadding="5dp"
+                            android:textColor="#2D4379"
+                            android:textSize="18sp" />
+                        <ImageView
+                            android:layout_marginTop="5dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_width="20dp"
+                            android:id="@+id/isFea"
+                            android:drawablePadding="5dp"
+                            android:visibility="gone"
+                            android:layout_height="20dp"
+                            android:src="@drawable/featured_true_big"
+                            />
+                    </LinearLayout>
+
 
                     <TextView
                         android:id="@+id/txt_tutorLocation"
@@ -83,7 +99,7 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="8dp"
                         android:drawableStart="@drawable/location_on_24"
-                        android:text="Egypt - Cairo"
+                        android:text=""
                         android:textColor="#2D4379"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -138,6 +154,16 @@
                     android:textColor="#279EFF" />
 
 
+                <TextView
+                    android:id="@+id/txt_sub3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:background="@drawable/subject_style"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:text=""
+                    android:textColor="#279EFF" />
                 <TextView
                     android:id="@+id/txt_subMany"
                     android:layout_width="wrap_content"
@@ -199,7 +225,7 @@
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/eye_views"
                         android:drawablePadding="5dp"
-                        android:text="250 Views"
+                        android:text=""
                         android:textColor="#7C79A6"
                         android:textSize="14sp" />
                 </LinearLayout>

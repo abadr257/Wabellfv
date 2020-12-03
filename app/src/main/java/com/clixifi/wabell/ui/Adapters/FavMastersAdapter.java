@@ -2,7 +2,6 @@ package com.clixifi.wabell.ui.Adapters;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +26,10 @@ import com.clixifi.wabell.utils.IntentUtilies;
 import com.clixifi.wabell.utils.LocaleManager;
 import com.clixifi.wabell.utils.StaticMethods;
 import com.clixifi.wabell.utils.ToastUtil;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static android.content.ContentValues.TAG;
 import static com.clixifi.wabell.utils.StaticMethods.tutorId;
 
 public class FavMastersAdapter extends RecyclerView.Adapter<FavMastersAdapter.MyViewHolder> implements TutorProfileInterface {
@@ -58,7 +57,8 @@ public class FavMastersAdapter extends RecyclerView.Adapter<FavMastersAdapter.My
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         if (fav.getFavMasters().get(position).getTutorImage() != null) {
-            StaticMethods.LoadImage(context, holder.img, fav.getFavMasters().get(position).getTutorImage(), null);
+            Picasso.with(context).load(fav.getFavMasters().get(position).getTutorImage()).into(holder.img);
+            //StaticMethods.LoadImage(context, holder.img, fav.getFavMasters().get(position).getTutorImage(), null);
         }
         if (fav.getFavMasters().get(position).TutorIsFeatured) {
             holder.featured.setVisibility(View.VISIBLE);
@@ -66,70 +66,107 @@ public class FavMastersAdapter extends RecyclerView.Adapter<FavMastersAdapter.My
         if (fav.getFavMasters().get(position).getTutorName() != null) {
             holder.name.setText(fav.getFavMasters().get(position).getTutorName());
         }
-        holder.numOfRates.setText(fav.getFavMasters().get(position).getRankCount()+"");
-        holder.numofViews.setText(fav.getFavMasters().get(position).getViewsCount()+"");
+        holder.numOfRates.setText(fav.getFavMasters().get(position).getRankCount() + "");
+        if (LocaleManager.getLanguage(context).equals("ar")) {
+            if (fav.getFavMasters().get(position).getViewsCount() > 2) {
+                holder.numofViews.setText(fav.getFavMasters().get(position).getViewsCount() + " مشاهدات");
+            } else if (fav.getFavMasters().get(position).getViewsCount() == 1 || fav.getFavMasters().get(position).getViewsCount() == 2) {
+                holder.numofViews.setText(fav.getFavMasters().get(position).getViewsCount() + " مشاهدة");
+            } else {
+                holder.numofViews.setText(fav.getFavMasters().get(position).getViewsCount() + " مشاهدة");
+            }
+        } else {
+            if (fav.getFavMasters().get(position).getViewsCount() > 1) {
+                holder.numofViews.setText(fav.getFavMasters().get(position).getViewsCount() + " Views");
+            } else if (fav.getFavMasters().get(position).getViewsCount() == 1) {
+                holder.numofViews.setText(fav.getFavMasters().get(position).getViewsCount() + " View");
+            } else {
+                holder.numofViews.setText(fav.getFavMasters().get(position).getViewsCount() + " View");
+            }
+        }
         holder.loca.setText(fav.getFavMasters().get(position).getTutorLocation());
         holder.disc.setText(fav.getFavMasters().get(position).getTagLine());
         holder.rate.setRating(fav.getFavMasters().get(position).getRank());
-        if(LocaleManager.getLanguage(context).equals("en")){
-            holder.price.setText(fav.getFavMasters().get(position).getHourPrice()+" SAR / Hr ");
+        if (LocaleManager.getLanguage(context).equals("en")) {
+            holder.price.setText(fav.getFavMasters().get(position).getHourPrice() + " SAR / Hr ");
 
-            if(fav.getFavMasters().get(position).getEngTopics() != null){
+            if (fav.getFavMasters().get(position).getEngTopics() != null) {
 
-                int size = fav.getFavMasters().get(position).getEngTopics().size() ;
+                int size = fav.getFavMasters().get(position).getEngTopics().size();
 
-                if(size == 0 ){
-                    holder.rel1.setVisibility(View.GONE);
-                    holder.rel2.setVisibility(View.GONE);
-                    holder.rel3.setVisibility(View.GONE);
+                if (size == 0) {
+                    holder.sub1.setVisibility(View.GONE);
+                    holder.sub2.setVisibility(View.GONE);
+                    holder.sub4.setVisibility(View.GONE);
+                    holder.subMany.setVisibility(View.GONE);
                 }
-                if(size >= 3){
+                if (size > 3) {
                     holder.sub1.setText(fav.getFavMasters().get(position).getEngTopics().get(0));
                     holder.sub2.setText(fav.getFavMasters().get(position).getEngTopics().get(1));
-                    holder.sub3.setText(" + "+(size - 2));
-                }else {
-                    if(size == 2 ){
+                    holder.sub4.setText(fav.getFavMasters().get(position).getEngTopics().get(2));
+                    holder.subMany.setText(fav.getFavMasters().get(position).getEngTopics().get(3));
+                } else if (size == 3) {
+                    holder.sub1.setText(fav.getFavMasters().get(position).getEngTopics().get(0));
+                    holder.sub2.setText(fav.getFavMasters().get(position).getEngTopics().get(1));
+                    holder.sub4.setText(fav.getFavMasters().get(position).getEngTopics().get(2));
+                    holder.subMany.setVisibility(View.GONE);
+                } else {
+                    if (size == 2) {
                         holder.sub1.setText(fav.getFavMasters().get(position).getEngTopics().get(0));
                         holder.sub2.setText(fav.getFavMasters().get(position).getEngTopics().get(1));
-                        holder.rel3.setVisibility(View.GONE);
-                    }else if(size == 1){
+                        holder.sub4.setVisibility(View.GONE);
+                        holder.subMany.setVisibility(View.GONE);
+                    } else if (size == 1) {
                         holder.sub1.setText(fav.getFavMasters().get(position).getEngTopics().get(0));
-                        holder.rel2.setVisibility(View.GONE);
-                        holder.rel3.setVisibility(View.GONE);
+                        holder.sub2.setVisibility(View.GONE);
+                        holder.sub4.setVisibility(View.GONE);
+                        holder.subMany.setVisibility(View.GONE);
                     }
                 }
-            }else {
-                holder.rel1.setVisibility(View.GONE);
-                holder.rel2.setVisibility(View.GONE);
-                holder.rel3.setVisibility(View.GONE);
+            } else {
+                holder.sub1.setVisibility(View.GONE);
+                holder.sub2.setVisibility(View.GONE);
+                holder.sub4.setVisibility(View.GONE);
+                holder.subMany.setVisibility(View.GONE);
             }
-        }else {
-            holder.price.setText(fav.getFavMasters().get(position).getHourPrice()+" ريال / س ");
-            if(fav.getFavMasters().get(position).getArTopics() != null){
-                int size = fav.getFavMasters().get(position).getArTopics().size() ;
-                if(size == 0 ){
-                    holder.rel1.setVisibility(View.GONE);
-                    holder.rel2.setVisibility(View.GONE);
-                    holder.rel3.setVisibility(View.GONE);
+        } else {
+            holder.price.setText(fav.getFavMasters().get(position).getHourPrice() + " ريال / س ");
+            if (fav.getFavMasters().get(position).getArTopics() != null) {
+                int size = fav.getFavMasters().get(position).getArTopics().size();
+                if (size == 0) {
+                    holder.sub1.setVisibility(View.GONE);
+                    holder.sub2.setVisibility(View.GONE);
+                    holder.sub4.setVisibility(View.GONE);
+                    holder.subMany.setVisibility(View.GONE);
                 }
-                if(size >= 3){
+                if (size > 3) {
                     holder.sub1.setText(fav.getFavMasters().get(position).getArTopics().get(0));
                     holder.sub2.setText(fav.getFavMasters().get(position).getArTopics().get(1));
-                    holder.sub3.setText("+"+(size - 2));
-                }else {
-                    if(size == 2 ){
+                    holder.sub4.setText(fav.getFavMasters().get(position).getArTopics().get(2));
+                    holder.subMany.setText(fav.getFavMasters().get(position).getArTopics().get(3));
+                } else if (size == 3) {
+                    holder.sub1.setText(fav.getFavMasters().get(position).getArTopics().get(0));
+                    holder.sub2.setText(fav.getFavMasters().get(position).getArTopics().get(1));
+                    holder.sub4.setText(fav.getFavMasters().get(position).getArTopics().get(2));
+                    holder.subMany.setVisibility(View.GONE);
+                } else {
+                    if (size == 2) {
                         holder.sub1.setText(fav.getFavMasters().get(position).getArTopics().get(0));
                         holder.sub2.setText(fav.getFavMasters().get(position).getArTopics().get(1));
-                        holder.rel3.setVisibility(View.GONE);
-                    }else if(size == 1){
-                        holder.rel2.setVisibility(View.GONE);
-                        holder.rel3.setVisibility(View.GONE);
+                        holder.sub4.setVisibility(View.GONE);
+                        holder.subMany.setVisibility(View.GONE);
+                    } else if (size == 1) {
+                        holder.sub1.setText(fav.getFavMasters().get(position).getArTopics().get(0));
+                        holder.sub2.setVisibility(View.GONE);
+                        holder.sub4.setVisibility(View.GONE);
+                        holder.subMany.setVisibility(View.GONE);
                     }
                 }
-            }else {
-                holder.rel1.setVisibility(View.GONE);
-                holder.rel2.setVisibility(View.GONE);
-                holder.rel3.setVisibility(View.GONE);
+            } else {
+                holder.sub1.setVisibility(View.GONE);
+                holder.sub2.setVisibility(View.GONE);
+                holder.sub4.setVisibility(View.GONE);
+                holder.subMany.setVisibility(View.GONE);
             }
         }
         holder.fav.setOnClickListener(new View.OnClickListener() {
@@ -147,31 +184,31 @@ public class FavMastersAdapter extends RecyclerView.Adapter<FavMastersAdapter.My
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bun = new Bundle( );
-                bun.putString("ID" ,fav.getFavMasters().get(position).getTutorId() );
+                Bundle bun = new Bundle();
+                bun.putString("ID", fav.getFavMasters().get(position).getTutorId());
                 tutorId = fav.getFavMasters().get(position).getTutorId();
-                IntentUtilies.openActivityWithBundle(context, TutorProfileView.class , bun);
+                IntentUtilies.openActivityWithBundle(context, TutorProfileView.class, bun);
             }
         });
-        if(StaticMethods.userRegisterResponse != null){
-            if(StaticMethods.userRegisterResponse.Data.getType().equals("tutor")){
+        if (StaticMethods.userRegisterResponse != null) {
+            if (StaticMethods.userRegisterResponse.Data.getType().equals("tutor")) {
                 holder.status.setVisibility(View.GONE);
-            }else {
-                if(fav.getFavMasters().get(position).IsOnline){
+            } else {
+                if (fav.getFavMasters().get(position).IsOnline) {
                     holder.status.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     holder.status.setVisibility(View.VISIBLE);
                     holder.status.setBackgroundResource(R.drawable.offline);
                 }
 
             }
-        }else {
-            if(StaticMethods.userData.getUserType().equals("tutor")){
+        } else {
+            if (StaticMethods.userData.getUserType().equals("tutor")) {
                 holder.status.setVisibility(View.GONE);
-            }else {
-                if(fav.getFavMasters().get(position).IsOnline){
+            } else {
+                if (fav.getFavMasters().get(position).IsOnline) {
                     holder.status.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     holder.status.setVisibility(View.VISIBLE);
                     holder.status.setBackgroundResource(R.drawable.offline);
                 }
@@ -219,6 +256,11 @@ public class FavMastersAdapter extends RecyclerView.Adapter<FavMastersAdapter.My
     }
 
     @Override
+    public void onRequest(ResultBoolean resultBoolean) {
+
+    }
+
+    @Override
     public void onSendMessage(ResultBoolean resultBoolean) {
 
     }
@@ -231,17 +273,16 @@ public class FavMastersAdapter extends RecyclerView.Adapter<FavMastersAdapter.My
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         CircleImageView img;
-        TextView name, loca, price, disc, sub1, sub2, sub3, numOfRates, numofViews, txt;
+        TextView name, loca, price, disc, sub1, sub2, subMany, sub4, numOfRates, numofViews, txt;
         RatingBar rate;
-        RelativeLayout rel1 , rel2 , rel3 , status ;
+        RelativeLayout rel1, rel2, rel3, rel4, status;
         ImageView featured, fav;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            status= itemView.findViewById(R.id.rel_online);
-            rel1 = itemView.findViewById(R.id.linSub1 );
-            rel2 = itemView.findViewById(R.id.linSub2 );
-            rel3 = itemView.findViewById(R.id.linSub3 );
+            status = itemView.findViewById(R.id.rel_online);
+
+
             txt = itemView.findViewById(R.id.checkIf);
             fav = itemView.findViewById(R.id.fav_image);
             img = itemView.findViewById(R.id.tutor_img);
@@ -252,7 +293,8 @@ public class FavMastersAdapter extends RecyclerView.Adapter<FavMastersAdapter.My
             disc = itemView.findViewById(R.id.txt_disc);
             sub1 = itemView.findViewById(R.id.txt_sub1);
             sub2 = itemView.findViewById(R.id.txt_sub2);
-            sub3 = itemView.findViewById(R.id.txt_subMany);
+            sub4 = itemView.findViewById(R.id.txt_sub3);
+            subMany = itemView.findViewById(R.id.txt_subMany);
             numOfRates = itemView.findViewById(R.id.txt_numOfRate);
             numofViews = itemView.findViewById(R.id.numOfViews);
             rate = itemView.findViewById(R.id.ratingBar);

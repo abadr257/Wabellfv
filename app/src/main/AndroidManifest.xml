@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.clixifi.wabell">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -22,7 +23,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.payment.PaymentScreen"></activity>
+        <!--<activity
+            android:name=".ui.payment.PaymentScreen"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Checkout.Light"
+            android:windowSoftInputMode="adjustPan"
+            tools:replace="android:theme" />-->
+        <activity
+            android:name=".ui.payment.PaymentScreen"
+            android:launchMode="singleTask">
+
+            <intent-filter>
+                <data android:scheme="wabell"/>
+
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.terms.TermsScreen" />
         <activity android:name=".ui.privecy.PrivecyScreen" />
         <activity android:name=".ui.subscription.SubscriptionScreen" />
@@ -72,6 +92,13 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
+
+        <service
+            android:name="com.oppwa.mobile.connect.service.ConnectService"
+            android:exported="false" />
+        <receiver
+            android:name=".utils.CheckoutBroadcastReceiver"
+            android:exported="false" />
     </application>
 
 </manifest>

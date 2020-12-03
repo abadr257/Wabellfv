@@ -63,10 +63,12 @@
                 android:layout_marginEnd="15dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/splash_text_ar"
+                android:textAllCaps="false"
                 android:onClick="@{handlers::arabic}"
                 android:textColor="@color/splashBackground"
                 />
             <Button
+                android:textAllCaps="false"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/splash_button_style"

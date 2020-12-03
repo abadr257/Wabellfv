@@ -63,6 +63,28 @@ public class RegisterData {
     @SerializedName("UserType")
     private String type ;
 
+    @SerializedName("Exception")
+    private String Exception ;
+
+    @SerializedName("User")
+    private String User ;
+
+    public String getException() {
+        return Exception;
+    }
+
+    public void setException(String exception) {
+        Exception = exception;
+    }
+
+    public String getUser() {
+        return User;
+    }
+
+    public void setUser(String user) {
+        User = user;
+    }
+
     public String getType() {
         return type;
     }

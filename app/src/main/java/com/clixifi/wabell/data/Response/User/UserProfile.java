@@ -12,7 +12,7 @@ public class UserProfile {
     @SerializedName("Biography")
     public String Biography;
     @SerializedName("HourPrice")
-    public double HourPrice;
+    public String HourPrice;
     @SerializedName("Tagline")
     public String Tagline;
     @SerializedName("IsSubscribe")
@@ -54,8 +54,29 @@ public class UserProfile {
     @SerializedName("TopicsText")
     public String Topics;
 
+    @SerializedName("DistrictId")
+    public int DistrictId;
+    @SerializedName("CityId")
+    public int CityId ;
+
+    public int getCityId() {
+        return CityId;
+    }
+
+    public void setCityId(int cityId) {
+        CityId = cityId;
+    }
+
     @SerializedName("Files")
     public ArrayList<String> Files;
+
+    public int getDistrictId() {
+        return DistrictId;
+    }
+
+    public void setDistrictId(int districtId) {
+        DistrictId = districtId;
+    }
 
     public String getArAvailableTimesText() {
         return ArAvailableTimesText;
@@ -137,11 +158,11 @@ public class UserProfile {
         Biography = biography;
     }
 
-    public double getHourPrice() {
+    public String getHourPrice() {
         return HourPrice;
     }
 
-    public void setHourPrice(double hourPrice) {
+    public void setHourPrice(String hourPrice) {
         HourPrice = hourPrice;
     }
 

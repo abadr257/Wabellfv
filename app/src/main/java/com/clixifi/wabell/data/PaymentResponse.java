@@ -3,18 +3,12 @@ package com.clixifi.wabell.data;
 import com.google.gson.annotations.SerializedName;
 
 public class PaymentResponse {
-    @SerializedName("code")
-    public String code ;
+    @SerializedName("CheckOutId")
+    public String CheckOutId ;
+
     @SerializedName("description")
     public String description ;
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     public String getDescription() {
         return description;
@@ -23,4 +17,13 @@ public class PaymentResponse {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getCode() {
+        return CheckOutId;
+    }
+
+    public void setCode(String code) {
+        this.CheckOutId = code;
+    }
+
 }

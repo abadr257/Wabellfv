@@ -11,13 +11,13 @@
     <string name="thanks">Thanks For Payment</string>
     <string name="requestSub">Request subject(s)</string>
     <string name="rate_file">Enter the rate</string>
-//
+    <string name="noCer">No Certificates Found</string>
     <string name="last">Last Month</string>
     <string name="txtRequest">Tell us what you want to learn and our moderators will find your tutors</string>
     <string name="login">Login</string>
-    <string name="mProfile">Master`s Profile</string>
+    <string name="mProfile">Tutor’s Profile</string>
 
-    <string name="mas_filters">Masters Filter</string>
+    <string name="mas_filters">Tutors Filter</string>
     <string name="budget">Budget</string>
     <string name="rateings">Rating</string>
     <string name="dis">Distance</string>
@@ -26,10 +26,12 @@
     <string name="next">Next</string>
     <string name="sRe">Submit Review</string>
     <string name="reView">Review</string>
-    <string name="reViewHint">Say Somthing about your teacher</string>
+    <string name="reViewHint">Say Something about your teacher</string>
+    <string name="reViewHintStudent">Say Something about your Student</string>
     <string name="cancel">Cancel</string>
+    <string name="search_word">Search .. </string>
     <string name="finish">Finish</string>
-    <string name="featured">Featured Masters</string>
+    <string name="featured">Featured Tutors</string>
     <string name="noThing">Please Select your Specialty</string>
     <string name="exp">Add Experience and Education</string>
     <string name="media">Upload Media</string>
@@ -67,6 +69,7 @@
     <string name="custom_dialog">Please Wait</string>
     <string name="login_success">Login Successfully</string>
     <string name="noInternet">No Internet Connection</string>
+    <string name="already">This Email is already taken</string>
     <string name="reviewAdded">Your Review Added Successfully</string>
     <string name="updatedSuccessfully">Your Profile Updated Successfully</string>
     <string name="reqSuccess">Your Request sent successfully</string>
@@ -97,12 +100,12 @@
     <string name="cname">Card Holder Name</string>
     <string name="hname">Holder Name</string>
     <string name="cnum">Card Number</string>
-    <string name="expir">Expiry</string>
-    <string name="cvv">CCV</string>
+    <string name="expir">Expired</string>
+    <string name="cvv">CVV</string>
     <string name="comPayment">Complete Payment</string>
 
     <string name="te1">By Register, you agree to the following </string>
-    <string name="teTerms"> Terms of service </string>
+    <string name="teTerms"> Terms </string>
     <string name="te2">and </string>
     <string name="tePrivacy">Privacy policy</string>
     <string name="te3">Already have an account?</string>
@@ -112,18 +115,20 @@
     <string name="no">No</string>
     <string name="await">awaiting for admin approval</string>
     <string name="block">You are blocked</string>
-    <string name="similar">Similar Masters</string>
+    <string name="similar">Similar Tutors</string>
     <string name="fav">Favorite</string>
     <string name="views">Views</string>
     <string name="currReq">Recent Requests</string>
     <string name="noReq">No Requests</string>
     <string name="v">Version 1.0</string>
     <string name="contact">Contact</string>
+    <string name="powered">Powered By</string>
     <string name="aboutDetails">Wabell ‌is ‌a service application that connects people with people \n Use your knowledge,‌ expertise and time to serve residents in ‌your city . \n When you register as a Master, Wabell enables customers to connect with you to provide your specialized service \n Join the team and pass the word…</string>
     <string name="aboutUs">About Us</string>
     <string name="logout">Logout</string>
     <string name="ids">Id</string>
     <string name="profile">Profile</string>
+    <string name="profilePersonal">Profile</string>
     <string name="req">Requests</string>
     <string name="subs">Subscription</string>
     <string name="payMent">Payment</string>
@@ -141,7 +146,7 @@
     <string name="noCalls">No Calls</string>
     <string name="noMessages">No Messages</string>
     <string name="hintInlogs">Connect With Master’s on Wabell \n by beginning a new conversation.</string>
-    <string name="find_masters">Find Masters</string>
+    <string name="find_masters">Find Tutors</string>
     <string name="offlines">Offline</string>
     <string name="offline">Offline until</string>
     <string name="viewProfile">View Profile</string>
@@ -150,7 +155,9 @@
     <string name="certificates">Upload Certificates and IDs</string>
     <string name="certificate">IDs and Certificates</string>
     <string name="error">Please try again</string>
+    <string name="successPackage">Package Added Successfully</string>
     <string name="saved">Saved</string>
+    <string name="reqs">Requested</string>
     <string name="delete">Deleted</string>
     <string name="newPassSuccess">New Password Added Successfully</string>
     <string name="match">Password Not Match</string>
@@ -174,6 +181,7 @@
     <string name="example12">Tell your students a little bit about yourself</string>
     <string name="price">Price Per Hour (SAR)</string>
     <string name="priceFi">Price (Highest to Lowest)</string>
+    <string name="priceae">Price (Lowest to Highest)</string>
     <string name="avaDays">Available Days</string>
     <string name="allDays">All Days</string>
     <string name="sun">Sunday</string>
@@ -190,8 +198,8 @@
     <string name="eve">Evening ( 6:00 - 12:00 PM)</string>
     <string name="weti3">Connecting People</string>
     <string name="wede3">Wabell is a service application that connects people with people.</string>
-    <string name="weti2">Empowering Customers and Service Masters</string>
-    <string name="wede2">Register as a Customer to search, call, get served by Masters in your city. Register as a Master, Wabell brings you customers to sell them your services</string>
+    <string name="weti2">Empowering Customers and Service Tutors</string>
+    <string name="wede2">Register as a Customer to search, call, get served by Tutors in your city. Register as a Master, Wabell brings you customers to sell them your services</string>
     <string name="weti1">Welcome to Wabell</string>
     <string name="wede1">Enjoy Wabell and create your profile now</string>
     <string name="Save">Save</string>
@@ -202,10 +210,14 @@
     <string name="newPass_details">Please enter your new password and confirm</string>
 
 
-    <string name="studentFav">Favorite Masters</string>
+    <string name="studentFav">Favorite Tutors</string>
     <string name="sub">Subscription</string>
     <string name="noHistory">No History yet</string>
     <string name="about">About Wabell</string>
+
+    <string name="subscribe">Subscribe</string>
+
+
     <string name="share">Share Wabell</string>
     <string name="until_sub">The subscription will end on 15 Jul 2020</string>
     <string name="lang">Language</string>
@@ -218,8 +230,6 @@
     <string name="spec">Speciality</string>
     <string name="certifi">Certificates</string>
     <string name="workPre">Work Preferences</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

@@ -64,7 +64,7 @@ public class FavMastersItem {
     public int RankCount;
 
     @SerializedName("HourPrice")
-    public double HourPrice ;
+    public String HourPrice ;
 
     @SerializedName("IsOnline")
     public boolean IsOnline ;
@@ -85,11 +85,11 @@ public class FavMastersItem {
         IsOnline = online;
     }
 
-    public double getHourPrice() {
+    public String getHourPrice() {
         return HourPrice;
     }
 
-    public void setHourPrice(double hourPrice) {
+    public void setHourPrice(String hourPrice) {
         HourPrice = hourPrice;
     }
 

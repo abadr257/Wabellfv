@@ -11,6 +11,7 @@
     <string name="from_hp">من</string>
     <string name="mExp">الشهر</string>
     <string name="last">الشهر السابق</string>
+    <string name="noCer">لا يوجد شهادات خبرة</string>
     <string name="thanks">شكرا لشرائك الباقة</string>
     <string name="yExp">السنة</string>
     <string name="requestSub">طلب موضوع (مواضيع)</string>
@@ -19,10 +20,13 @@
     <string name="txtRequest">أخبرنا بما تريد أن تتعلمه وسيجد المشرفون لدينا مدرسين لك</string>
     <string name="sRe">ارسال التقيم</string>
     <string name="reViewHint">اكتب شئ عن معلمك</string>
+    <string name="reViewHintStudent">اكتب شئ عن الطالب</string>
     <string name="reView">تعليقك</string>
     <string name="rate_file">ادخل التقيم</string>
     <string name="priceFi"> السعر (من الأعلى إلى الأدنى)</string>
+    <string name="priceae"> السعر (من الأدنى إلى الأعلى)</string>
     <string name="cancel">إلغاء</string>
+    <string name="search_word">بحث .. </string>
     <string name="budget">الميزانية</string>
     <string name="rateings">التقييم</string>
     <string name="dis">المسافة</string>
@@ -45,8 +49,8 @@
     <string name="emptyCity">أدخل المدينة اولا</string>
     <string name="hintChat">أدخل الرسالة هنا ...</string>
     <string name="neighborhood">المنطقة</string>
-    <string name="forget_password">لا أتذكر كلمة المرور !</string>
-    <string name="registerTextNOAcc">"لا أمتلك حساب "</string>
+    <string name="forget_password">نسيت كلمة المرور !</string>
+    <string name="registerTextNOAcc">"ليس لديك حساب !"</string>
     <string name="registerNow">تسجيل حساب جديد الان</string>
     <string name="txt_or">او</string>
     <string name="txt_message">الرسالة</string>
@@ -56,6 +60,7 @@
     <string name="reviewAdded">تم اضافة التقيم بنجاح</string>
     <string name="offline">غير متوفر حتى</string>
     <string name="update">تعديل</string>
+    <string name="already">هذا البريد موجود بالفعل</string>
     <string name="noInternet">لا يوجد لديك اتصال بالانترنت</string>
     <string name="updatedSuccessfully">تم تعديل البيانات الشخصية بنجاح</string>
     <string name="reqSuccess">تم ارسال الطلب بنجاح</string>
@@ -74,6 +79,7 @@
     <string name="reCalls">المكالمات</string>
     <string name="Experience">الخبرة</string>
     <string name="active">نشط</string>
+    <string name="subscribe">اشتراك</string>
     <string name="until_sub"> سوف تنتهى الباقة فى تاريخ20 / 10 / 2020</string>
     <string name="example1"></string>
     <string name="reCall">مكالمة</string>
@@ -86,20 +92,23 @@
     <string name="tePhoneNum">رقم الهاتف</string>
     <string name="teEmail">البريد الإلكترونى</string>
     <string name="te1">بتسجيل حسابك فأنت موافق على الأتى</string>
-    <string name="teTerms"> الشروط والخدمات </string>
+    <string name="teTerms"> الشروط </string>
     <string name="te2">و </string>
     <string name="tePrivacy">الخصوصية</string>
     <string name="te3">بالفعل تمتلك حساب ؟</string>
     <string name="ok">نعم</string>
     <string name="no">لا</string>
     <string name="contact">للتواصل</string>
+    <string name="powered">طور بواسطة</string>
     <string name="v">اصدار 1.0</string>
-    <string name="aboutDetails">Wabell هو تطبيق الخدمة التي تربط الناس مع الناس. استخدامك المعرفة والخبرة والوقت لخدمة السكان في مدينتك. عندما تسجل على درجة الماجستير، Wabell تمكن العملاء للاتصال معكم لتوفير خدمة متخصصة الخاص بك .‌ ‌ ‌ الانضمام الفريق ‌ و ‌ المرور ‌ كلمة… .‌ ‌</string>
+    <string name="aboutDetails">وابل هو تطبيق الخدمة التي تربط الناس مع الناس. استخدامك المعرفة والخبرة والوقت لخدمة السكان في مدينتك. عندما تسجل على درجة الماجستير، وابل تمكن العملاء للاتصال معكم لتوفير خدمة متخصصة الخاص بك .‌ ‌ ‌ الانضمام الفريق ‌ و ‌ المرور ‌ كلمة … ‌ ‌</string>
     <string name="saved">تم الحفظ</string>
+    <string name="reqs">تم ارسال طلب الى المعلم</string>
     <string name="delete">تم الحذف</string>
     <string name="aboutUs">عن التطبيق</string>
     <string name="logout">تسجيل خروج</string>
     <string name="error">يرجي المحاولة مرة اخرى</string>
+    <string name="successPackage">تم اضافة الباقة بنجاح</string>
     <string name="newPassSuccess">تم تعين كلمة المرور الجديدة</string>
     <string name="match">كلمة المرور غير متشابهة</string>
     <string name="terms">يرجى الموافقه على الشروط والأحكام</string>
@@ -117,7 +126,7 @@
     <string name="noHistory">لا يوجد باقات سابقة قم بالاشتراك الأن</string>
     <string name="share">نشر التطبيق</string>
     <string name="lang">اللغة</string>
-    <string name="studentFav">المفضلة</string>
+    <string name="studentFav">المعلمين المفضلون</string>
     <string name="profile">الشخصية</string>
     <string name="req">الطلبات</string>
     <string name="subs">الاشتراكات</string>
@@ -133,8 +142,8 @@
     <string name="cname">اسم صاحب الفيزا</string>
     <string name="hname">الاسم</string>
     <string name="cnum">رقم الفيزا</string>
-    <string name="expir">تاريخ الانتهاء</string>
-    <string name="cvv">CCV</string>
+    <string name="expir">منتهي</string>
+    <string name="cvv">CVV</string>
 
 
     <string name="edit">تعديل</string>
@@ -142,12 +151,13 @@
     <string name="Availability">اوقات العمل</string>
     <string name="personal">المعلومات الشخصية</string>
     <string name="spec">التخصص</string>
+    <string name="profilePersonal">الصفحة الشخصية</string>
     <string name="certifi">الشهادات</string>
     <string name="workPre">أولوليات العمل</string>
     <string name="bios">سيرة شخصية</string>
     <string name="more">المزيد</string>
     <string name="block">أنت محظور</string>
-    <string name="similar">المدرسين المتشابهين</string>
+    <string name="similar">المدرسين المماثلين</string>
     <string name="fav">المفضل</string>
     <string name="views">المشاهدين</string>
     <string name="currReq">الطلبات الحالية</string>
@@ -160,7 +170,7 @@
 
     <string name="noCalls">لايوجد مكالمات</string>
     <string name="noMessages">لا يوجد رسائل</string>
-    <string name="hintInlogs">يرجى التواصل مع المعلمين  \n لدى Wabell لبدء محادثات جديدة</string>
+    <string name="hintInlogs">يرجى التواصل مع المعلمين  \n لدى وابل لبدء محادثات جديدة</string>
     <string name="find_masters">البحث عن معلمين</string>
 
     <string name="viewProfile">الصفحة الشخصية</string>
@@ -168,14 +178,14 @@
     <string name="info">الحد الأقصى لحجم الصورة هو 5 ميجا بايت الملفات المسموح بها هى : png , jpg</string>
     <string name="empty">يرجي استكمال الخانات الفارغة</string>
     <string name="RateEmpty">يرجى ادخال التقيم</string>
-    <string name="fiTitle">شكرا لتسجيلك فى تطبيق Wabell</string>
+    <string name="fiTitle">شكرا لتسجيلك فى تطبيق وابل</string>
     <string name="title1">تم ارسال الطلب الى المدرس بنجاح</string>
     <string name="title2">ولكن ننصحك بالتواصل مع مدرسين اخرين فى حالة عدم الرد فى خلال 24 ساعة</string>
     <string name="firestDe">تم ارسال بياناتك بنجاح , بياناتك تحت المراجعة من قبل احد المديرين , سوف يتواصل معك احد المديرين عن قريب</string>
     <string name="done">حسنا</string>
     <string name="Continue">استمرار</string>
     <string name="secTitle">تمتع بالعضوية المجانية حتى اول مكالمة</string>
-    <string name="secDe">مرحبا بك على متن الطائرة. ستكون مرئيًا لعملائك حتى مكالمة الخدمة الأولى. بعد ذلك ، سيُطلب منك الاشتراك في تطبيق Wabell لتكون مرئيًا للعملاء مرة أخرى. في الوقت الحالي ، سوف يقوم Wabell بمراجعة تطبيقك وتنشيطه بعد تأكيد هويتك.</string>
+    <string name="secDe">مرحبا بك على متن الطائرة. ستكون مرئيًا لعملائك حتى مكالمة الخدمة الأولى. بعد ذلك ، سيُطلب منك الاشتراك في تطبيق وابل لتكون مرئيًا للعملاء مرة أخرى. في الوقت الحالي ، سوف يقوم وابل بمراجعة تطبيقك وتنشيطه بعد تأكيد هويتك.</string>
     <string name="codeSuccess">تم ارسال رمز التحقق الى بريدك الالكترونى بنجاح</string>
     <string name="registerSuccess">تم تسجيل الحساب بنجاح</string>
     <string name="ver1">تأكيد رقم الهاتف</string>
@@ -207,11 +217,11 @@
     <string name="Save">حفظ</string>
     <string name="weti3">التواصل مع الاخرين</string>
     <string name="resetPass">اعادة تعين كلمة المرور</string>
-    <string name="wede3">التطبيق Wabell هو خدمة توفير التواصل بين الأشخاص</string>
+    <string name="wede3">تطبيق وابل هو خدمة توفير التواصل بين الأشخاص</string>
     <string name="weti2">تمكين العملاء وأساتذة الخدمة</string>
-    <string name="wede2">سجل كعميل للبحث ، والاتصال ، والحصول على خدمة الماجستير في مدينتك. سجل بصفتك ماجستير ، يجلب لك Wabell العملاء لبيع خدماتك لهم</string>
-    <string name="weti1">مرحبا بك فى تطبيق Wabell</string>
-    <string name="wede1">استمتع بتطبيق Wabell وقم بأنشاء حسابك الأن</string>
+    <string name="wede2">سجل كعميل للبحث ، والاتصال ، والحصول على خدمة الماجستير في مدينتك. سجل بصفتك ماجستير ، يجلب لك وابل العملاء لبيع خدماتك لهم</string>
+    <string name="weti1">مرحبا بك فى تطبيق وابل</string>
+    <string name="wede1">استمتع بتطبيق وابل وقم بأنشاء حسابك الأن</string>
     <string name="forgetPass">نسيت كلمة المرور</string>
     <string name="forget_details">يرجى ادخال بريدك الالكترونى لأنشاء كلمة مرور جديدة</string>
     <string name="conPass">تأكيد كلمة المرور</string>

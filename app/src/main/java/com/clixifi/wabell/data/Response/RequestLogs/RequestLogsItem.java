@@ -25,7 +25,7 @@ public class RequestLogsItem {
     public String FirebaseRoomId;
     @SerializedName("Body")
     public String  Body;
-    @SerializedName("UserFirebaseId")
+    @SerializedName("FromUserFirebaseId")
     public String  UserFirebaseId;
 
     @SerializedName("IsOnline")

@@ -28,7 +28,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="8dp"
                 android:id="@+id/tutor_img"
-                android:src="@drawable/avatar"
+
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -76,9 +76,8 @@
                 android:layout_below="@id/txt_re"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:hint="@string/reViewHint"
                 android:inputType="textMultiLine"
-                android:layoutDirection="ltr"
+                android:textDirection="locale"
                 android:padding="8dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="8dp"
@@ -94,6 +93,7 @@
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/blue_btn_style"
                 android:text="@string/sRe"
+                android:textAllCaps="false"
                 android:textColor="@color/colorWhite" />
         </RelativeLayout>
     </LinearLayout>

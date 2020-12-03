@@ -1,6 +1,10 @@
 package com.clixifi.wabell.utils.network;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
+
+import com.clixifi.wabell.utils.StaticMethods;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,6 +15,8 @@ import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+
+import static android.content.ContentValues.TAG;
 
 public class MainApiBody {
     private static final String JSON_TYPE = "application/json";
@@ -88,39 +94,65 @@ public class MainApiBody {
 
     public static RequestBody filterBody(String FromHourPrice, String ToHourPrice,
                                          int Rating, int CountryId,
-                                         int CityId, boolean Price, String name) throws JSONException {
+                                         int CityId, boolean Price, String name, boolean priceLow) throws JSONException {
+        JSONObject finalFilter = new JSONObject();
         JSONObject params = new JSONObject();
         // object for budget
         JSONObject Budget = new JSONObject();
-        Budget.put("FromHourPrice", FromHourPrice);
-        Budget.put("ToHourPrice", ToHourPrice);
+
         // object for Distance
 
         // object for SortBy
         JSONObject SortBy = new JSONObject();
-        SortBy.put("Price", Price);
+        //SortBy.put("Price", Price);
 
-        if (!FromHourPrice.isEmpty() && !ToHourPrice.isEmpty()) {
+        if (!FromHourPrice.isEmpty() || !ToHourPrice.isEmpty()) {
+            Budget.put("FromHourPrice", FromHourPrice);
+            Budget.put("ToHourPrice", ToHourPrice);
+            //Log.e(TAG, "filterBody: FromHourPrice "+FromHourPrice );
             params.put("Budget", Budget);
         }
         JSONObject Distance = new JSONObject();
-        if (CountryId > 0) {
+        if (CountryId > 0 && CityId > 0) {
             Distance.put("CountryId", CountryId);
+            Distance.put("CityId", CityId);
+            params.put("Distance", Distance);
+        } else if (CountryId > 0) {
+            Distance.put("CountryId", CountryId);
+            params.put("Distance", Distance);
+            //Log.e(TAG, "filterBody: Distance "+CountryId );
         } else if (CityId > 0) {
             Distance.put("CityId", CityId);
+            params.put("Distance", Distance);
+            //Log.e(TAG, "filterBody: CityId "+CityId );
         }
-        params.put("Distance", Distance);
+
 
         if (Rating > 0) {
             params.put("Rating", Rating);
+            //Log.e(TAG, "filterBody: Rate "+Rating );
         }
-        if (Price) {
+        //JSONObject SortByOB = new JSONObject();
+        if (Price && priceLow) {
+            SortBy.put("PriceDesc", true);
+            SortBy.put("PriceAsc", true);
+
+            params.put("SortBy", SortBy);
+        } else if (Price) {
+            SortBy.put("PriceDesc", true);
+            Log.e(TAG, "filterBody: Hi "+Price );
+            params.put("SortBy", SortBy);
+        } else if (priceLow) {
+            Log.e(TAG, "filterBody: Low "+priceLow );
+            SortBy.put("PriceAsc", true);
             params.put("SortBy", SortBy);
         }
+
         if (!name.isEmpty()) {
             params.put("Name", name);
         }
-
+        finalFilter.put("",params);
+        StaticMethods.printJson("params" , params);
         return requestBody(params);
     }
 
@@ -148,14 +180,8 @@ public class MainApiBody {
         return requestBody(params);
     }
 
-    public static RequestBody paymentBody(String amount, String cardnumber, String cardholder, String expiryMonth, String expiryYear, String cardcvv, int PackageId) throws JSONException {
+    public static RequestBody paymentBody(int PackageId) throws JSONException {
         JSONObject params = new JSONObject();
-        params.put("amount", amount);
-        params.put("cardnumber", cardnumber);
-        params.put("cardholder", cardholder);
-        params.put("expiryMonth", expiryMonth);
-        params.put("expiryYear", expiryYear);
-        params.put("cardcvv", cardcvv);
         params.put("PackageId", PackageId);
         return requestBody(params);
     }

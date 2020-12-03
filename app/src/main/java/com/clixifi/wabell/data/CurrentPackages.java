@@ -7,13 +7,35 @@ public class CurrentPackages {
     @SerializedName("PackageDuration")
     public String PackageDuration ;
     @SerializedName("Price")
-    public double Price ;
+    public String  Price ;
     @SerializedName("ExpirationDate")
     public String  ExpirationDate ;
     @SerializedName("StartDate")
     public String StartDate ;
     @SerializedName("TagLine")
     public String TagLine ;
+
+    @SerializedName("remainDays")
+    public int remainDays ;
+
+    @SerializedName("PackageDurationAr")
+    public String PackageDurationAr;
+
+    public String getPackageDurationAr() {
+        return PackageDurationAr;
+    }
+
+    public void setPackageDurationAr(String packageDurationAr) {
+        PackageDurationAr = packageDurationAr;
+    }
+
+    public int getRemainDays() {
+        return remainDays;
+    }
+
+    public void setRemainDays(int remainDays) {
+        this.remainDays = remainDays;
+    }
 
     public String getPackageDuration() {
         return PackageDuration;
@@ -23,11 +45,11 @@ public class CurrentPackages {
         PackageDuration = packageDuration;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return Price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         Price = price;
     }
 

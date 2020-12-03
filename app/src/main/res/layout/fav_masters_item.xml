@@ -8,8 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         app:cardCornerRadius="10pt"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
         android:background="#FFFFFF"
@@ -17,10 +17,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="5dp"
+            android:layout_margin="5dp"
             >
             <LinearLayout
                 android:orientation="horizontal"
@@ -64,7 +61,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:text="Ahmed Badr"
+                            android:text=""
                             android:textColor="#2D4379"
                             android:textSize="18sp" />
                         <ImageView
@@ -81,7 +78,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Egypt - Cairo"
+                        android:text=""
                         android:textSize="15sp"
                         android:layout_marginTop="8dp"
                         android:drawableStart="@drawable/location_on_24"
@@ -134,39 +131,29 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_above="@id/lin_bottom"
-                android:layout_marginTop="10dp"
                 android:layoutDirection="locale"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
                 android:id="@+id/lin_subjects"
                 >
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:id="@+id/linSub1"
-                    android:background="@drawable/subject_style"
-                    >
+
 
                     <TextView
                         android:id="@+id/txt_sub1"
+                        android:background="@drawable/subject_style"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="8dp"
                         android:text=""
+                        android:padding="8dp"
                         android:textColor="#279EFF" />
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:id="@+id/linSub2"
-                    android:layout_marginStart="8dp"
-                    android:background="@drawable/subject_style"
-                    >
+
+
                     <TextView
+                        android:background="@drawable/subject_style"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -174,18 +161,27 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="8dp"
                         android:text=""
+                        android:padding="8dp"
                         android:id="@+id/txt_sub2"
                         />
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:layout_marginStart="8dp"
-                    android:id="@+id/linSub3"
-                    android:background="@drawable/subject_style"
-                    >
+
+
+
                     <TextView
+                        android:background="@drawable/subject_style"
+                        android:id="@+id/txt_sub3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="8dp"
+                        android:padding="8dp"
+                        android:text=""
+                        android:textColor="#279EFF" />
+
+
+                    <TextView
+                        android:background="@drawable/subject_style"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -193,10 +189,10 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="8dp"
                         android:text=""
-
+                        android:padding="8dp"
                         android:id="@+id/txt_subMany"
                         />
-                </RelativeLayout>
+
             </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -242,7 +238,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/eye_views"
-                        android:text="250 Views"
+                        android:text=""
                         android:textSize="14sp"
                         android:id="@+id/numOfViews"
                         android:drawablePadding="5dp"

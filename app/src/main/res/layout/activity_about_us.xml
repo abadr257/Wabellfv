@@ -58,8 +58,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="160dp"
-                        android:layout_height="160dp"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
                         android:layout_centerInParent="true"
                         android:src="@drawable/about_image" />
                 </RelativeLayout>
@@ -89,6 +89,8 @@
                     android:layout_below="@id/about_ver"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -106,6 +108,7 @@
                     android:layout_below="@id/detAbout"
                     android:layout_marginTop="15dp"
                     android:gravity="center"
+                    android:id="@+id/lin_terms"
                     android:layout_marginBottom="10dp"
                     android:orientation="vertical">
 
@@ -120,9 +123,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Wabell@wabell.com"
+                        android:text="ask@wabell.net"
                         android:textAlignment="center"
                         android:textColor="#7C79A6"
+                        android:onClick="@{handlers::openMail}"
                         android:textSize="20sp" />
 
                     <LinearLayout
@@ -130,6 +134,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
+
                         android:orientation="horizontal">
 
                         <TextView
@@ -160,6 +165,46 @@
                             android:onClick="@{handlers::pri}"
                             android:textAlignment="textEnd"
                             android:textColor="@color/colorAccent" />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_below="@id/lin_terms"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/powered"
+                        android:textAlignment="center"
+                        android:textColor="#7C79A6"
+                        android:textSize="20sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layoutDirection="locale"
+                        android:layout_marginTop="10dp"
+                        >
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="5dp"
+                            android:id="@+id/addictaLogo"
+                            android:onClick="@{handlers::addicta}"
+                            android:src="@drawable/addicta_logo"
+                            />
+                        <ImageView
+                            android:layout_margin="5dp"
+                            android:layout_width="100dp"
+                            android:layout_height="60dp"
+                            android:onClick="@{handlers::atCode}"
+                            android:id="@+id/atlantisLogo"
+                            />
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>

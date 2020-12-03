@@ -9,7 +9,7 @@ public class TutorProfileForStudent {
     @SerializedName("Biography")
     public String Biography;
     @SerializedName("HourPrice")
-    public double HourPrice;
+    public String HourPrice;
     @SerializedName("ViewsCount")
     public int ViewsCount;
     @SerializedName("CallsCount")
@@ -188,11 +188,11 @@ public class TutorProfileForStudent {
         Biography = biography;
     }
 
-    public double getHourPrice() {
+    public String  getHourPrice() {
         return HourPrice;
     }
 
-    public void setHourPrice(double hourPrice) {
+    public void setHourPrice(String hourPrice) {
         HourPrice = hourPrice;
     }
 

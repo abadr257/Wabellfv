@@ -22,9 +22,9 @@ public class MessagePagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         Fragment fragment = null;
         if (position == 0) {
-            fragment = new CallsFragmentTap();
-        } else if (position == 1) {
             fragment = new MessagesFragmentTap();
+        } else if (position == 1) {
+            fragment = new CallsFragmentTap();
         }
         return fragment;
     }
@@ -38,9 +38,10 @@ public class MessagePagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         String title = null;
         if (position == 0) {
-            title = context.getResources().getString(R.string.reCalls);
-        } else if (position == 1) {
             title = context.getResources().getString(R.string.reMessages);
+        } else if (position == 1) {
+            title = context.getResources().getString(R.string.reCalls);
+
         }
 
         return title;

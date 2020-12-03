@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.clixifi.wabell.data.CurrentPackages;
 import com.clixifi.wabell.data.PackagesArray;
-import com.clixifi.wabell.data.Response.ResultBoolean;
+import com.clixifi.wabell.data.GetResult;
 import com.clixifi.wabell.data.Response.User.ResultForProfile;
 import com.clixifi.wabell.utils.StaticMethods;
 import com.clixifi.wabell.utils.network.ConnectionListener;
@@ -59,9 +59,9 @@ public class PackagesPresenter {
             token = "Bearer " + StaticMethods.userData.getToken();
 
 
-            MainApi.getCurrentPackagesApi(token, new ConnectionListener<ResultForProfile<CurrentPackages>>() {
+            MainApi.getCurrentPackagesApi(token, new ConnectionListener<GetResult<CurrentPackages>>() {
                 @Override
-                public void onSuccess(ConnectionResponse<ResultForProfile<CurrentPackages>> connectionResponse) {
+                public void onSuccess(ConnectionResponse<GetResult<CurrentPackages>> connectionResponse) {
                     if (connectionResponse.data != null) {
                         packagesInterface.onCurrentPackage(connectionResponse.data);
                     } else {

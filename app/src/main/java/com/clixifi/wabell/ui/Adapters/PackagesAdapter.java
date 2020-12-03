@@ -3,6 +3,7 @@ package com.clixifi.wabell.ui.Adapters;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import com.clixifi.wabell.data.PackagesArray;
 import com.clixifi.wabell.ui.payment.PaymentScreen;
 import com.clixifi.wabell.utils.IntentUtilies;
 import com.clixifi.wabell.utils.LocaleManager;
+
+import static android.content.ContentValues.TAG;
 
 public class PackagesAdapter extends RecyclerView.Adapter<PackagesAdapter.MyViewHolder> {
     PackagesArray array;
@@ -41,30 +44,19 @@ public class PackagesAdapter extends RecyclerView.Adapter<PackagesAdapter.MyView
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
-        if (array.getResult().get(position).getPackageDuration().equals("Monthly")) {
-            if (LocaleManager.getLanguage(context).equals("en")) {
 
-                holder.duration.setText(array.getResult().get(position).getPackageDuration());
-                holder.type.setText(array.getResult().get(position).getTagLine());
-                holder.price.setText(array.getResult().get(position).getPrice() + " SAR / Month ");
-            } else {
-                holder.linSav.setBackground(context.getDrawable(R.drawable.rtl_packages_item));
-                holder.type.setText(array.getResult().get(position).getTagLine());
-                holder.duration.setText(array.getResult().get(position).getPackageDuration());
-                holder.price.setText(array.getResult().get(position).getPrice() + " ريال / شهر ");
-            }
+        if (LocaleManager.getLanguage(context).equals("en")) {
+            holder.linSav.setBackground(context.getDrawable(R.drawable.package_shape));
+            holder.duration.setText(array.getResult().get(position).getPackageDuration());
+            holder.type.setText(array.getResult().get(position).getTitle());
+            holder.price.setText(array.getResult().get(position).getPrice() + " SAR / Month ");
         } else {
-            if (LocaleManager.getLanguage(context).equals("en")) {
-                holder.duration.setText(array.getResult().get(position).getPackageDuration());
-                holder.type.setText(array.getResult().get(position).getTagLine());
-                holder.price.setText(array.getResult().get(position).getPrice() + " SAR / Month ");
-            } else {
-                holder.type.setText(array.getResult().get(position).getTagLine());
-                holder.linSav.setBackground(context.getDrawable(R.drawable.rtl_packages_item));
-                holder.price.setText(array.getResult().get(position).getPrice() + " ريال / شهر ");
-                holder.duration.setText(array.getResult().get(position).getPackageDuration());
-            }
+            holder.linSav.setBackground(context.getDrawable(R.drawable.rtl_packages_item));
+            holder.type.setText(array.getResult().get(position).getTitleAr());
+            holder.duration.setText(array.getResult().get(position).getPackageDurationAr());
+            holder.price.setText(array.getResult().get(position).getPrice() + " ريال / شهر ");
         }
+
         if (!array.getResult().get(position).getTagLine().equals("")) {
             holder.linSav.setVisibility(View.VISIBLE);
             holder.savPrice.setText(array.getResult().get(position).getTagLine());
@@ -75,11 +67,26 @@ public class PackagesAdapter extends RecyclerView.Adapter<PackagesAdapter.MyView
             @Override
             public void onClick(View v) {
                 Bundle b = new Bundle();
-                b.putInt("id",array.getResult().get(position).getId());
-                b.putDouble("amount",array.getResult().get(position).getPrice());
-                b.putString("duration",array.getResult().get(position).getPackageDuration());
-                b.putString("type",array.getResult().get(position).getTagLine());
-                IntentUtilies.openActivityWithBundle(context , PaymentScreen.class , b) ;
+                if(LocaleManager.getLanguage(context).equals("ar")){
+                    b.putInt("id", array.getResult().get(position).getId());
+                    Log.e(TAG, "onClick: " + array.getResult().get(position).getId());
+                    b.putString("amount", array.getResult().get(position).getPrice());
+                    b.putString("duration", array.getResult().get(position).getPackageDurationAr());
+                    b.putString("type", array.getResult().get(position).getTitleAr());
+                    IntentUtilies.openActivityWithBundle(context, PaymentScreen.class, b);
+                }else {
+                    b.putInt("id", array.getResult().get(position).getId());
+                    Log.e(TAG, "onClick: " + array.getResult().get(position).getId());
+                    b.putString("amount", array.getResult().get(position).getPrice());
+                    b.putString("duration", array.getResult().get(position).getPackageDuration());
+                    b.putString("type", array.getResult().get(position).getTitle());
+                    IntentUtilies.openActivityWithBundle(context, PaymentScreen.class, b);
+                }
+
+                /*if (array.getResult().get(position).getPrice().equals("0.00")){
+
+                }*/
+
             }
         });
     }

@@ -72,9 +72,9 @@ public class TutorAboutFragment extends Fragment implements TutorProfileInterfac
         binding.edExp.setText(tutor.getExperience());
 
         if (LocaleManager.getLanguage(getActivity()).equals("ar")) {
-            binding.edWorkDetails.setText(tutor.getHourPrice() + " ريال/للساعة " +"\n" +tutor.getAvailableTimesText() +"\n" + tutor.getAvailableDaysText());
+            binding.edWorkDetails.setText(tutor.getHourPrice() + " ريال / للساعة " +"\n" +tutor.getAvailableTimesText() +"\n" + tutor.getAvailableDaysText());
         } else {
-            binding.edWorkDetails.setText(tutor.getHourPrice() + " SAR/hr " +"\n" +tutor.getAvailableTimesText() +"\n" + tutor.getAvailableDaysText());
+            binding.edWorkDetails.setText(tutor.getHourPrice() + " SAR / Hr " +"\n" +tutor.getAvailableTimesText() +"\n" + tutor.getAvailableDaysText());
         }
         if(tutor.getFiles().size() == 0){
          binding.txtToMedia.setVisibility(View.GONE);
@@ -82,11 +82,19 @@ public class TutorAboutFragment extends Fragment implements TutorProfileInterfac
         for (int i=0 ; i < tutor.getFiles().size() ; i ++){
             Log.e(TAG, "onFiles: "+tutor.getFiles().get(i).getFilePath() );
         }
-        adapter = new CertificatesAdapter(getActivity() , tutor.getFiles() ,null);
-        LinearLayoutManager layoutManager
-                = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        binding.recCertificate.setLayoutManager(layoutManager);
-        binding.recCertificate.setAdapter(adapter);
+        if (tutor.getFiles() != null) {
+            if (tutor.getFiles().size() == 0) {
+                binding.txtNoCer.setVisibility(View.VISIBLE);
+            }else {
+                adapter = new CertificatesAdapter(getActivity() , tutor.getFiles() ,null);
+                LinearLayoutManager layoutManager
+                        = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+                binding.recCertificate.setLayoutManager(layoutManager);
+                binding.recCertificate.setAdapter(adapter);
+            }
+        }
+
+
     }
 
     @Override
@@ -106,6 +114,11 @@ public class TutorAboutFragment extends Fragment implements TutorProfileInterfac
 
     @Override
     public void onDeleteFav(ResultBoolean result) {
+
+    }
+
+    @Override
+    public void onRequest(ResultBoolean resultBoolean) {
 
     }
 

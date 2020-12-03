@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 import com.clixifi.wabell.R;
@@ -18,6 +19,10 @@ import com.clixifi.wabell.ui.welcome.WelcomeScreen;
 import com.clixifi.wabell.utils.IntentUtilies;
 import com.clixifi.wabell.utils.LocaleManager;
 import com.clixifi.wabell.utils.StaticMethods;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -34,15 +39,25 @@ public class SplashScreen extends AppCompatActivity {
         handler = new MyHandler(this);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding.setHandlers(handler);
+
+       /* SimpleDateFormat dateFormatGmt = new SimpleDateFormat("dd:MM:yyyy HH:mm:ss");
+        dateFormatGmt.setTimeZone(TimeZone.g("GMT"));*/
+        TimeZone tz = TimeZone.getDefault();
+        String timeZone = tz.getDisplayName(false, TimeZone.SHORT).substring(4, 6);
+        String equ = tz.getDisplayName(false, TimeZone.SHORT).substring(3, 4);
+        int time = Integer.parseInt(timeZone) ;
+        Log.e("Splash Screen", "TimeZone is :" + time +"equ :"+ equ);
+        StaticMethods.timeZone = time;
+        StaticMethods.timeEqu = equ ;
         binding.setOnSplash(false);
         mHandler = new Handler();
         lang = LocaleManager.getLanguage(this);
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(PrefUtils.getUserformation(SplashScreen.this)){
+                if (PrefUtils.getUserformation(SplashScreen.this)) {
                     IntentUtilies.openActivity(SplashScreen.this, MainScreen.class);
-                }else {
+                } else {
                     binding.setOnSplash(true);
 
                 }

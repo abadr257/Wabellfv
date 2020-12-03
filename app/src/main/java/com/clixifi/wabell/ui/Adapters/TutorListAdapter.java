@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import com.clixifi.wabell.ui.tutorProfileforStudent.TutorProfileView;
 import com.clixifi.wabell.utils.IntentUtilies;
 import com.clixifi.wabell.utils.LocaleManager;
 import com.clixifi.wabell.utils.StaticMethods;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -26,8 +28,8 @@ import static android.content.ContentValues.TAG;
 import static com.clixifi.wabell.utils.StaticMethods.tutorId;
 
 public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.MyViewHolder> {
-    Context context ;
-    TutorListArray array ;
+    Context context;
+    TutorListArray array;
     private LayoutInflater mInflater;
 
     public TutorListAdapter(Context context, TutorListArray array) {
@@ -45,103 +47,144 @@ public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
+        if (array.getResult().get(position).IsFeatured) {
+            holder.fea.setVisibility(View.VISIBLE);
+        }
         holder.name.setText(array.getResult().get(position).getName());
         holder.rate.setRating(array.getResult().get(position).getRank());
-        holder.numOfRate.setText(array.getResult().get(position).getRankCount()+"");
-        holder.numOfViews.setText(array.getResult().get(position).getViewsCount()+"");
+        holder.numOfRate.setText(array.getResult().get(position).getRankCount() + "");
+        if (LocaleManager.getLanguage(context).equals("ar")) {
+            if (array.getResult().get(position).getViewsCount() > 2) {
+                holder.numOfViews.setText(array.getResult().get(position).getViewsCount() + " مشاهدات");
+            } else if (array.getResult().get(position).getViewsCount() == 1 || array.getResult().get(position).getViewsCount() == 2) {
+                holder.numOfViews.setText(array.getResult().get(position).getViewsCount() + " مشاهدة");
+            } else {
+                holder.numOfViews.setText(array.getResult().get(position).getViewsCount() + " مشاهدة");
+            }
+        } else {
+            if (array.getResult().get(position).getViewsCount() > 1) {
+                holder.numOfViews.setText(array.getResult().get(position).getViewsCount() + " Views");
+            } else if (array.getResult().get(position).getViewsCount() == 1) {
+                holder.numOfViews.setText(array.getResult().get(position).getViewsCount() + " View");
+            } else {
+                holder.numOfViews.setText(array.getResult().get(position).getViewsCount() + " View");
+            }
+        }
         holder.location.setText(array.getResult().get(position).getLocation());
         holder.bio.setText(array.getResult().get(position).getTagLine());
-        StaticMethods.LoadImage(context , holder.img,array.getResult().get(position).getProfilePicture() ,null);
-        if(LocaleManager.getLanguage(context).equals("en")){
-            holder.price.setText(array.getResult().get(position).getHourPrice()+" SAR / Hr");
-            Log.e(TAG, "onBindViewHolder: "+"here" );
-            if(array.getResult().get(position).getEngTopics() != null){
-                Log.e(TAG, "onBindViewHolder: "+"here 1 " );
-                int size = array.getResult().get(position).getEngTopics().size() ;
-                Log.e(TAG, "onBindViewHolder: "+size );
-                if(size == 0 ){
+        Picasso.with(context).load(array.getResult().get(position).getProfilePicture()).into(holder.img);
+        // StaticMethods.LoadImage(context , holder.img,array.getResult().get(position).getProfilePicture() ,null);
+        if (LocaleManager.getLanguage(context).equals("en")) {
+            holder.price.setText(array.getResult().get(position).getHourPrice() + " SAR / Hr");
+            Log.e(TAG, "onBindViewHolder: " + "here");
+            if (array.getResult().get(position).getEngTopics() != null) {
+                Log.e(TAG, "onBindViewHolder: " + "here 1 ");
+                int size = array.getResult().get(position).getEngTopics().size();
+                Log.e(TAG, "onBindViewHolder: " + size);
+                if (size == 0) {
                     holder.sub1.setVisibility(View.GONE);
                     holder.sub2.setVisibility(View.GONE);
                     holder.sub3.setVisibility(View.GONE);
+                    holder.sub4.setVisibility(View.GONE);
                 }
-                if(size >= 3){
+                if (size > 3) {
                     holder.sub1.setText(array.getResult().get(position).getEngTopics().get(0));
                     holder.sub2.setText(array.getResult().get(position).getEngTopics().get(1));
-                    holder.sub3.setText("+"+(size - 2));
-                }else {
-                    if(size == 2 ){
+                    holder.sub3.setText(array.getResult().get(position).getEngTopics().get(2));
+                    holder.sub4.setText(array.getResult().get(position).getEngTopics().get(3));
+                } else if (size == 3) {
+                    holder.sub1.setText(array.getResult().get(position).getEngTopics().get(0));
+                    holder.sub2.setText(array.getResult().get(position).getEngTopics().get(1));
+                    holder.sub3.setText(array.getResult().get(position).getEngTopics().get(2));
+                    holder.sub4.setVisibility(View.GONE);
+                } else {
+                    if (size == 2) {
                         holder.sub1.setText(array.getResult().get(position).getEngTopics().get(0));
                         holder.sub2.setText(array.getResult().get(position).getEngTopics().get(1));
                         holder.sub3.setVisibility(View.GONE);
-                    }else if(size == 1){
+                        holder.sub4.setVisibility(View.GONE);
+                    } else if (size == 1) {
                         holder.sub1.setText(array.getResult().get(position).getEngTopics().get(0));
                         holder.sub2.setVisibility(View.GONE);
                         holder.sub3.setVisibility(View.GONE);
+                        holder.sub4.setVisibility(View.GONE);
                     }
                 }
-            }else {
+            } else {
                 holder.sub1.setVisibility(View.GONE);
                 holder.sub2.setVisibility(View.GONE);
                 holder.sub3.setVisibility(View.GONE);
+                holder.sub4.setVisibility(View.GONE);
             }
-        }else {
-            holder.price.setText(array.getResult().get(position).getHourPrice()+" ريال / س ");
-            if(array.getResult().get(position).getArTopics() != null){
-                int size = array.getResult().get(position).getArTopics().size() ;
-                if(size == 0 ){
+        } else {
+            holder.price.setText(array.getResult().get(position).getHourPrice() + " ريال / س ");
+            if (array.getResult().get(position).getArTopics() != null) {
+                int size = array.getResult().get(position).getArTopics().size();
+                if (size == 0) {
                     holder.sub1.setVisibility(View.GONE);
                     holder.sub2.setVisibility(View.GONE);
                     holder.sub3.setVisibility(View.GONE);
+                    holder.sub4.setVisibility(View.GONE);
                 }
-                if(size >= 3){
+                if (size > 3) {
                     holder.sub1.setText(array.getResult().get(position).getArTopics().get(0));
                     holder.sub2.setText(array.getResult().get(position).getArTopics().get(1));
-                    holder.sub3.setText("+"+(size - 2));
-                }else {
-                    if(size == 2 ){
+                    holder.sub3.setText(array.getResult().get(position).getArTopics().get(2));
+                    holder.sub4.setText(array.getResult().get(position).getArTopics().get(3));
+                } else if (size == 3) {
+                    holder.sub1.setText(array.getResult().get(position).getArTopics().get(0));
+                    holder.sub2.setText(array.getResult().get(position).getArTopics().get(1));
+                    holder.sub3.setText(array.getResult().get(position).getArTopics().get(2));
+                    holder.sub4.setVisibility(View.GONE);
+                } else {
+                    if (size == 2) {
                         holder.sub1.setText(array.getResult().get(position).getArTopics().get(0));
                         holder.sub2.setText(array.getResult().get(position).getArTopics().get(1));
                         holder.sub3.setVisibility(View.GONE);
-                    }else if(size == 1){
+                        holder.sub4.setVisibility(View.GONE);
+                    } else if (size == 1) {
+                        holder.sub1.setText(array.getResult().get(position).getArTopics().get(0));
                         holder.sub2.setVisibility(View.GONE);
                         holder.sub3.setVisibility(View.GONE);
+                        holder.sub4.setVisibility(View.GONE);
                     }
                 }
-            }else {
+            } else {
                 holder.sub1.setVisibility(View.GONE);
                 holder.sub2.setVisibility(View.GONE);
                 holder.sub3.setVisibility(View.GONE);
+                holder.sub4.setVisibility(View.GONE);
             }
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bun = new Bundle( );
-                bun.putString("ID" ,array.getResult().get(position).getId() );
+                Bundle bun = new Bundle();
+                bun.putString("ID", array.getResult().get(position).getId());
                 tutorId = array.getResult().get(position).getId();
-                Log.e(TAG, "onClick: from adapter"+array.getResult().get(position).getId() );
-                IntentUtilies.openActivityWithBundle(context, TutorProfileView.class , bun);
+                Log.e(TAG, "onClick: from adapter" + array.getResult().get(position).getId());
+                IntentUtilies.openActivityWithBundle(context, TutorProfileView.class, bun);
             }
         });
-        if(StaticMethods.userRegisterResponse != null){
-            if(StaticMethods.userRegisterResponse.Data.getType().equals("tutor")){
+        if (StaticMethods.userRegisterResponse != null) {
+            if (StaticMethods.userRegisterResponse.Data.getType().equals("tutor")) {
                 holder.status.setVisibility(View.GONE);
-            }else {
-                if(array.getResult().get(position).IsOnline){
+            } else {
+                if (array.getResult().get(position).IsOnline) {
                     holder.status.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     holder.status.setVisibility(View.VISIBLE);
                     holder.status.setBackgroundResource(R.drawable.offline);
                 }
 
             }
-        }else {
-            if(StaticMethods.userData.getUserType().equals("tutor")){
+        } else {
+            if (StaticMethods.userData.getUserType().equals("tutor")) {
                 holder.status.setVisibility(View.GONE);
-            }else {
-                if(array.getResult().get(position).IsOnline){
+            } else {
+                if (array.getResult().get(position).IsOnline) {
                     holder.status.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     holder.status.setVisibility(View.VISIBLE);
                     holder.status.setBackgroundResource(R.drawable.offline);
                 }
@@ -155,22 +198,26 @@ public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.MyVi
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView name , price , sub1 , sub2 , sub3 ,location , bio , numOfRate , numOfViews ;
-        RatingBar rate ;
-        CircleImageView img ;
-        RelativeLayout status ;
+        TextView name, price, sub1, sub2, sub3, location, bio, numOfRate, numOfViews, sub4;
+        RatingBar rate;
+        CircleImageView img;
+        RelativeLayout status;
+        ImageView fea;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            sub3 = itemView.findViewById(R.id.txt_sub3);
+            fea = itemView.findViewById(R.id.isFea);
             status = itemView.findViewById(R.id.rel_online);
-            name = itemView.findViewById(R.id.txt_tutorName );
-            price = itemView.findViewById(R.id.txt_price );
-            sub1 = itemView.findViewById(R.id.txt_sub1 );
-            sub2 = itemView.findViewById(R.id.txt_sub2 );
-            sub3 = itemView.findViewById(R.id.txt_subMany );
-            location = itemView.findViewById(R.id.txt_tutorLocation );
-            bio = itemView.findViewById(R.id.txt_disc );
-            numOfRate = itemView.findViewById(R.id.txt_numOfRate );
-            numOfViews = itemView.findViewById(R.id.numOfViews );
+            name = itemView.findViewById(R.id.txt_tutorName);
+            price = itemView.findViewById(R.id.txt_price);
+            sub1 = itemView.findViewById(R.id.txt_sub1);
+            sub2 = itemView.findViewById(R.id.txt_sub2);
+            sub4 = itemView.findViewById(R.id.txt_subMany);
+            location = itemView.findViewById(R.id.txt_tutorLocation);
+            bio = itemView.findViewById(R.id.txt_disc);
+            numOfRate = itemView.findViewById(R.id.txt_numOfRate);
+            numOfViews = itemView.findViewById(R.id.numOfViews);
             rate = itemView.findViewById(R.id.ratingBar);
             img = itemView.findViewById(R.id.tutor_img);
         }

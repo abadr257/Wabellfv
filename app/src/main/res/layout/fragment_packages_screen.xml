@@ -104,22 +104,44 @@
                 </LinearLayout>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/until_sub"
-            android:textColor="#EA5455"
-            android:layout_margin="15dp"
-            android:textSize="16sp"
-            android:textDirection="locale"
-            android:id="@+id/txt_until"
             android:layout_below="@id/card_current"
+            android:id="@+id/rel_expired"
             android:visibility="gone"
-            />
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#EA5455"
+                android:layout_margin="15dp"
+                android:textSize="16sp"
+                android:textDirection="locale"
+                android:id="@+id/txt_until"
+                android:layout_alignParentStart="true"
+                android:visibility="visible"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#EA5455"
+                android:layout_margin="15dp"
+                android:textSize="16sp"
+                android:textDirection="locale"
+                android:id="@+id/txt_days"
+                android:layout_alignParentStart="false"
+                android:layout_alignParentEnd="true"
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
-            android:layout_below="@+id/txt_until"
+            android:layout_below="@+id/rel_expired"
             android:layout_width="match_parent"
             android:background="#D4D4EA"
             android:visibility="gone"

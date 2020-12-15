@@ -20,6 +20,7 @@
     <string name="mas_filters">Tutors Filter</string>
     <string name="budget">Budget</string>
     <string name="rateings">Rating</string>
+    <string name="rated">You already rated this user before</string>
     <string name="dis">Distance</string>
     <string name="sortBy">Sort By</string>
     <string name="rateTxt">Rate Student</string>
@@ -146,8 +147,9 @@
     <string name="noCalls">No Calls</string>
     <string name="noMessages">No Messages</string>
     <string name="hintInlogs">Connect With Master’s on Wabell \n by beginning a new conversation.</string>
-    <string name="find_masters">Find Tutors</string>
+    <string name="find_masters">Find Tutor"'"s</string>
     <string name="offlines">Offline</string>
+    <string name="connectWithTutors">Connect With Tutor’s on Wabell by beginning a new conversation.</string>
     <string name="offline">Offline until</string>
     <string name="viewProfile">View Profile</string>
     <string name="id">Upload Id</string>

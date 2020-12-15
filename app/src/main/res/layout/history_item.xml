@@ -45,6 +45,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_alignParentStart="true"
                 android:gravity="start"
+                android:id="@+id/lin_details"
                 >
                 <TextView
                     android:layout_width="wrap_content"
@@ -76,17 +77,19 @@
                     android:textSize="16sp"
                     />
             </LinearLayout>
+
             <TextView
+                android:id="@+id/txt_until"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="0dp"
+                android:layout_marginTop="83dp"
+                android:layout_marginBottom="15dp"
                 android:text="@string/until_sub"
                 android:textColor="#EA5455"
-                android:id="@+id/txt_until"
-                android:textDirection="locale"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginBottom="10dp"
-                />
+
+                android:textDirection="locale" />
         </RelativeLayout>
 
     </RelativeLayout>

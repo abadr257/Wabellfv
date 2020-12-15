@@ -36,7 +36,7 @@ public class VerificationPresenter {
                 public void onSuccess(ConnectionResponse<OTPResponse> connectionResponse) {
                     if(connectionResponse.data.getCode() != null){
                         Log.e(TAG, "onSuccess: "+connectionResponse.data.getCode() );
-                        ToastUtil.showSuccessToast(context , connectionResponse.data.getCode());
+                        //ToastUtil.showSuccessToast(context , connectionResponse.data.getCode());
                     }else {
                         Log.e(TAG, "onSuccess: "+"Error OnSuccess" );
                         code.onFail(true);

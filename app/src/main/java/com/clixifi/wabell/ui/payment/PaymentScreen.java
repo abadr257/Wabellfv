@@ -84,7 +84,10 @@ public class PaymentScreen extends AppCompatActivity implements PaymentInterface
         dialog = new CustomDialog(this);
 
     }
-
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleManager.onAttach(base));
+    }
     private void getBund() {
         packageId = getIntent().getIntExtra("id", 0);
         amount = getIntent().getStringExtra("amount");

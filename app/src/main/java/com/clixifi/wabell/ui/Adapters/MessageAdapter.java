@@ -34,11 +34,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     private DatabaseReference mUserDatabase, messages;
     Context context;
     String mCUID;
+    String image ;
 
-    public MessageAdapter(List<Messages> mMessageList, String mCurrentUID, Context context) {
+    public MessageAdapter(List<Messages> mMessageList, String mCurrentUID, Context context , String image) {
         this.mMessageList = mMessageList;
         this.mCUID = mCurrentUID;
         this.context = context;
+        this.image = image;
     }
 
     View v;
@@ -112,7 +114,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String name = dataSnapshot.child("name").getValue().toString();
-                String image = dataSnapshot.child("image").getValue().toString();
+                //String image = dataSnapshot.child("image").getValue().toString();
                 StaticMethods.LoadImage(context, viewHolder.profileImage, image, null);
                 viewHolder.displayName.setText(name);
 

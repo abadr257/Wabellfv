@@ -49,6 +49,7 @@
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:textColor="#2D4379"
                 android:text="@string/noMessages"
                 />
             <TextView
@@ -59,7 +60,7 @@
                 android:layout_marginTop="10dp"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:text=""
+                android:text="@string/connectWithTutors"
                 />
 
         </LinearLayout>
@@ -72,6 +73,7 @@
             android:layout_marginTop="15dp"
             android:text="@string/find_masters"
             android:id="@+id/btn_findMasters"
+            android:textAllCaps="false"
             android:onClick="@{handler::findMasters}"
             android:visibility="@{button == true ? View.VISIBLE : View.GONE}"
             android:textColor="@color/colorWhite"

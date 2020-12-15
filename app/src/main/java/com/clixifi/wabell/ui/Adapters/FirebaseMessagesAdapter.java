@@ -195,103 +195,7 @@ public class FirebaseMessagesAdapter extends RecyclerView.Adapter<FirebaseMessag
         });
     }
 
-    /*private void inFireBase() {
-        Query conversationQuery = mConvDatabase.orderByChild("timestamp");
 
-        final FirebaseRecyclerAdapter<Conv, MyViewHolder> firebaseConvAdapter = new FirebaseRecyclerAdapter<Conv, MyViewHolder>(
-                Conv.class,
-                R.layout.room_item,
-                MyViewHolder.class,
-                conversationQuery
-        ) {
-            @Override
-            protected void populateViewHolder(final MyViewHolder convViewHolder, final Conv conv, int i) {
-
-                final String list_user_id = getRef(i).getKey();
-
-                Query lastMessageQuery = mMessageDatabase.child(list_user_id).limitToLast(1);
-
-                lastMessageQuery.addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        int size = 0 ;
-                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            size ++ ;
-                        }
-                        Log.e(TAG, "onStart: Firebase "+"here" );
-                        String data = dataSnapshot.child("message").getValue().toString();
-                        if(!conv.isSeen()){
-                            *//*convViewHolder.icon.setVisibility(View.VISIBLE);
-                            convViewHolder.userName.setTypeface(convViewHolder.userName.getTypeface(), Typeface.BOLD);*//*
-                        }
-                        if(dataSnapshot.child("RecUser").getValue() != null){
-                            //userServerId = dataSnapshot.child("RecUser").getValue().toString();
-                        }
-
-                    }
-
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-
-                mUsersDatabase.child(list_user_id).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        int size = 0 ;
-                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            size ++ ;
-                        }
-
-                        final String userName = dataSnapshot.child("name").getValue().toString();
-                        String userThumb = dataSnapshot.child("image").getValue().toString();
-                       // convViewHolder.userName.setText(userName);
-                        //StaticMethods.LoadImage(getActivity() , convViewHolder.profileImage ,userThumb , null );
-                        if (dataSnapshot.hasChild("online")) {
-
-                            String userOnline = dataSnapshot.child("online").getValue().toString();
-                            if(userOnline.equals("true")){
-                                //convViewHolder.userOnlineStatus.setVisibility(View.VISIBLE);
-                            }else {
-                               // convViewHolder.userOnlineStatus.setVisibility(View.GONE);
-                            }
-
-
-                        }
-
-
-
-
-
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-            }
-        };
-    }*/
 
 
     @Override
@@ -390,7 +294,7 @@ public class FirebaseMessagesAdapter extends RecyclerView.Adapter<FirebaseMessag
                             ToastUtil.showSuccessToast(context ,R.string.reviewAdded );
                         }else {
                             dialog.DismissDialog();
-                            ToastUtil.showErrorToast(context , connectionResponse.data.message);
+                            ToastUtil.showErrorToast(context , R.string.rated);
                         }
                     }
 

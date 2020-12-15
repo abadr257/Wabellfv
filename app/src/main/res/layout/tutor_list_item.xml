@@ -92,16 +92,29 @@
                     </LinearLayout>
 
 
-                    <TextView
-                        android:id="@+id/txt_tutorLocation"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
+                        android:orientation="horizontal"
+                        android:gravity="center"
                         android:layout_marginTop="8dp"
-                        android:drawableStart="@drawable/location_on_24"
-                        android:text=""
-                        android:textColor="#2D4379"
-                        android:textSize="15sp" />
+                        android:layout_marginStart="10dp"
+                        >
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/location_new_icon"
+                            android:layout_marginEnd="3dp"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="15sp"
+                            android:textColor="#2D4379"
+                            android:id="@+id/txt_tutorLocation"
+                            />
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
@@ -219,15 +232,26 @@
                     android:layout_alignParentEnd="true"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/numOfViews"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/eye_views"
-                        android:drawablePadding="5dp"
-                        android:text=""
-                        android:textColor="#7C79A6"
-                        android:textSize="14sp" />
+                        android:orientation="horizontal"
+                        >
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="3dp"
+                            android:src="@drawable/eye_new_icon"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="14sp"
+                            android:id="@+id/numOfViews"
+                            android:textColor="#7C79A6"
+                            />
+                    </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
         </RelativeLayout>

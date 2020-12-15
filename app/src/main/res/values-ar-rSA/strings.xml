@@ -6,7 +6,7 @@
     <string name="splash_text_en">English</string>
     <string name="login">تسجيل الدخول</string>
     <string name="next">التالى</string>
-    <string name="mProfile">بيانات المعلم</string>
+    <string name="mProfile">بيانات المدرس</string>
     <string name="apply">تنفيذ</string>
     <string name="from_hp">من</string>
     <string name="mExp">الشهر</string>
@@ -18,8 +18,8 @@
     <string name="to_hp">الى</string>
     <string name="sendRequest">إرسال طلب</string>
     <string name="txtRequest">أخبرنا بما تريد أن تتعلمه وسيجد المشرفون لدينا مدرسين لك</string>
-    <string name="sRe">ارسال التقيم</string>
-    <string name="reViewHint">اكتب شئ عن معلمك</string>
+    <string name="sRe">ارسال التقييم</string>
+    <string name="reViewHint">اكتب شئ عن مدرسك</string>
     <string name="reViewHintStudent">اكتب شئ عن الطالب</string>
     <string name="reView">تعليقك</string>
     <string name="rate_file">ادخل التقيم</string>
@@ -32,7 +32,8 @@
     <string name="dis">المسافة</string>
     <string name="rateTxt">تقييم الطالب</string>
     <string name="sortBy">التصنيف حسب</string>
-    <string name="mas_filters">تصفية المعلمين</string>
+    <string name="rated">لقد قمت بتقييم المستخدم من قبل</string>
+    <string name="mas_filters">تصفية المدرسين</string>
     <string name="finish">انهاء</string>
     <string name="featured">المدرسين المميزون</string>
     <string name="noThing">يرجى اختيار التخصص اولا</string>
@@ -71,7 +72,7 @@
     <string name="teTutor">مدرس</string>
     <string name="noReviews">لا يوجد تعليقات على هذا المدرس</string>
     <string name="teStudent">طالب</string>
-    <string name="tuAbout">عن المعلم</string>
+    <string name="tuAbout">عن المدرس</string>
     <string name="viewMessage">إظهار الرسائل</string>
     <string name="tuReviews">التقيمات</string>
     <string name="teName">الاسم</string>
@@ -103,7 +104,7 @@
     <string name="v">اصدار 1.0</string>
     <string name="aboutDetails">وابل هو تطبيق الخدمة التي تربط الناس مع الناس. استخدامك المعرفة والخبرة والوقت لخدمة السكان في مدينتك. عندما تسجل على درجة الماجستير، وابل تمكن العملاء للاتصال معكم لتوفير خدمة متخصصة الخاص بك .‌ ‌ ‌ الانضمام الفريق ‌ و ‌ المرور ‌ كلمة … ‌ ‌</string>
     <string name="saved">تم الحفظ</string>
-    <string name="reqs">تم ارسال طلب الى المعلم</string>
+    <string name="reqs">تم ارسال طلب الى المدرس</string>
     <string name="delete">تم الحذف</string>
     <string name="aboutUs">عن التطبيق</string>
     <string name="logout">تسجيل خروج</string>
@@ -126,7 +127,7 @@
     <string name="noHistory">لا يوجد باقات سابقة قم بالاشتراك الأن</string>
     <string name="share">نشر التطبيق</string>
     <string name="lang">اللغة</string>
-    <string name="studentFav">المعلمين المفضلون</string>
+    <string name="studentFav">المدرسين المفضلون</string>
     <string name="profile">الشخصية</string>
     <string name="req">الطلبات</string>
     <string name="subs">الاشتراكات</string>
@@ -170,8 +171,8 @@
 
     <string name="noCalls">لايوجد مكالمات</string>
     <string name="noMessages">لا يوجد رسائل</string>
-    <string name="hintInlogs">يرجى التواصل مع المعلمين  \n لدى وابل لبدء محادثات جديدة</string>
-    <string name="find_masters">البحث عن معلمين</string>
+    <string name="hintInlogs">يرجى التواصل مع المدرسين  \n لدى وابل لبدء محادثات جديدة</string>
+    <string name="find_masters">البحث عن مدرسين</string>
 
     <string name="viewProfile">الصفحة الشخصية</string>
     <string name="certificates">رفع الشهادات وصور تعريف الشخصية</string>
@@ -227,4 +228,6 @@
     <string name="conPass">تأكيد كلمة المرور</string>
     <string name="newPass">انشاء كلمة مرور جديدة</string>
     <string name="newPass_details">يرجى ادخال كلمة المرور الجديدة</string>
+
+    <string name="connectWithTutors">تواصل مع المدرسين على وابل عن طريق محادثات جديدة</string>
 </resources>

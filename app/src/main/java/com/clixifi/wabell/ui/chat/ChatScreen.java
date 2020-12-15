@@ -77,7 +77,7 @@ public class ChatScreen extends AppCompatActivity implements TutorProfileInterfa
         Picasso.with(ChatScreen.this).load(userImage).into(binding.tutorImg);
         //StaticMethods.LoadImage(ChatScreen.this , binding.tutorImg , userImage , null);
         binding.txtRecName.setText(userName);
-        mAdapter = new MessageAdapter(messagesList , mCurrentUserId , ChatScreen.this);
+        mAdapter = new MessageAdapter(messagesList , mCurrentUserId , ChatScreen.this , userImage);
         mLinearLayout = new LinearLayoutManager(this);
         binding.recMessages.setLayoutManager(mLinearLayout);
         binding.recMessages.setAdapter(mAdapter);

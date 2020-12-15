@@ -48,17 +48,19 @@ public class HistoryPackagesAdapter extends RecyclerView.Adapter<HistoryPackages
         if (array.getResult().get(position).getTagLine().equals("Active")) {
             holder.active.setText(context.getResources().getString(R.string.active));
             if (LocaleManager.getLanguage(context).equals("ar")) {
-
+                holder.active.setTextColor(context.getColor(R.color.history_active));
                 holder.linSave.setBackground(context.getDrawable(R.drawable.rtl_history2));
             } else {
-
+                holder.active.setTextColor(context.getColor(R.color.history_active));
                 holder.linSave.setBackground(context.getDrawable(R.drawable.history_shape2));
             }
         } else {
             holder.active.setText(context.getResources().getString(R.string.expir));
             if (LocaleManager.getLanguage(context).equals("ar")) {
+                holder.active.setTextColor(context.getColor(R.color.history_unactive));
                 holder.linSave.setBackground(context.getDrawable(R.drawable.rtl_history));
             } else {
+                holder.active.setTextColor(context.getColor(R.color.history_unactive));
                 holder.linSave.setBackground(context.getDrawable(R.drawable.history_shape));
             }
         }

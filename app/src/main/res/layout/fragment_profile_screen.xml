@@ -620,7 +620,7 @@
                                 android:focusable="false"
                                 android:textDirection="locale"
                                 android:gravity="start|top"
-                                android:inputType="text"
+                                android:inputType="textMultiLine"
                                 android:paddingStart="5dp"
                                 android:paddingEnd="5dp"
                                 android:textSize="15sp" />

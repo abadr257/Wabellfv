@@ -3,61 +3,71 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View" />
 
         <variable
             name="onStudent"
             type="java.lang.Boolean" />
+
         <variable
             name="handler"
             type="com.clixifi.wabell.ui.tutorTopics.TutorTopics.MyHandler" />
     </data>
 
-    <RelativeLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#FFFFFF"
         tools:context=".ui.tutorTopics.TutorTopics">
-        <androidx.recyclerview.widget.RecyclerView
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/recCategory"
+            android:layout_height="match_parent">
 
-            android:layout_margin="8dp"
-            />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_alignParentBottom="true"
-            >
-            <Button
-                android:id="@+id/btn_req"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recCategory"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/border_btn_blue"
-                android:text="@string/reqTopic"
-                android:onClick="@{handler::onRequest}"
-                android:textColor="@color/splashBackground" />
-            <Button
-                android:id="@+id/btn_next"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/blue_btn_style"
-                android:text="@string/next"
-                android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}"
-                android:onClick="@{handler::onNext}"
-                android:textColor="@color/colorWhite" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@id/recCategory"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_req"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/border_btn_blue"
+                    android:onClick="@{handler::onRequest}"
+                    android:text="@string/reqTopic"
+                    android:textColor="@color/splashBackground" />
+
+                <Button
+                    android:id="@+id/btn_next"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/blue_btn_style"
+                    android:onClick="@{handler::onNext}"
+                    android:text="@string/next"
+                    android:textColor="@color/colorWhite"
+                    android:visibility="@{onStudent == true ? View.VISIBLE : View.GONE}" />
+            </LinearLayout>
+
+        </RelativeLayout>
 
 
-    </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

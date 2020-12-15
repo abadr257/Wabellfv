@@ -1,5 +1,6 @@
 package com.clixifi.wabell.ui.aboutUs;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
@@ -34,7 +35,10 @@ public class AboutUs extends AppCompatActivity {
             binding.atlantisLogo.setImageResource(R.drawable.at_code_en);
         }
     }
-
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleManager.onAttach(base));
+    }
     public class MyHandlers{
         Context context ;
 
@@ -70,4 +74,6 @@ public class AboutUs extends AppCompatActivity {
             }
         }
     }
+
+
 }

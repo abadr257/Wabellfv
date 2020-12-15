@@ -3,6 +3,7 @@ package com.clixifi.wabell.ui.messages;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -15,6 +16,7 @@ import com.clixifi.wabell.databinding.FragmentMessageAndCallScreenBinding;
 import com.clixifi.wabell.ui.Adapters.MessagePagerAdapter;
 import com.clixifi.wabell.ui.Adapters.PagerAdapter;
 import com.clixifi.wabell.ui.register.RegisterScreen;
+import com.clixifi.wabell.utils.LocaleManager;
 
 
 public class MessageAndCallScreen extends Fragment {
@@ -46,5 +48,9 @@ public class MessageAndCallScreen extends Fragment {
         public MessageHandler(Context context) {
             this.context = context;
         }
+    }
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(LocaleManager.onAttach(context));
     }
 }
